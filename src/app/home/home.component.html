@@ -1,0 +1,29 @@
+<div style="height: 100%;">
+    <div class="header">
+        <div class="header-right">
+            <div class="flex" style="gap: 10px;">
+                <button mat-flat-button color="primary" (click)="navigateToSignIn()">singin</button>
+                <div class="demo-section flex">
+                    <mat-icon matBadge="15" matBadgeColor="warn" aria-hidden="false">add_shopping_cart</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation-bar">
+        <div class="navigation-strip">
+            <ul class="site-menu js-clone-nav d-none d-md-block flex" style="justify-content: center;">
+                <li class="has-children active" [class.active]="activeIndex === 0" (click)="setActive(0)">
+                    <a>Home</a>
+                </li>
+                <li class="has-children" [class.active]="activeIndex === 1" (click)="setActive(1)">
+                    <a>shop</a>
+                </li>
+                <li class="has-children" [class.active]="activeIndex === 2" (click)="setActive(2)">
+                    <a> Account </a>
+                </li>
+                <li class="has-children" [class.active]="activeIndex === 3" (click)="setActive(3)"><a>Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

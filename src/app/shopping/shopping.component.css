@@ -1,0 +1,40 @@
+.demo1{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 77px;
+    padding-right: 77px;
+    margin: auto;
+}
+.shopping-header{
+    height: 60px;
+    border: 1px solid;
+    background: #fafafaff;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.pagination{
+    width: 38%;
+    display: flex;
+    /* align-items: center; */
+    justify-content: end;
+    background: transparent;
+}
+ul {
+    list-style-type: none;
+  }
+  ::ng-deep .mat-form-field {
+    font-size: 12px; 
+}
+.input-box{
+    background: transparent;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 3px;
+}
+textarea:focus, input:focus{
+    outline: none;
+}

@@ -1,0 +1,42 @@
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12.5px;
+    line-height: normal;
+}
+.cart{
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 180px;
+    flex-direction: column;
+}
+.img-size{
+    height: 130px;
+}
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    font-size: 11.5px;
+    color: gray;
+}
+.discount {
+    margin-left: 8px;
+    font-size: 9.5px;
+    color: red;
+    font-weight: bold;
+}
+.actual-price {
+    margin-left: 8px;
+    font-size: 9.5px;
+    color: gray;
+    font-weight: bold;
+    text-decoration: line-through;
+}

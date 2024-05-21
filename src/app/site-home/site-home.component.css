@@ -1,0 +1,15 @@
+.home-background{
+    width: 100%;
+    height: 431px;
+    background: url(../../assets/images/homeBackGround.png);
+    background-color: darkseagreen;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    background-position-x: right;
+}
+.home-background-content{
+    padding:100px 0px 0px 150px
+}
+.home-header-content{
+font-family: sans-serif;
+    font-weight: 100;}

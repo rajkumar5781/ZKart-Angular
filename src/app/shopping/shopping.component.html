@@ -1,0 +1,14 @@
+
+<div class="shopping-header">
+    <div style="margin-left: 20px;">
+        <input class="input-box" placeholder="Search" [(ngModel)]="searchWord" (input)="searchWordFunction()">
+    </div>
+    <mat-paginator class="pagination" [length]="totalCount" [pageSize]="10" [hidePageSize]="true"
+        aria-label="Select page" (page)="handlePageEvent($event)">
+    </mat-paginator>
+</div>
+<ul class="demo1">
+    <li *ngFor="let item of datas; trackBy: trackByName">
+        <app-product-cart [productDetails]="item" (productClicked)="productItemClicked($event)"></app-product-cart>
+    </li>
+</ul>

@@ -1,0 +1,22 @@
+<div class="sign-in-page flex width100 justfy-center page-background-color">
+    <div style="width: 50%;" class="">
+    <div class="form-background">
+        <h1>Sign in to your account</h1>
+        <div style="display: flex; flex-direction: column;">
+            <mat-form-field>
+                <mat-label>Enter your username</mat-label>
+                <input matInput [(ngModel)]="userName">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Enter your password</mat-label>
+                <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'" >
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <button mat-flat-button color="primary" (click)="myFunction()">Basic</button>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,22 @@
+<div>
+    <div class="flex" style="padding: 2em 0;">
+        <div style="width: 50%;" class="product-image-wrapper">
+            <img [src]="'http://localhost:8080/ZKart/images/' + image" class="image-size">
+        </div>
+        <div style="width: 50%;">
+            <h2 style="font-size: 2rem;">{{ name }}</h2>
+            <p style="margin-top: 0;
+        margin-bottom: 1rem;line-height: 1.7;
+    color: #8c92a0;
+    font-weight: 300;
+    font-size: 16px;" class="description">{{
+                description
+                }}</p>
+            <div class="full-flex">
+                <div (click)="decreseCount()" class="in-de-button full-flex dec-button">-</div>
+                <div class="in-de-button full-flex" id="count">{{ selectTotalproductCount }}</div>
+                <div (click)="increseCount()" class="in-de-button full-flex inc-button">+</div>
+            </div>
+        </div>
+    </div>
+</div>

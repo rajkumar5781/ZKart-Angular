@@ -1,0 +1,10 @@
+<div class="cart" (click)="clickedProduct()">
+    <img [src]="'http://localhost:8080/ZKart/images/' + image" height="130px">
+    <h2 class="ellipsis">{{ name }}</h2>
+    <p class="description">{{description}}</p>
+    <p>
+        ${{ discountPrice }}|
+        <span class="discount"> {{ discount }}% off</span>
+        <span class="actual-price">${{ price }}</span>
+    </p>
+</div>
