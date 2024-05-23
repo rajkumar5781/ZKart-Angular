@@ -17,7 +17,7 @@
     justify-content: space-between;
 }
 .pagination{
-    width: 38%;
+    /* width: 38%; */
     display: flex;
     /* align-items: center; */
     justify-content: end;
@@ -31,10 +31,16 @@ ul {
 }
 .input-box{
     background: transparent;
-    height: 40px;
+    height: 35px;
     border: 1px solid;
     border-radius: 3px;
 }
 textarea:focus, input:focus{
     outline: none;
+}
+.pagination-filter-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 27px;
 }

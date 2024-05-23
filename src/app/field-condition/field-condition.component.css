@@ -1,0 +1,12 @@
+.mdc-checkbox__background{
+    background-color: #343dff !important;
+    border-color: #343dff !important;
+}
+.input-control:focus{
+    border: 1px solid #7971ea !important;
+    border-radius: 3px 0px 0px 3px;
+}
+.input-control{
+    border: 1px solid;
+    border-radius: 3px 0px 0px 3px;
+}

@@ -1,22 +1,28 @@
 import {
   HttpClient,
+  HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
+import { ProductBuyComponent } from '../product-buy/product-buy.component';
+import { ProductInterface } from '../product-interface';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [],
+  imports: [MatButtonModule,CommonModule,ProductBuyComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
+  schemas: [NO_ERRORS_SCHEMA] 
 })
 export class ProductDetailsComponent {
   id: number = -1;
   productDetails:any;
   description = "";
-  discountPrice = 0;
+  discountPrice : number = 0;
   price = 0;
   count = 0;
   category = "";
@@ -26,7 +32,13 @@ export class ProductDetailsComponent {
   name = "";
   image = "";
   selectTotalproductCount = 1;
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  isShow = true;
+  productList: ProductInterface[] = [];
+  constructor(private route: ActivatedRoute, private http: HttpClient,private router : Router) {}
+
+  private checkAuthentication(): boolean {
+    return typeof localStorage !== 'undefined' && localStorage.getItem('isAuthenticated') !== null;
+  }
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
@@ -62,5 +74,24 @@ export class ProductDetailsComponent {
     if (this.selectTotalproductCount < this.count) {
       this.selectTotalproductCount = this.selectTotalproductCount + 1;
   }
+  }
+  addToCart(){
+    if(!this.checkAuthentication()){
+      this.router.navigate(['/signin']);
+    }
+    let userId : any = localStorage.getItem("userId");
+    let params = new HttpParams().set('productId', this.id).set("product", this.name).set('productCount',this.selectTotalproductCount).set('productPrice',this.price).set('image',this.image).set('customerId',userId);
+
+    this.http.post("http://localhost:8080/ZKart/AddToCards",params,{
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }),responseType:"text"
+    }).subscribe((d) => {
+      console.log(d);
+    })
+  }
+  shopNow(){
+    this.isShow = !this.isShow;
+    this.productList.push({image:this.image,price:this.discountPrice,name:this.name,quantity:this.selectTotalproductCount,total:(this.discountPrice*this.selectTotalproductCount),id:this.id})
   }
 }

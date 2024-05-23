@@ -1,0 +1,41 @@
+.place-order-btn{
+    width: 50%;
+    line-height: 16px;
+    padding-bottom: 1rem !important;
+    padding-top: 1rem !important;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    font-size: 14px;
+    font-weight: 500;
+}
+.btn-primary{
+    color: #fff;
+    background-color: #7971ea;
+    border-color: #7971ea;
+    border: transparent;
+    cursor: pointer;
+}
+.dialog-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-bottom: 1px solid gainsboro;
+}
+.modal-btn-cancel{
+    width: 50%;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    background-color: #f4f4f4;
+    border: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    float: left;
+    border-radius: 0;
+    line-height: 16px;
+    cursor: pointer;
+}
+.condition-padding{
+    padding-right: 10px;
+    padding-left: 10px;
+}

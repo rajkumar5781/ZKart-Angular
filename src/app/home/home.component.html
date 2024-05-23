@@ -2,9 +2,10 @@
     <div class="header">
         <div class="header-right">
             <div class="flex" style="gap: 10px;">
-                <button mat-flat-button color="primary" (click)="navigateToSignIn()">singin</button>
+                <button *ngIf="!isLoggedIn()" mat-flat-button color="primary" (click)="navigateToSignIn()">signin</button>
+                <button *ngIf="isLoggedIn()" mat-flat-button color="primary" (click)="signOut()">signout</button>
                 <div class="demo-section flex">
-                    <mat-icon matBadge="15" matBadgeColor="warn" aria-hidden="false">add_shopping_cart</mat-icon>
+                    <mat-icon [matBadge]="addToCartTotal" matBadgeColor="primary" aria-hidden="false" (click)="goToAddToCart()">add_shopping_cart</mat-icon>
                 </div>
             </div>
         </div>

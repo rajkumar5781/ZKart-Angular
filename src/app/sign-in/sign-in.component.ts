@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -21,7 +21,7 @@ export class SignInComponent {
   userName = "";
   password = "";
   hide = true;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private router:Router) {
 
   }
   myFunction() {
@@ -36,6 +36,9 @@ export class SignInComponent {
       })
     }).subscribe((d) => {
       console.log(d);
+      localStorage.setItem("isAuthenticated","true");
+      localStorage.setItem("userId",d.toString());
+      this.router.navigate(['/home/sitehome']);
     })
   }
 }

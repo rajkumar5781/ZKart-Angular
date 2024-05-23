@@ -1,20 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MatBadgeModule } from '@angular/material/badge';
 import { RouterOutlet } from '@angular/router';
 import { Location } from '@angular/common';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
+interface AddToCartCountResponse {
+  count: number;
+}
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatBadgeModule, RouterOutlet],
+  imports: [MatButtonModule, MatIconModule, MatBadgeModule, RouterOutlet,CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(private router: Router, private route: ActivatedRoute,private location: Location) {
+  constructor(private router: Router, private route: ActivatedRoute,private location: Location,private http:HttpClient) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.getLastSegment();
@@ -22,9 +28,20 @@ export class HomeComponent {
     });
    }  
 
+   isLoggedIn = signal(false);
+   userId : any;
+   addToCartTotal : any;
+
   ngOnInit(): void {
     this.getLastSegment();
+    this.isLoggedIn.set(this.checkAuthentication());
+    this.getAddToCartCount();
   }
+
+  private checkAuthentication(): boolean {
+    return typeof localStorage !== 'undefined' && localStorage.getItem('isAuthenticated') !== null;
+  }
+
   navigateToSignIn() {
     this.router.navigate(['/signin']);
   }
@@ -67,4 +84,32 @@ export class HomeComponent {
     }
     this.activeIndex = val;
   }
+
+  signOut() {
+    this.http.post("http://localhost:8080/ZKart/ClearSession",{}).subscribe({
+      next: (d) => {
+        console.log(d);
+        if (typeof localStorage !== 'undefined') {
+          localStorage.clear();
+        }
+        this.isLoggedIn.set(this.checkAuthentication());
+      },
+      error: (err) => {
+        console.error('Error clearing session:', err);
+      },
+    })
+    }
+    goToAddToCart(){
+      this.router.navigate(['/home/addtocart']);
+    }
+
+    getAddToCartCount(){
+      if(this.checkAuthentication()){
+      this.userId = localStorage.getItem('userId');
+      let params = new HttpParams().set('customerId',this.userId );
+      this.http.get<AddToCartCountResponse>("http://localhost:8080/ZKart/LoadAddToCartCount",{ params: params }).subscribe((data)=>{
+        this.addToCartTotal = data.count;
+      })
+      }
+    }
 }

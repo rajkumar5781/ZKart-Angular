@@ -8,6 +8,7 @@ import { SiteHomeComponent } from './site-home/site-home.component';
 import { AccountComponent } from './account/account.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,7 @@ export const routes: Routes = [
       { path: 'account', component: AccountComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'shopping/product/:id', component: ProductDetailsComponent },
+      { path: 'addtocart', component: AddToCartComponent },
     ],
   },
   { path: 'signup', component: SignupComponent },

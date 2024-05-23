@@ -1,0 +1,14 @@
+<div style="max-height: 250px;overflow-y: auto;">
+    <div class="dialog-header">
+        <h2>Product filer</h2>
+    </div>
+    <div class="condition-padding">
+        <div *ngFor="let field of data.moduleMetaList">
+            <app-field-condition [fieldDetails]="field"></app-field-condition>
+        </div>
+    </div>
+    <div style="display: flex;">
+        <button class="modal-btn-cancel place-order-btn" mat-button (click)="onNoClick()">close filter</button>
+        <button class="btn-primary place-order-btn" mat-button (click)="onSave()">Apply filter</button>
+    </div>
+</div>

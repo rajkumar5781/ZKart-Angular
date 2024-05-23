@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +22,7 @@ export class SignupComponent {
   phoneNum = "";
   lastName="";
   hide = true;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private router:Router) {
 
   }
   myFunction() {
@@ -34,9 +34,10 @@ export class SignupComponent {
     this.http.post("http://localhost:8080/ZKart/signup", params, {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
-      })
+      }),responseType:"text"
     }).subscribe((d) => {
       console.log(d);
+      this.router.navigate(['/signin']);
     })
   }
 }
