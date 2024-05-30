@@ -10,3 +10,15 @@
     border: 1px solid;
     border-radius: 3px 0px 0px 3px;
 }
+.mat-mdc-form-field-subscript-wrapper{
+    display: none !important;
+}
+.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
+    display: none;
+}
+::ng-deep .mat-form-field-wrapper{
+    margin-bottom: -1.25em;
+ }
+ .my-form-field .mat-form-field-wrapper {
+    margin-bottom: -1.25em;
+}

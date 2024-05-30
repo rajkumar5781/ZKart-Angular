@@ -5,25 +5,20 @@
         </div>
         <div style="width: 50%;">
             <h2 style="font-size: 2rem;">{{ name }}</h2>
-            <p style="margin-top: 0;
-        margin-bottom: 1rem;line-height: 1.7;
-    color: #8c92a0;
-    font-weight: 300;
-    font-size: 16px;" class="description">{{
+            <p style="margin-top: 0;margin-bottom: 1rem;line-height: 1.7;color: #8c92a0;font-weight: 300;font-size: 16px;" class="description">{{
                 description
                 }}</p>
             <div class="full-flex" style="justify-content: normal;gap: 20px;">
                 <strong class="price-style">${{ discountPrice }}</strong>
-                <div class="full-flex">
-                    <div (click)="decreseCount()" class="in-de-button full-flex dec-button">-</div>
-                    <div class="in-de-button full-flex" id="count">{{ selectTotalproductCount }}</div>
-                    <div (click)="increseCount()" class="in-de-button full-flex inc-button">+</div>
-                </div>
+                <app-productquntitycounter [totalproductCount]="selectTotalproductCount" [totalCount]="count" (totalValueChanged)="totalValueChanged($event)"></app-productquntitycounter>
             </div>
             <div class="product-buy-add-button-wrapper">
                 <div><button mat-flat-button color="primary" (click)="addToCart()">ADD TO CART</button></div>
                 <div><button mat-flat-button color="primary" (click)="shopNow()">BUY NOW</button></div>
+                <div><button mat-flat-button color="primary" (click)="readReview()">READ REVIEW</button></div>
+                <div><button mat-flat-button color="primary" (click)="addReview()" [disabled]="invalid" [ngClass]="{'add-review-disable': invalid}"><span *ngIf="isNew">ADD</span><span *ngIf="!isNew">EDIT</span> REVIEW</button></div>
             </div>
+            <app-product-reviews *ngIf="showReviewDetails" [id]="id"></app-product-reviews>
         </div>
     </div>
     <app-product-buy *ngIf="!isShow" [productList]="productList"></app-product-buy>

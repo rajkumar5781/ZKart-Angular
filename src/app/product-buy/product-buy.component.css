@@ -111,3 +111,47 @@ input:focus{
 .m-b10{
     margin-bottom: 10px;
 }
+.content{
+    box-sizing: border-box;
+    color: #0f1111;
+    word-wrap: break-word;
+    line-height: 20px;
+}
+.edit-bar-color{
+    color: #007185;
+}
+.edit-bar-color:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #c7511f;
+}
+.selected-address{
+    background-color: #FCF5EE;
+    border: 1px solid #FBD8B4;
+    border-radius: 5px;
+}
+.address-option{
+    box-sizing: border-box;
+    padding: 8px;
+}
+.changeAddress-btn{
+    background: rgb(255, 216, 20);
+    border: navajowhite;
+    border-radius: 5px;
+    height: 30px;
+    color: black;
+    min-width: 75px;
+}
+
+.changeAddress-btn:hover {
+    background: #f7ca00;
+    border-color: #f2c200;
+}
+.add-address-wrapper{
+    margin-top: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: fit-content;
+}

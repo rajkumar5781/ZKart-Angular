@@ -1,0 +1,5 @@
+<div class="full-flex">
+    <div (click)="decreseCount()" class="in-de-button full-flex dec-button" [style]="{'cursor':!isUpdating ? 'pointer' : 'not-allowed'}">-</div>
+    <div class="in-de-button full-flex" id="count">{{ totalproductCount }}</div>
+    <div (click)="increseCount()" class="in-de-button full-flex inc-button" [style]="{'cursor':!isUpdating ? 'pointer' : 'not-allowed'}">+</div>
+</div>

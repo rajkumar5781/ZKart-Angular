@@ -2,9 +2,55 @@
     <div class="flex" style="padding: 2em 1em;max-width: 1140px;margin-right: auto;
     margin-left: auto;">
         <div style="width: 50%;padding-right: 15px;">
-            <h2 class="title-content">Billing Details</h2>
-            <div style="padding: 3rem;border: 1px solid #dee2e6;box-sizing: border-box;">
-                <div class="">
+            <h2 class="title-content">Delivery address</h2>
+            <div style="padding: 3rem;border: 1px solid #dee2e6;box-sizing: border-box;min-height: 100px;">
+                <div *ngIf="!addressLoading" style="display: flex;width: 100%;">
+                    <div *ngIf="!isSelectAddress" style="width: 100%;display: flex;">
+                        <div style="width: 87%;">
+                            <div class="content" style="font-weight: 600;">{{ selectedAddress.name}}</div>
+                            <div class="content">{{ selectedAddress.address }}</div>
+                            <div class="content">{{ selectedAddress.city }} ,{{selectedAddress.state}} , {{
+                                selectedAddress.postalCode }}</div>
+                            <div class="content">{{ selectedAddress.country }}</div>
+                        </div>
+                        <div style="width: 13%;">
+                            <span class="edit-bar-color" (click)="addressChange()">Change</span>
+                        </div>
+                    </div>
+                    <div *ngIf="isSelectAddress">
+                        <div style="padding-bottom: 15px;border-bottom: 1px solid;margin-bottom: 10px;">
+                            <label id="example-radio-group-label">Select Your addresses</label>
+                        </div>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                            [(ngModel)]="selectedAddress" style="display: flex; flex-direction: column;">
+                            <div *ngFor="let addressDetail of addressDetailsList"
+                                [ngClass]="{'selected-address': selectedAddress.id === addressDetail.id}"
+                                class="address-option">
+                                <mat-radio-button color="primary" class="example-radio-button" [value]="addressDetail"
+                                    [checked]="selectedAddress.id==addressDetail.id">
+                                    <span class="content" style="font-weight: 600;">{{ addressDetail.name }}</span>
+                                    {{ addressDetail.address }}, {{ addressDetail.city }}, {{ addressDetail.state }}, {{
+                                    addressDetail.postalCode }}
+                                </mat-radio-button>
+                            </div>
+                        </mat-radio-group>
+
+                        <div class="add-address-wrapper" (click)="addNewAddress()">
+                            <div>
+                                <mat-icon class="customIconSize" aria-hidden="false" aria-label="Example home icon"
+                                    fontIcon="add"></mat-icon>
+                            </div>
+                            <h3 style="margin:0;">Add New address</h3>
+                        </div>
+                        <button class="changeAddress-btn" (click)="isSelectAddress=false">Save Address</button>
+                    </div>
+
+                </div>
+                <div *ngIf="addressLoading"
+                    style="display: flex;align-items: center;justify-content: center;margin-top: 10%;">
+                    <mat-spinner [diameter]="50"></mat-spinner>
+                </div>
+                <!-- <div class="">
                     <table class=" width100" cellspacing="0">
                         <tr class="flex" style="gap: 15px;">
                             <td class="width100">
@@ -81,7 +127,7 @@
                             </td>
                         </tr>
                     </table>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -157,9 +203,8 @@
                                 </div>
                                 <div class="m-b10"> <mat-form-field class="width100" appearance="outline">
                                         <mat-label>CVV</mat-label>
-                                        <input matInput placeholder="Enter CVV"
-                                            [formControl]="cvvFormControl" maxlength="3"
-                                            (keydown)="allOnlyNumber($event)" [value]="cvvValue">
+                                        <input matInput placeholder="Enter CVV" [formControl]="cvvFormControl"
+                                            maxlength="3" (keydown)="allOnlyNumber($event)" [value]="cvvValue">
                                         <mat-error
                                             *ngIf="cvvFormControl.invalid && (cvvFormControl.dirty || cvvFormControl.touched)">Invalid
                                             CVV</mat-error>

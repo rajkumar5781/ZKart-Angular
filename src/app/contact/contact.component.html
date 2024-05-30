@@ -1,32 +1,88 @@
-<div style="max-width: 1140px;margin: auto;height: 73.5%;margin-top: 50px;">
-    <div style="display: flex;justify-content: center;">
+<div style="max-width: 1140px; margin: auto; height: 73.5%; margin-top: 50px;">
+    <div style="display: flex; justify-content: center;padding-bottom: 50px;">
         <div style="flex: 0 0 84.33333%;">
-
             <div class="wrapper" style="width: 100%;">
                 <div style="flex-wrap: wrap;" class="width100 flex">
-                    <div style="box-sizing: border-box;padding: 3rem !important;" class="width50">
+                    <div style="box-sizing: border-box; padding: 3rem !important;" class="width50">
                         <h3 style="margin-bottom: 2.0rem;">Get in touch</h3>
+                        <div class="form-message-success" *ngIf="isSuccess">
+                            Your message was sent, thank you!
+                        </div>
+                        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                            <div class="flex" style="gap: 15px;">
+                                <div class="width100" style="width: 48%;">
+                                    <mat-form-field class="width100" appearance="outline">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput maxlength="30" (keydown)="allowStringOnly($event)"
+                                            formControlName="name">
+                                        <mat-error
+                                            *ngIf="contactForm.get('name')?.invalid && (contactForm.get('name')?.dirty || contactForm.get('name')?.touched)">
+                                            Please enter your name
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="width100" style="width: 48%;">
+                                    <mat-form-field class="width100" appearance="outline">
+                                        <mat-label>Email</mat-label>
+                                        <input type="email" matInput formControlName="email"
+                                            [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com">
+                                        <mat-error
+                                            *ngIf="contactForm.get('email')?.hasError('email') && !contactForm.get('email')?.hasError('required')">
+                                            Please enter a valid email address
+                                        </mat-error>
+                                        <mat-error *ngIf="contactForm.get('email')?.hasError('required')">
+                                            Email is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="width100">
+                                <mat-form-field class="width100" appearance="outline">
+                                    <mat-label>Subject</mat-label>
+                                    <input matInput maxlength="30" formControlName="subject">
+                                    <mat-error
+                                        *ngIf="contactForm.get('subject')?.invalid && (contactForm.get('subject')?.dirty || contactForm.get('subject')?.touched)">
+                                        Please enter a subject
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="width100">
+                                <mat-form-field class="width100" appearance="outline">
+                                    <mat-label>Leave a comment</mat-label>
+                                    <textarea matInput formControlName="message"></textarea>
+                                    <mat-error
+                                        *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)">
+                                        Please enter a message
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" type="submit" [disabled]="isSubmitting">Send
+                                    Message</button>
+                                <div class="submitting" *ngIf="isSubmitting">Submitting...</div>
+                            </div>
+                        </form>
                     </div>
                     <div class="info-wrap bg-primary width50">
-                        <h3 style="margin-top: 1.0rem;margin-bottom: 2.0rem;color: white;">Contact us</h3>
+                        <h3 style="margin-top: 1.0rem; margin-bottom: 2.0rem; color: white;">Contact us</h3>
                         <div class="flex dbox">
-                            <div class="icon d-flex align-items-center justify-content-center">
+                            <div>
                                 <mat-icon class="map-marker" aria-hidden="false" aria-label="Example home icon"
                                     fontIcon="location_on"></mat-icon>
                             </div>
-                            <div style="width: calc(100% - 50px);padding-left: 1rem;" class="align-center">
+                            <div style="width: calc(100% - 50px); padding-left: 1rem;" class="align-center">
                                 <p>
                                     <span>Address:</span>
-                                    105,bajanai kovil streed,Arumbakkam,Tiruvallur
+                                    105, Bajanai Kovil Street, Arumbakkam, Tiruvallur
                                 </p>
                             </div>
                         </div>
                         <div class="flex dbox">
-                            <div class="icon d-flex align-items-center justify-content-center">
+                            <div>
                                 <mat-icon class="map-marker" aria-hidden="false" aria-label="Example home icon"
                                     fontIcon="call"></mat-icon>
                             </div>
-                            <div style="width: calc(100% - 50px);padding-left: 1rem;" class="align-center">
+                            <div style="width: calc(100% - 50px); padding-left: 1rem;" class="align-center">
                                 <p>
                                     <span>Phone:</span>
                                     +91 9080151413
@@ -34,20 +90,31 @@
                             </div>
                         </div>
                         <div class="flex dbox">
-                            <div class="icon d-flex align-items-center justify-content-center">
+                            <div>
                                 <mat-icon class="map-marker" aria-hidden="false" aria-label="Example home icon"
                                     fontIcon="mail"></mat-icon>
                             </div>
-                            <div style="width: calc(100% - 50px);padding-left: 1rem;" class="align-center">
+                            <div style="width: calc(100% - 50px); padding-left: 1rem;" class="align-center">
                                 <p>
                                     <span>Email:</span>
                                     Kumarraj77279&#64;gmail.com
                                 </p>
                             </div>
                         </div>
+                        <div class="flex dbox">
+                            <div>
+                                <span class="map-marker align-center" style="justify-content: center;">in</span>
+                            </div>
+                            <div style="width: calc(100% - 50px); padding-left: 1rem;" class="align-center">
+                                <p>
+                                    <span>LinkedIn:</span>
+                                    rajkumar-m-596b64226
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+</div>

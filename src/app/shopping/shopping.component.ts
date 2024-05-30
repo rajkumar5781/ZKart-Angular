@@ -1,20 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ProductCartComponent } from '../product-cart/product-cart.component';
-import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { Location } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { FilterComponent } from '../filter/filter.component';
-
-interface ModuleMeta {
-  dv: string;
-  value: any; // Change `any` to a more specific type if possible
-  isChecked: boolean;
-}
 
 @Component({
   selector: 'app-shopping',
@@ -33,7 +31,7 @@ interface ModuleMeta {
   styleUrl: './shopping.component.css',
 })
 export class ShoppingComponent {
-  currentPage = 1;
+  currentPage: number = 1;
   searchWord = '';
   datas: any;
   totalCount: number | undefined;
@@ -41,7 +39,7 @@ export class ShoppingComponent {
   isValid = true;
   moduleMetaList: any[] = [];
   moduleName = 'Products';
-  searchValues :any = {};
+  searchValues: any = {};
 
   constructor(
     private router: Router,
@@ -52,23 +50,41 @@ export class ShoppingComponent {
       if (event instanceof NavigationEnd) {
       }
     });
+    this.activatedRoute.queryParams.subscribe((p) => {
+      if (this.activatedRoute.snapshot.queryParams['search'] != null) {
+        this.currentPage = 1;
+        this.getSearcgQuery();
+        this.setValues();
+        this.getProductDetails();
+        this.getProductCount();
+      }
+    });
   }
 
   ngOnInit() {
-
-    if(this.activatedRoute.snapshot.queryParams['json']!=null){
-    this.searchValues = JSON.parse(this.activatedRoute.snapshot.queryParams['json']);
-    }
+    this.currentPage = 1;
     this.getProductDetails();
     this.getProductCount();
     this.getModuleMeta();
     this.setValues();
   }
-
+  getSearcgQuery() {
+    if (this.activatedRoute.snapshot.queryParams['search'] != null) {
+      this.searchValues = JSON.parse(
+        this.activatedRoute.snapshot.queryParams['search']
+      );
+    }
+  }
   getProductDetails() {
-    let params = new HttpParams()
-      .set('searchWord', this.searchWord)
-      .set('pageNumber', this.currentPage);
+    let params = new HttpParams();
+    params = params.append('searchWord', this.searchWord);
+    params = params.append('pageNumber', this.currentPage);
+    if (this.searchValues != null) {
+      Object.keys(this.searchValues || []).forEach((key) => {
+        const value = this.searchValues[key];
+        params = params.append(key, value);
+      });
+    }
     this.http
       .get('http://localhost:8080/ZKart/ProductList', { params: params })
       .subscribe((data) => {
@@ -76,7 +92,14 @@ export class ShoppingComponent {
       });
   }
   getProductCount() {
-    let params = new HttpParams().set('searchWord', this.searchWord);
+    let params = new HttpParams();
+    params = params.append('searchWord', this.searchWord);
+    if (this.searchValues != null) {
+      Object.keys(this.searchValues || []).forEach((key) => {
+        const value = this.searchValues[key];
+        params = params.append(key, value);
+      });
+    }
     this.http
       .get('http://localhost:8080/ZKart/ProductCount', { params: params })
       .subscribe((data: any) => {
@@ -91,26 +114,15 @@ export class ShoppingComponent {
     return item.name;
   }
   searchWordFunction() {
-    clearTimeout(this.timeout); // Clear previous timeout
+    clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
+      this.currentPage = 1;
       this.getProductCount();
       this.getProductDetails();
     }, 200);
   }
   productItemClicked(productDetails: any) {
-    const queryParams : any = {
-      json: JSON.stringify({
-        name: 'rajkumar',
-        price:[10,20],
-        likes:10
-      }) 
-    };
-
-    const navigationExtras = {
-      queryParams:queryParams
-    };
-
-    this.router.navigate(['home/shopping/product', productDetails],navigationExtras);
+    this.router.navigate(['home/shopping/product', productDetails]);
   }
   getModuleMeta() {
     let params = new HttpParams().set('module', this.moduleName);
@@ -120,26 +132,22 @@ export class ShoppingComponent {
         this.moduleMetaList = data;
       });
   }
-  setValues(){
-    console.log(this.searchValues);
+  setValues() {
     const tempMetaList = this.moduleMetaList.map((d) => {
-      console.log(d.dv,this.searchValues['price']);
-      if (this.searchValues[d.dv] != null) {
+      if (this.searchValues[d.name] != null) {
         return {
           ...d,
-          value: this.searchValues[d.dv],
-          isChecked: true
+          value: this.searchValues[d.name],
+          isChecked: true,
         };
       } else {
         return {
           ...d,
-          value: [],
-          isChecked: false
+          value: [0, 0],
+          isChecked: false,
         };
       }
     });
     this.moduleMetaList = tempMetaList;
   }
 }
-
-

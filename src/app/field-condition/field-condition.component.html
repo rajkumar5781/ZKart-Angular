@@ -1,6 +1,29 @@
-<div style="display: flex;align-items: center;padding-top: 5px;padding-bottom: 5px;">
+<div style="display: flex;align-items: center;padding-top: 5px;padding-bottom: 5px;height: 55px;">
     <mat-checkbox class="example-margin" color="primary" [(ngModel)]="fieldDetails.isChecked" style="width: 50%;" (change)="setAll()">{{fieldDetails.dv}}</mat-checkbox>
-    <div style="width: 50%;">
+    <div style="width: 50%;" *ngIf="fieldDetails.ui_type=='text'">
         <input *ngIf="fieldDetails.isChecked" [type]="fieldDetails.type =='varchar'? 'text':'number'" class="input-control" placeholder="Enter {{fieldDetails.dv}}" [(ngModel)]="fieldDetails.value">
+    </div>
+    <div style="width: 50%;" *ngIf="fieldDetails.ui_type=='dropdown'">
+        <mat-form-field *ngIf="fieldDetails.isChecked" errorStateMatcher="null" style="width: 100%;margin-bottom: -1.25em" appearance="outline">
+            <mat-label>Select an option</mat-label>
+            <mat-select [(value)]="fieldDetails.value" required>
+                @for (option of fieldDetails.options; track option) {
+                  <mat-option [value]="option">{{option}}</mat-option>
+                }
+              </mat-select>
+          </mat-form-field>
+    </div>
+    <div style="width: 50%;display: flex;gap: 10px;" *ngIf="fieldDetails.ui_type=='range'">
+        <mat-form-field *ngIf="fieldDetails.isChecked" appearance="outline" errorStateMatcher="null" class="my-form-field" style="margin-bottom: -1.25em">
+            <mat-label>Select a value</mat-label>
+            <input  matInput [(ngModel)]="fieldDetails.value[0]">
+        </mat-form-field>
+          <mat-form-field *ngIf="fieldDetails.isChecked" appearance="outline" errorStateMatcher="null" class="my-form-field" style="margin-bottom: -1.25em">
+            <mat-label>Select a value</mat-label>
+            <input  matInput [(ngModel)]="fieldDetails.value[1]">
+          </mat-form-field>
+    </div>
+    <div>
+
     </div>
 </div>

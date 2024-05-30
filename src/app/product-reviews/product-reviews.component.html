@@ -1,0 +1,11 @@
+<div style="max-height: 300px;overflow-y: scroll;">
+    <div *ngFor="let productReviews of productReviewDetails" style="margin-bottom: 20px;">
+        <div style="display: flex;">
+        <mat-icon class="map-marker" aria-hidden="false" aria-label="Example home icon"
+            fontIcon="account_circle"></mat-icon>
+            <h4 style="margin-bottom: 5px;">{{ productReviews.name }}</h4>
+        </div>
+        <app-star-rating [rating]="productReviews.star"></app-star-rating>
+        {{ productReviews.comment }}
+    </div>
+</div>

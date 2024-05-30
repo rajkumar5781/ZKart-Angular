@@ -100,14 +100,12 @@ export class HomeComponent {
     })
     }
     goToAddToCart(){
-      this.router.navigate(['/home/addtocart']);
+      this.router.navigate(['/home/account/addtocart']);
     }
 
     getAddToCartCount(){
       if(this.checkAuthentication()){
-      this.userId = localStorage.getItem('userId');
-      let params = new HttpParams().set('customerId',this.userId );
-      this.http.get<AddToCartCountResponse>("http://localhost:8080/ZKart/LoadAddToCartCount",{ params: params }).subscribe((data)=>{
+      this.http.get<AddToCartCountResponse>("http://localhost:8080/ZKart/LoadAddToCartCount").subscribe((data)=>{
         this.addToCartTotal = data.count;
       })
       }

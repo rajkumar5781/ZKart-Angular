@@ -1,0 +1,78 @@
+<div style="margin-top: 40px;">
+    <div *ngIf="!loading" style="max-width: 70%;margin: auto;">
+        <div *ngIf="reviewDetails!=null || reviewDetails.length > 0" class="site-blocks-table table-bordered"
+            style="padding-bottom: 50px;">
+            <!-- <table style="width: 100%;border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th class="product-thumbnail">Image</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quentity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of (reviewDetails)">
+                        <td class="product-thumbnail">
+                            <img [src]="'http://localhost:8080/ZKart/images/'+product.Product_image" class="image-size" width="150px"
+                                height="110px">
+                        </td>
+                        <td style="width: 300px;">
+                            <h2 style="white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 300px;margin: 0px;font-weight: 400;">{{product.Name}}</h2>
+                        </td>
+                        <td class="price-tags text-color">${{ product.price}}</td>
+                        <td class="price-tags text-color"> {{ product.count }}</td>
+                        <td class="price-tags text-color">${{ product.totalAmount }}</td>
+                    </tr>
+                </tbody>
+            </table> -->
+            <!-- border: 1px solid -->
+            <div *ngFor="let review of (reviewDetails)" style="margin-bottom: 10px;border: 1px solid">
+                <div>
+                    <div class="review-container-header flex align-center space-between">
+                        <div class="flex align-center">
+                            <mat-icon class="user-logo" aria-hidden="false" aria-label="Example home icon"
+                                fontIcon="account_circle"></mat-icon>
+                            <span>{{ customerDetails.name }} {{customerDetails.lastName }} {{
+                                formatDate(review.dateTime)
+                                }}</span>
+                        </div>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="editReview(review)">
+                                    Edit review
+                                </button>
+                                <button mat-menu-item (click)="deleteReview(review.id)">
+                                    Delete Review
+                                </button>
+                            </mat-menu>
+
+                        </div>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <div class="flex" style="margin-bottom: 5px;">
+                            <app-star-rating [rating]="review.star"></app-star-rating><span class="varified-purchase">
+                                Verified Purchase</span>
+                        </div>
+                        {{ review.comment }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="reviewDetails == null || reviewDetails.length<1">
+            <p>Your ZKart Cart is empty.</p>
+            <p>Check your Saved for later items below or continue shopping.</p>
+        </div>
+    </div>
+    <div *ngIf="loading" style="display: flex;align-items: center;justify-content: center;margin-top: 10%;">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+</div>

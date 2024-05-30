@@ -30,8 +30,12 @@
 .discount {
     margin-left: 8px;
     font-size: 9.5px;
-    color: red;
+    color: white;
+    background: rgb(204, 12, 57);
     font-weight: bold;
+    padding: 3px;
+    border-radius: 2px;
+    line-height: 12px;
 }
 .actual-price {
     margin-left: 8px;
@@ -39,4 +43,33 @@
     color: gray;
     font-weight: bold;
     text-decoration: line-through;
+}
+.addtocart{
+    background: rgb(255, 216, 20);
+    border: navajowhite;
+    border-radius: 5px;
+    height: 30px;
+    color: black;
+    min-width: 75px;
+}
+
+.addtocart:hover {
+    background: #f7ca00;
+    border-color: #f2c200;
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+.buynow{
+    background: #ffa41c;
+    border: #ffa41c;
+    border-radius: 5px;
+    height: 30px;
+    min-width: 75px;
+    color: black;
+}
+.buynow:hover {
+    background: #fa8900;
+    border-color: #fa8900;
 }

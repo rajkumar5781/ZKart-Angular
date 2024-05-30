@@ -1,0 +1,72 @@
+.address_wrapper{
+    width: 93%;
+    margin: 24px auto 44px auto !important;
+}
+.add-address-tile{
+    border-style: dashed;
+    height: 266px;
+    width: 320px;
+    border-width: 2px;
+    box-sizing: border-box;
+    border-color: #C7C7C7;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    border-radius: 8px;
+    margin: 10px;
+}
+.customIconSize {
+    font-size: 30px;
+}
+.pointer{
+    cursor: pointer;
+}
+.address-tile {
+    height: 266px;
+    width: 320px;
+    border-width: 1px;
+    box-sizing: border-box;
+    border-color: #C7C7C7;
+    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .16);
+    border-style: solid;
+    margin: 10px;
+    border-radius: 8px;
+}
+.address-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 77px;
+    padding-right: 77px;
+    margin: auto;
+}
+.content-center{
+    align-items: center;
+    justify-content: center;
+}
+.flex{
+    display: flex;
+}
+.edit-address {
+    position: absolute;
+    bottom: 20px;
+    left: 22px;
+    padding-right: 22px;
+    width: 100%;
+}
+.edit-bar-color{
+    color: #007185;
+}
+.edit-bar-color:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #c7511f;
+}
+.content{
+    box-sizing: border-box;
+    color: #0f1111;
+    word-wrap: break-word;
+    line-height: 20px;
+}
+.a-spacing-medium{
+    padding-left: 77px;
+}

@@ -1,0 +1,12 @@
+.icon-size{
+    font-size: 34px;
+    height: 34px;
+    width: 34px;
+}
+.header-content{
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 10px;
+    align-items: center;
+}

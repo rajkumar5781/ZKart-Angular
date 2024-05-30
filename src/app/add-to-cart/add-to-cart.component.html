@@ -1,5 +1,5 @@
 <div style="margin-top: 40px;">
-    <div *ngIf="isShow" style="max-width: 1140px;margin: auto;">
+    <div *ngIf="isShow" style="max-width: 81%;margin: auto;">
         <div *ngIf="isAvailableAddToCart$ | async" class="site-blocks-table table-bordered" style="padding-bottom: 50px;">
             <table style="width: 100%;border-collapse: collapse;">
                 <thead>
@@ -9,6 +9,7 @@
                         <th>Price</th>
                         <th>Quentity</th>
                         <th>Total</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,14 +19,14 @@
                                 height="110px">
                         </td>
                         <td style="width: 300px;">
-                            <h2 style="white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        width: 300px;margin: 0px;font-weight: 400;">{{product.productName}}</h2>
+                            <h2 class="product-name">{{product.productName}}</h2>
                         </td>
                         <td class="price-tags text-color">${{ product.productPrice}}</td>
-                        <td class="price-tags text-color"> {{ product.productCount }}</td>
+                        <td class="price-tags text-color">
+                            <app-productquntitycounter [totalproductCount]="product.productCount" [totalCount]="10" [isUpdating]="isUpdating" (totalValueChanged)="totalValueChanged($event,product.id,'update',product)"></app-productquntitycounter>
+                            </td>
                         <td class="price-tags text-color">${{ product.productPrice * product.productCount }}</td>
+                        <td class="price-tags text-color"><button class="btn btn-primary" [disabled]="isUpdating" [style]="{'cursor':!isUpdating ? 'pointer' : 'not-allowed'}" (click)="totalValueChanged(0,product.id,'delete',product)">X</button></td>
                     </tr>
                 </tbody>
             </table>

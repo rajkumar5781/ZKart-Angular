@@ -1,0 +1,37 @@
+<div>
+    <div class="address_wrapper">
+        <h1 class="a-spacing-medium">Your Addresses</h1>
+        <div class="address-wrapper">
+            <div class="add-address-tile pointer flex content-center" (click)="goToAddAddress()">
+                <div>
+                    <div>
+                        <mat-icon class="customIconSize" aria-hidden="false" aria-label="Example home icon"
+                            fontIcon="add"></mat-icon>
+                    </div>
+                    <h2>Add address</h2>
+                </div>
+            </div>
+            <div class="address-tile" *ngFor="let address of addressDetails" style="position: relative;">
+                <div *ngIf="address.default_address=='true'" class="flex"
+                    style="height: 40px;border-bottom: 1px solid;align-items: center;padding-left: 10px;">
+                    Default
+                </div>
+                <div style="padding: 20px 0px 0px 20px;">
+                    <div class="content" style="font-weight: 600;">{{ address.name}}</div>
+                    <div class="content">{{ address.address }}</div>
+                    <div class="content">{{ address.city }} ,{{address.state}} , {{ address.postalCode }}</div>
+                    <div class="content">{{ address.country }}</div>
+                    <div class="content">Phone number:{{ address.mobile }}</div>
+                </div>
+                <div class="edit-address">
+                    <span class="edit-bar-color" (click)="editAddressCart(address.id)">Edit</span> |
+                    <span class="edit-bar-color" (click)="deleteAddressCart(address.id)">Remove</span>
+                    <span *ngIf="address.default_address!='true'">
+                        |
+                        <span class="edit-bar-color" (click)="setAsDefault(address.id)">Set as default</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,17 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Component, computed } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom, map } from 'rxjs';
 import { ProductBuyComponent } from '../product-buy/product-buy.component';
 import {  Router } from '@angular/router';
 import { ProductInterface } from '../product-interface';
+import { ProductquntitycounterComponent } from '../productquntitycounter/productquntitycounter.component';
+import { getUserId } from '../auth.guard';
 
 @Component({
   selector: 'app-add-to-cart',
   standalone: true,
-  imports: [CommonModule,ProductBuyComponent],
+  imports: [CommonModule,ProductBuyComponent,ProductquntitycounterComponent],
   templateUrl: './add-to-cart.component.html',
   styleUrl: './add-to-cart.component.css',
 })
@@ -17,6 +19,7 @@ export class AddToCartComponent {
   totalPrice$: Observable<number>;
   isShow = true;
   productList :ProductInterface[] =[];
+  isUpdating = false;
   constructor(private http: HttpClient,private router : Router) {
     this.totalPrice$ = this.addToCartList$.pipe(
       map(addToCartList => 
@@ -40,16 +43,12 @@ export class AddToCartComponent {
   moduleName = "cart";
   addToCartList :any = [];
 
-  async ngOnInit() {
-   await this.getAddToCartDetail();
+   ngOnInit() {
+    this.getAddToCartDetail();
   }
 
   async getAddToCartDetail() {
-    if(typeof localStorage !== 'undefined'){
-    this.userId = localStorage.getItem('userId');
-    }
-    let params = new HttpParams().set('customerId', this.userId);
-    this.http.get("http://localhost:8080/ZKart/LoadAddToCartDetails",{ params: params }).subscribe((data)=>{
+    this.http.get("http://localhost:8080/ZKart/LoadAddToCartDetails").subscribe((data)=>{
       this.addToCartListSubject.next(data);
   })
   }
@@ -57,29 +56,39 @@ export class AddToCartComponent {
     this.router.navigate(['/home/shopping']);
   }
   buyNow(){
-
-
-
-    // this.addToCartList$.pipe(
-    //   forE(addToCartList => 
-    //     addToCartList.reduce(
-    //       (acc: number, item: { productPrice: number; productCount: number; }) => acc + (item.productPrice * item.productCount), 
-    //       0
-    //     )
-    //   )
-    // );
-
-
-
     (this.addToCartList$).forEach((data)=>{
       console.log(data);
       data.forEach((d: { productImage: any; productPrice: number; productName: any; productCount: number; id: any; })=>{
-        console.log(d);
         this.productList.push({image:d.productImage,price:d.productPrice,name:d.productName,quantity:d.productCount,total:(d.productPrice*d.productCount),id:d.id});
       })
-      // this.productList.push({image:data.image,price:data.discountPrice,name:data.name,quantity:data.selectTotalproductCount,total:(data.discountPrice*data.selectTotalproductCount),id:data.id});
     })
-    console.log(this.productList);
     this.isShow=false;
+  }
+
+ async totalValueChanged(newValue: number,id:number,actionType : string,product : any){
+    try{
+      this.isUpdating = true;
+      let url = "http://localhost:8080/ZKart/UpdateAddToCart";
+      let params = new HttpParams().set('id', id).set("actionType",actionType);
+      if(actionType=="update"){
+        product.productCount = newValue;
+        params = params.set("count",newValue);
+      }
+      await firstValueFrom(
+        this.http.post(url, params, {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded',
+          }),
+          responseType: 'text',
+        })
+      );
+      this.isUpdating = false;
+      if(actionType=="delete"){
+        this.getAddToCartDetail();
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
   }
 }

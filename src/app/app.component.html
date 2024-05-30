@@ -1,1 +1,24 @@
+<!-- <mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened>Drawer content</mat-drawer>
+    <mat-drawer-content>Main content</mat-drawer-content>
+  </mat-drawer-container> -->
+
+@if (isAdmin) {
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" #sidenav [(opened)]="opened"><app-side-nav
+            (closeSidenav)="sidenav.close()"></app-side-nav></mat-sidenav>
+    <mat-sidenav-content>
+            <div *ngIf="!opened" class="toggle-button icon-size">
+                <img src="/assets/images/collapse.png" alt="image" width="32px" height="32px" (click)="sidenav.toggle()">
+            </div>
+
+        <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" class="open-icon" fontIcon="arrow_forward_ios"
+            (click)="sidenav.toggle()"></mat-icon> -->
+        
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+} @else {
+bjs
 <router-outlet></router-outlet>
+}

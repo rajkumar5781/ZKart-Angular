@@ -1,0 +1,82 @@
+<div>
+    <div style="padding-right: 15px;max-width: 75%;margin: auto;padding-bottom: 40px;">
+        <h2 class="title-content"><span *ngIf="this.id>0">Edit</span> <span *ngIf="this.id<1">Add</span> your address</h2>
+        <div style="padding: 3rem;border: 1px solid #dee2e6;box-sizing: border-box;border-radius: 4px;">
+            <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+                <div class="">
+                    <table class=" width100" cellspacing="0">
+                        <tr class="flex" style="gap: 15px;">
+                            <td class="width100">
+                                <mat-form-field class=" width100 m-b5" appearance="outline">
+                                    <mat-label>Full name (First and Last name)</mat-label>
+                                    <input matInput (keydown)="allowStringOnly($event)" maxlength="50" formControlName="name">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <mat-form-field class=" width100 m-b5" appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput (keydown)="allowAllNumberAndString($event)" maxlength="150" formControlName="address">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <table class=" width100" cellspacing="0">
+                        <tr class="flex" style="gap: 15px;">
+                            <td class="width100">
+                                <mat-form-field class=" width100 m-b5" appearance="outline">
+                                    <mat-label>State</mat-label>
+                                    <mat-select formControlName="state">
+                                        @for (state of indianStates; track state) {
+                                        <mat-option [value]="state">{{state}}</mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                            <td class="width100">
+                                <mat-form-field class=" width100 m-b5" appearance="outline">
+                                    <mat-label>Postal / Zip *</mat-label>
+                                    <input matInput maxlength="6" (keydown)="allOnlyNumber($event)"
+                                        formControlName="postal">
+                                    <mat-error
+                                        *ngIf="addressForm.get('postal')?.invalid && (addressForm.get('postal')?.dirty || addressForm.get('postal')?.touched)">Invalid
+                                        postal</mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table class=" width100" cellspacing="0">
+                        <tr class="flex" style="gap: 15px;">
+                            <td class="width100">
+                                <mat-form-field class="width100" appearance="outline">
+                                    <mat-label>Town/City</mat-label>
+                                    <input matInput formControlName="city"
+                                        placeholder="Town/City" (keydown)="allowStringOnly($event)">
+                                </mat-form-field>
+                            </td>
+                            <td class="width100">
+                                <mat-form-field class=" width100 m-b5" appearance="outline">
+                                    <mat-label>Phone</mat-label>
+                                    <span matTextPrefix style="display: flex;line-height: normal;height: 10px;">+91
+                                        &nbsp;</span>
+                                    <input matInput maxlength="10" (keydown)="allOnlyNumber($event)"
+                                        formControlName="phoneNumber">
+                                    <mat-error
+                                        *ngIf="addressForm.get('phoneNumber')?.invalid && (addressForm.get('phoneNumber')?.dirty || addressForm.get('phoneNumber')?.touched)">Invalid
+                                        phone number</mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <mat-checkbox [disabled]="isCheckBoxDisable" class="example-margin" color="primary" formControlName="defaultAddress">Make this my default address</mat-checkbox>
+                <div class="flex content-center">
+                <button class="btn btn-primary" type="submit">Save Address</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

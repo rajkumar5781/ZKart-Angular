@@ -1,0 +1,42 @@
+<div style="margin-top: 40px;">
+    <div *ngIf="!loading" style="max-width: 81%;margin: auto;">
+        <div *ngIf="orderProductDetails.length > 0" class="site-blocks-table table-bordered" style="padding-bottom: 50px;">
+            <h2 style="font-size: 19px;" class="content-center">Order History</h2>
+            <table style="width: 100%;border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th class="product-thumbnail">Image</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quentity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of (orderProductDetails)">
+                        <td class="product-thumbnail">
+                            <img [src]="'http://localhost:8080/ZKart/images/'+product.Product_image" class="image-size" width="150px"
+                                height="110px">
+                        </td>
+                        <td style="width: 300px;">
+                            <h2 style="white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 300px;margin: 0px;font-weight: 400;">{{product.Name}}</h2>
+                        </td>
+                        <td class="price-tags text-color">${{ product.price}}</td>
+                        <td class="price-tags text-color"> {{ product.count }}</td>
+                        <td class="price-tags text-color">${{ product.totalAmount }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="!isAvailableAddToCart$">
+            <p>Your ZKart Cart is empty.</p>
+            <p>Check your Saved for later items below or continue shopping.</p>
+        </div>
+    </div>
+    <div *ngIf="loading" style="display: flex;align-items: center;justify-content: center;margin-top: 10%;">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+</div>

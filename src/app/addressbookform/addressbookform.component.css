@@ -1,0 +1,32 @@
+.width100{
+    width: 100%;
+}
+.flex{
+    display: flex;
+}
+.btn.btn-primary {
+    background: #1089ff;
+    border-color: #1089ff;
+}
+.btn{
+    padding: 12px 16px;
+    cursor: pointer;
+    border-width: 1px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    box-shadow: 0px 10px 20px -6px rgba(0, 0, 0, 0.12);
+    position: relative;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    color: #fff;
+}
+.btn.btn-primary:hover {
+    border-color: #006fdc;
+    background: #006fdc;
+}
+.content-center{
+    align-items: center;
+    justify-content: center;
+}

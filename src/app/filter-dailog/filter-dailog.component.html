@@ -1,8 +1,8 @@
-<div style="max-height: 250px;overflow-y: auto;">
-    <div class="dialog-header">
-        <h2>Product filer</h2>
+<div style="max-height: 315px;overflow: hidden;">
+    <div class="dialog-header" style="margin-bottom: 15px;">
+        <h2 style="margin: 0;">Product filer</h2>
     </div>
-    <div class="condition-padding">
+    <div class="condition-padding" style="overflow-y: scroll;height: 200px;">
         <div *ngFor="let field of data.moduleMetaList">
             <app-field-condition [fieldDetails]="field"></app-field-condition>
         </div>

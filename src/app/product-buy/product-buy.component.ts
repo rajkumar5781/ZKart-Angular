@@ -1,18 +1,42 @@
-import { Component, ElementRef, Input, NgModule, ViewChild, ViewEncapsulation, computed } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormControl, FormGroupDirective, FormsModule, NgForm, Validators,ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
-import {  ErrorStateMatcher } from '@angular/material/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+  ViewEncapsulation,
+  computed,
+} from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  FormControl,
+  FormGroupDirective,
+  FormsModule,
+  NgForm,
+  Validators,
+  ReactiveFormsModule,
+  ValidatorFn,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { ProductInterface } from '../product-interface';
-import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatDatepicker,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
-import {default as _rollupMoment, Moment} from 'moment';
+import { default as _rollupMoment, Moment } from 'moment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
-import { error } from 'console';
+import { Observable, catchError, firstValueFrom, throwError } from 'rxjs';
+import { getUserId } from '../auth.guard';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -27,12 +51,17 @@ export const MY_FORMATS = {
   },
 };
 
-
-
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 
@@ -42,77 +71,90 @@ interface CartPayment {
   age: number;
 }
 
-interface NetBankingPayment{
-  userName:String;
-  password:String;
+interface NetBankingPayment {
+  userName: String;
+  password: String;
 }
-
-
 
 @Component({
   selector: 'app-product-buy',
   standalone: true,
-  imports: [MatInputModule,MatFormFieldModule,FormsModule,ReactiveFormsModule,CommonModule,MatDatepickerModule,MatNativeDateModule],
-  providers: [
-    provideMomentDateAdapter(MY_FORMATS),
+  imports: [
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatIconModule,
   ],
+  providers: [provideMomentDateAdapter(MY_FORMATS)],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './product-buy.component.html',
-  styleUrl: './product-buy.component.css'
+  styleUrl: './product-buy.component.css',
 })
-
-
 export class ProductBuyComponent {
   @ViewChild('creditCheckbox') creditCheckbox!: ElementRef<HTMLInputElement>;
-  @ViewChild('netbankingCheckbox') netbankingCheckbox!: ElementRef<HTMLInputElement>;
+  @ViewChild('netbankingCheckbox')
+  netbankingCheckbox!: ElementRef<HTMLInputElement>;
 
-emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-cvvFormControl = new FormControl('', [this.cvvValidator()]);
-cartFormControl = new FormControl('',[this.cartNumberValidator()]);
-userNameControl = new FormControl('',[this.userNameValidator()]);
-passwordControl = new FormControl('',[this.passwordValidator()]);
-postalCodeControl = new FormControl('',[this.postalCodevalidator()]);
-phoneNumberControl = new FormControl('',[this.phoneNumberValidator()]);
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+  cvvFormControl = new FormControl('', [this.cvvValidator()]);
+  cartFormControl = new FormControl('', [this.cartNumberValidator()]);
+  userNameControl = new FormControl('', [this.userNameValidator()]);
+  passwordControl = new FormControl('', [this.passwordValidator()]);
+  postalCodeControl = new FormControl('', [this.postalCodevalidator()]);
+  phoneNumberControl = new FormControl('', [this.phoneNumberValidator()]);
 
   cartNumber: any;
-  cvvValue =0;
-  cartHolderName = "";
-  userName = "";
-  password = "";
-  address="";
-  state="";
-  phone="";
-  firstName="";
-  lastName="";
-  postalCode = "";
+  cvvValue = 0;
+  cartHolderName = '';
+  userName = '';
+  password = '';
+  address = '';
+  state = '';
+  phone = '';
+  firstName = '';
+  lastName = '';
+  postalCode = '';
   @Input() productList!: ProductInterface[];
   response: string | undefined;
+  selectedAddress: any;
+  addressLoading = false;
+  isSelectAddress = false;
+  addressDetailsList: any;
 
-  constructor(private http: HttpClient){
-    
-  }
-  
+  constructor(private http: HttpClient, private router: Router) {}
+
   matcher = new MyErrorStateMatcher();
+
+  async ngOnInit() {
+    await this.getDefaultAddress();
+  }
 
   totalPrice = computed(() => {
     return this.productList.reduce((total, item) => total + item.total, 0);
   });
 
   togglePaymentMethod(method: string): void {
-
     if (method === 'credit') {
-      console.log(this.netbankingCheckbox,"---->",this.creditCheckbox);
       this.netbankingCheckbox.nativeElement.checked = false;
       this.userNameControl.reset();
       this.passwordControl.reset();
       this.date.setValue(null);
-      this.cartHolderName = "";
+      this.cartHolderName = '';
       this.cvvFormControl.reset();
       this.cartFormControl.reset();
     } else if (method === 'netbanking') {
       this.creditCheckbox.nativeElement.checked = false;
       this.date.setValue(null);
-      this.cartHolderName = "";
+      this.cartHolderName = '';
       this.cvvFormControl.reset();
       this.cartFormControl.reset();
       this.userNameControl.reset();
@@ -136,7 +178,7 @@ phoneNumberControl = new FormControl('',[this.phoneNumberValidator()]);
     };
   }
 
-  userNameValidator():ValidatorFn{
+  userNameValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const userNamePattern = /^[a-zA-Z0-9]{8,20}$/;
       const isValid = userNamePattern.test(control.value);
@@ -144,7 +186,7 @@ phoneNumberControl = new FormControl('',[this.phoneNumberValidator()]);
     };
   }
 
-  passwordValidator():ValidatorFn{
+  passwordValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const userNamePattern = /^[a-zA-Z0-9]{6,20}$/;
       const isValid = userNamePattern.test(control.value);
@@ -152,7 +194,7 @@ phoneNumberControl = new FormControl('',[this.phoneNumberValidator()]);
     };
   }
 
-  postalCodevalidator():ValidatorFn{
+  postalCodevalidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const postalCodePattern = /^[0-9]{6,6}$/;
       const isValid = postalCodePattern.test(control.value);
@@ -160,7 +202,7 @@ phoneNumberControl = new FormControl('',[this.phoneNumberValidator()]);
     };
   }
 
-  phoneNumberValidator():ValidatorFn{
+  phoneNumberValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const phoneNumberCodePattern = /^[0-9]{10,10}$/;
       const isValid = phoneNumberCodePattern.test(control.value);
@@ -170,32 +212,52 @@ phoneNumberControl = new FormControl('',[this.phoneNumberValidator()]);
 
   allOnlyNumber(event: KeyboardEvent): void {
     const isNumeric = /[0-9]/.test(event.key);
-    const isControlKey = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key);
-        if (!isNumeric && !isControlKey) {
+    const isControlKey = [
+      'Backspace',
+      'Delete',
+      'ArrowLeft',
+      'ArrowRight',
+      'Tab',
+    ].includes(event.key);
+    if (!isNumeric && !isControlKey) {
       event.preventDefault();
     }
   }
 
   allowAllNumberAndString(event: KeyboardEvent): void {
     const isNumeric = /^[a-zA-Z0-9]/.test(event.key);
-    const isControlKey = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key);
-        if (!isNumeric && !isControlKey) {
+    const isControlKey = [
+      'Backspace',
+      'Delete',
+      'ArrowLeft',
+      'ArrowRight',
+      'Tab',
+    ].includes(event.key);
+    if (!isNumeric && !isControlKey) {
       event.preventDefault();
     }
   }
 
-  allowStringOnly(event: KeyboardEvent):void{
+  allowStringOnly(event: KeyboardEvent): void {
     const isCharacter = /^[a-zA-Z]+$/.test(event.key);
-    const isControlKey = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key);
-        if (!isCharacter && !isControlKey) {
+    const isControlKey = [
+      'Backspace',
+      'Delete',
+      'ArrowLeft',
+      'ArrowRight',
+      'Tab',
+    ].includes(event.key);
+    if (!isCharacter && !isControlKey) {
       event.preventDefault();
     }
   }
 
   date = new FormControl(moment());
 
-
-  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+  setMonthAndYear(
+    normalizedMonthAndYear: Moment,
+    datepicker: MatDatepicker<Moment>
+  ) {
     const currentYear = moment().year();
     const selectedYear = normalizedMonthAndYear.year();
     if (selectedYear >= currentYear && selectedYear <= currentYear + 9) {
@@ -205,82 +267,108 @@ phoneNumberControl = new FormControl('',[this.phoneNumberValidator()]);
       this.date.setValue(ctrlValue);
     }
     datepicker.close();
-    this.getSelectedMonthAndYear()
+    this.getSelectedMonthAndYear();
   }
   getSelectedMonthAndYear() {
     const selectedDate = this.date.value;
     if (selectedDate) {
       const month = selectedDate.month() + 1; // month() returns 0-11, so add 1 for 1-12
       const year = selectedDate.year();
-      console.log(`Selected Month: ${month}, Selected Year: ${year}`);
       return { month, year };
     }
     return null;
   }
 
-  billingDetailsValidate(){
-   return this.postalCodeControl.valid && this.emailFormControl.valid && this.phoneNumberControl.valid && this.address.length>0 && this.firstName.length>0 && this.lastName.length>0 && this.address.length>0 && this.state.length>0 
-  }
+  // billingDetailsValidate(){
+  //  return this.postalCodeControl.valid && this.emailFormControl.valid && this.phoneNumberControl.valid && this.address.length>0 && this.firstName.length>0 && this.lastName.length>0 && this.address.length>0 && this.state.length>0
+  // }
 
-  buyNow(){
-    console.log(this.netbankingCheckbox.nativeElement.checked,"--->",this.creditCheckbox.nativeElement.checked)
-    if(!this.netbankingCheckbox.nativeElement.checked && !this.creditCheckbox.nativeElement.checked){
-      alert("plaese choose any payment");
+  buyNow() {
+    console.log(
+      this.netbankingCheckbox.nativeElement.checked,
+      '--->',
+      this.creditCheckbox.nativeElement.checked
+    );
+    if (
+      !this.netbankingCheckbox.nativeElement.checked &&
+      !this.creditCheckbox.nativeElement.checked
+    ) {
+      alert('plaese choose any payment');
       return;
     }
-    if(!this.billingDetailsValidate()){
-      alert("Fill the correct billing details");
-    }
-    let params = new HttpParams().set("customerId",1);
-    params.set("productId",this.productList[0].id).set("totalAmount",this.totalPrice()).set("address",this.address);
-    if(this.netbankingCheckbox.nativeElement.checked){
-      params.set('paymentWay', "netBanking");
-    }
-    else{
-      params.set('paymentWay', "cart");
+    let productDetails: any = this.productList;
+    let params = new HttpParams();
+    params = params
+      .set('productId', this.productList[0].id)
+      .set('totalAmount', this.totalPrice())
+      .set('address', this.address)
+      .set('addressId', this.selectedAddress.id)
+      .set('productDetails', JSON.stringify(productDetails));
+    if (this.netbankingCheckbox.nativeElement.checked) {
+      params = params.set('paymentWay', 'netBanking');
+    } else {
+      params = params.set('paymentWay', 'cart');
     }
     this.onSubmitOrder(params);
-    try{
-    // this.http.post("http://localhost:8080/ZKart/ProductBuying",params,{
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   }),responseType: 'text'
-    // }).subscribe((d)=>{
-    //   console.log(d);
-    // }
-    // )
-  }
-  catch(e){
-    // console.log(e);
-  }
   }
   postProductBuying(params: any): Observable<string> {
     const apiUrl = 'http://localhost:8080/ZKart/ProductBuying';
     const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
     });
-    return this.http.post(apiUrl, params, { headers, responseType: 'text' }).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .post(apiUrl, params, { headers, responseType: 'text' })
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any): Observable<never> {
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
   }
 
-  onSubmitOrder(params:any): void {
+  onSubmitOrder(params: any): void {
     this.postProductBuying(params).subscribe(
       () => {
         console.log('Order submitted successfully');
-        alert("Payment was success");
+        alert('Payment was success');
       },
-      error => {
+      (error) => {
         console.log('There was an error!');
-        alert("Payment was failer");
+        alert('Payment was failer');
       }
     );
   }
 
+  async getDefaultAddress() {
+    this.addressLoading = true;
+    let url = 'http://localhost:8080/ZKart/DefaultAddressBook';
+    let data = await firstValueFrom(this.http.get<any[]>(url));
+    this.selectedAddress = data[0];
+    this.addressLoading = false;
+  }
 
+  async addressChange() {
+    this.addressLoading = true;
+
+    await this.getAddressDetails();
+    this.addressLoading = false;
+    this.isSelectAddress = true;
+  }
+
+  async getAddressDetails() {
+    let url = 'http://localhost:8080/ZKart/AddressBook';
+
+    const data = await firstValueFrom(this.http.get<any[]>(url));
+    this.addressDetailsList = data;
+    this.selectedAddress = this.addressDetailsList.filter((d: { id: any }) => {
+      return d.id == this.selectedAddress.id;
+    })[0];
+  }
+  onCheck() {
+    console.log(this.selectedAddress);
+  }
+  addNewAddress() {
+    this.router.navigate(['/home/account/addresscarts/add']);
+  }
 }
-

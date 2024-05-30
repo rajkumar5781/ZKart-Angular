@@ -6,7 +6,7 @@
 
     <div style="width: 38%;" class="pagination-filter-wrapper">
         <mat-paginator class="pagination" [length]="totalCount" [pageSize]="10" [hidePageSize]="true"
-            aria-label="Select page" (page)="handlePageEvent($event)">
+            aria-label="Select page" (page)="handlePageEvent($event)" [pageIndex]="currentPage-1">
         </mat-paginator>
         <app-filter [moduleMetaList]="moduleMetaList"></app-filter>
     </div>

@@ -1,0 +1,46 @@
+.site-blocks-table thead th {
+    padding: 30px;
+    text-align: center;
+    vertical-align: middle;
+    color: #212529;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+.site-blocks-table .product-thumbnail {
+    width: 170px;
+}
+.table-bordered td, .table-bordered th {
+    border: 1px solid #dee2e6;
+}
+.site-blocks-table td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    color: #212529;
+}
+.flex{
+    display: flex;
+}
+.content-center{
+    align-items: center;
+    justify-content: center;
+}
+.align-center{
+    align-items: center;
+}
+.review-container-header{
+    border-bottom: 1px solid;
+    height: 40px;
+    padding-left: 10px;
+}
+.user-logo{
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+}
+.varified-purchase{
+    color: #c45500;
+}
+.space-between{
+    justify-content: space-between;
+}

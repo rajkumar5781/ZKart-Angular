@@ -1,0 +1,29 @@
+<div>
+    <div class="container">
+        <h1 class="flex-center">Product Reviews</h1>
+        <div class="review-form">
+            <h2>Add your reviews</h2>
+            <form [formGroup]="reviewForm" (ngSubmit)="reviewSubmit()">
+                <mat-form-field style="width: 100%;" appearance="outline">
+                    <mat-label>Select an option</mat-label>
+                    <mat-select required formControlName="rating">
+                        @for (option of rating.options; track option) {
+                          <mat-option [value]="option">{{option}}</mat-option>
+                        }
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field  style="width: 100%;"class="width100" appearance="outline">
+                    <mat-label>Leave a comment</mat-label>
+                    <textarea matInput formControlName="comment"></textarea>
+                    <mat-error
+                        *ngIf="reviewForm.get('comment')?.invalid && (reviewForm.get('comment')?.dirty || reviewForm.get('comment')?.touched)">
+                        Please enter a comment
+                    </mat-error>
+                </mat-form-field>
+                <div class="flex-center">
+                    <button class="btn btn-outline-primary btn-sm btn-block" type="submit">Save Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

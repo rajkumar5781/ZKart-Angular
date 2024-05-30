@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,33 +11,60 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatSelectModule, RouterOutlet, MatIconModule, MatButtonModule, FormsModule],
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    RouterOutlet,
+    MatIconModule,
+    MatButtonModule,
+    FormsModule,
+  ],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrl: './signup.component.css',
 })
 export class SignupComponent {
-  names = "";
-  userName = "";
-  password = "";
-  phoneNum = "";
-  lastName="";
+  names = '';
+  userName = '';
+  password = '';
+  phoneNum = '';
+  lastName = '';
   hide = true;
-  constructor(private http: HttpClient,private router:Router) {
-
+  role = '';
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    if (this.activatedRoute.snapshot.queryParams['admin'] != null) {
+      this.role = this.activatedRoute.snapshot.queryParams['admin'];
+    }
   }
   myFunction() {
     this.get();
   }
   public get() {
-    let params = new HttpParams().set('userName', this.userName).set("password", this.password).set("name",this.names).set("lastName",this.lastName).set("phone",this.phoneNum);
+    let params = new HttpParams()
+      .set('userName', this.userName)
+      .set('password', this.password)
+      .set('name', this.names)
+      .set('lastName', this.lastName)
+      .set('phone', this.phoneNum);
 
-    this.http.post("http://localhost:8080/ZKart/signup", params, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }),responseType:"text"
-    }).subscribe((d) => {
-      console.log(d);
-      this.router.navigate(['/signin']);
-    })
+      if(this.role.length > 0){
+        params = params.set("role","admin");
+      }
+
+    this.http
+      .post('http://localhost:8080/ZKart/signup', params, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+        responseType: 'text',
+      })
+      .subscribe((d) => {
+        console.log(d);
+        this.router.navigate(['/signin']);
+      });
   }
 }

@@ -9,11 +9,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ProductBuyComponent } from '../product-buy/product-buy.component';
 import { ProductInterface } from '../product-interface';
+import { ProductReviewsComponent } from '../product-reviews/product-reviews.component';
+import { checkAuthentication } from '../auth.guard';
+import { ProductquntitycounterComponent } from '../productquntitycounter/productquntitycounter.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [MatButtonModule,CommonModule,ProductBuyComponent],
+  imports: [MatButtonModule,CommonModule,ProductBuyComponent,ProductReviewsComponent,ProductquntitycounterComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
   schemas: [NO_ERRORS_SCHEMA] 
@@ -31,15 +35,21 @@ export class ProductDetailsComponent {
   likes = 0;
   name = "";
   image = "";
+  reviewButtonText = "Add";
   selectTotalproductCount = 1;
   isShow = true;
   productList: ProductInterface[] = [];
+  showReviewDetails = false;
+  isNew = true;
+  isEdit = false;
+  invalid = true;
+  reviewId = "";
   constructor(private route: ActivatedRoute, private http: HttpClient,private router : Router) {}
 
   private checkAuthentication(): boolean {
     return typeof localStorage !== 'undefined' && localStorage.getItem('isAuthenticated') !== null;
   }
-  ngOnInit() {
+ async ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       this.id = idParam !== null ? +idParam : 0; 
@@ -47,6 +57,7 @@ export class ProductDetailsComponent {
     if(this.id!=0){
       this.getProductDetails();
     }
+    await this.checkValideReviewer();
   }
   getProductDetails() {
     let params = new HttpParams().set('id', this.id);
@@ -65,22 +76,11 @@ export class ProductDetailsComponent {
       this.image = Product_image;
     })
   }
-  decreseCount(){
-    if (this.selectTotalproductCount > 1) {
-        this.selectTotalproductCount = this.selectTotalproductCount - 1;
-    }
-  }
-  increseCount(){
-    if (this.selectTotalproductCount < this.count) {
-      this.selectTotalproductCount = this.selectTotalproductCount + 1;
-  }
-  }
-  addToCart(){
+  async addToCart(){
     if(!this.checkAuthentication()){
       this.router.navigate(['/signin']);
     }
-    let userId : any = localStorage.getItem("userId");
-    let params = new HttpParams().set('productId', this.id).set("product", this.name).set('productCount',this.selectTotalproductCount).set('productPrice',this.price).set('image',this.image).set('customerId',userId);
+    let params = new HttpParams().set('productId', this.id).set("product", this.name).set('productCount',this.selectTotalproductCount).set('productPrice',this.discountPrice).set('image',this.image);
 
     this.http.post("http://localhost:8080/ZKart/AddToCards",params,{
       headers: new HttpHeaders({
@@ -90,8 +90,53 @@ export class ProductDetailsComponent {
       console.log(d);
     })
   }
+  async checkValideReviewer(){
+    let url = "http://localhost:8080/ZKart/ValidateReviews";
+    let params = new HttpParams().set("productId",this.id);
+    let data = await firstValueFrom(this.http.get<any>(url, { params }))
+    if(data.buy && !data.review){
+      this.isNew = true;
+      this.invalid = false;
+      this.isEdit = false;
+    }
+    if(data.buy && data.review){
+      this.isNew = false;
+      this.invalid = false;
+      this.isEdit = true;
+      this.reviewId = data.reviewId;
+    }
+    if(!data.buy){
+      this.invalid = true;
+    }
+    return data;
+  }
   shopNow(){
+    if(checkAuthentication()){
     this.isShow = !this.isShow;
     this.productList.push({image:this.image,price:this.discountPrice,name:this.name,quantity:this.selectTotalproductCount,total:(this.discountPrice*this.selectTotalproductCount),id:this.id})
+    // this.router.navigate(['/'])
+    // this.router.navigate(['home/shopping/product/buy', this.id],{ queryParams: { quantity: this.selectTotalproductCount } });
+    }
+    else{
+      this.router.navigate(['/signin']);
+    }
+  }
+  readReview(){
+    this.showReviewDetails = true;
+  }
+  async addReview(){
+    if(this.isEdit){
+      this.router.navigate(['/home/shopping/editreview', this.reviewId],{ 
+        queryParams: { 
+          customerId: this.id,
+        } 
+      });
+    }
+    else{
+      this.router.navigate(['/home/shopping/addreview',this.id]);
+    }
+  }
+  totalValueChanged(newValue: number){
+    this.selectTotalproductCount = newValue;
   }
 }

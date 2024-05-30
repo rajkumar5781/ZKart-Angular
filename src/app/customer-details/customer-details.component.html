@@ -1,0 +1,63 @@
+<div style="max-width: 1140px; margin: auto; height: 73.5%; margin-top: 50px;">
+    <div style="display: flex; justify-content: center;padding-bottom: 50px;">
+        <div style="flex: 0 0 84.33333%;">
+            <div class="wrapper" style="width: 100%;">
+                <div style="flex-wrap: wrap;" class="width100 flex">
+                    <div style="box-sizing: border-box; padding: 3rem !important;" class="width100">
+                        <!-- <h3 style="margin-bottom: 2.0rem;">Get in touch</h3> -->
+                        <div class="flex" style="justify-content: space-between;">
+                            <h2>Your details</h2>
+                        <button class="btn" [ngClass]="{'btn-primary':!isFormEdit,'btn-save':isFormEdit}"
+                            (click)="formEditAndSave()">{{ isFormEdit ? 'Save' : 'Edit' }} details</button>
+                        </div>
+                        <form [formGroup]="customerDetailForm" (ngSubmit)="onSubmit()">
+                            <div class="flex" style="justify-content: space-between;">
+                                <div class="width100" style="width: 48%;">
+                                    <mat-form-field class="width100" appearance="outline">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput maxlength="30" (keydown)="allowStringOnly($event)"
+                                            formControlName="name">
+                                        <mat-error
+                                            *ngIf="customerDetailForm.get('name')?.invalid && (customerDetailForm.get('name')?.dirty || customerDetailForm.get('name')?.touched)">
+                                            Please enter your name
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="width100" style="width: 48%;">
+                                    <mat-form-field class="width100" appearance="outline">
+                                        <mat-label>phone</mat-label>
+                                        <input type="number" matInput formControlName="phone" placeholder="Enter phone"
+                                            (keydown)="allOnlyNumber($event)">
+                                        <mat-error
+                                            *ngIf="customerDetailForm.get('phone')?.invalid && (customerDetailForm.get('phone')?.dirty || customerDetailForm.get('phone')?.touched)">
+                                            Please valid phone
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="width100">
+                                <mat-form-field class="width100" appearance="outline">
+                                    <mat-label>LastName</mat-label>
+                                    <input matInput maxlength="1" formControlName="lastName"
+                                        placeholder="Enter LastName">
+                                    <mat-error
+                                        *ngIf="customerDetailForm.get('lastName')?.invalid && (customerDetailForm.get('lastName')?.dirty || customerDetailForm.get('lastName')?.touched)">
+                                        Please valid LastName
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div style="box-sizing: border-box; padding: 3rem !important;" class="width50">
+                        <button class="btn btn-primary"
+                            (click)="goToOrderHistory()">Order history</button>
+                            <button class="btn btn-primary"
+                            (click)="goToReviewHistory()">Review history</button>
+                            <button class="btn btn-primary"
+                            (click)="goToAddress()">Your Address</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

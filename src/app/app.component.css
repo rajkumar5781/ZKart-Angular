@@ -1,0 +1,36 @@
+md-sidenav,
+md-sidenav.md-locked-open-add-active,
+md-sidenav.md-closed.md-locked-open-add-active,
+md-sidenav.md-locked-open {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.toggle-button{
+    position: absolute;
+    top:24px;
+    left: 12px;
+}
+
+
+.custom-icon:before {
+    font-family: 'CustomFont';
+    content: "\e920";
+    font-size: 24px;
+    /* Additional styles if needed */
+    color: #000;
+}
+.icon-class:before{
+    font-family: 'CustomFont';
+    content: "\e920";
+    font-weight: 900;
+    font-size: 24px;
+    /* Additional styles if needed */
+    color: #000;
+}
+.icon-size{
+    font-size: 34px;
+    height: 34px;
+    width: 34px;
+}

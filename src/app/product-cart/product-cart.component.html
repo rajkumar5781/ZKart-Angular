@@ -1,10 +1,23 @@
 <div class="cart" (click)="clickedProduct()">
-    <img [src]="'http://localhost:8080/ZKart/images/' + image" height="130px">
+    <img [src]="'http://localhost:8080/ZKart/images/' + image" height="130px" style="margin-bottom: 5px;">
     <h2 class="ellipsis">{{ name }}</h2>
     <p class="description">{{description}}</p>
-    <p>
-        ${{ discountPrice }}|
+    <div class="flex" style="margin-bottom: 6px;gap:4px">
+        <app-star-rating [rating]="star"></app-star-rating>
+    <span>{{ rating_count }}</span>
+    </div>
+    <p class="flex">
+        ${{ discountPrice }} |
         <span class="discount"> {{ discount }}% off</span>
         <span class="actual-price">${{ price }}</span>
     </p>
+    <div class="flex" style="justify-content: space-evenly;">
+        <button class="addtocart" (click)="addToCart($event)">
+            <span *ngIf="!addToCartloading">AddToCart</span>
+            <mat-spinner *ngIf="addToCartloading" style="margin:0 auto;" [diameter]="20"></mat-spinner>
+        </button>
+        <button class="buynow" (click)="clickedProduct()">
+            BuyNow
+        </button>
+    </div>
 </div>
