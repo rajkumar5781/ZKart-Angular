@@ -5,8 +5,9 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MatBadgeModule } from '@angular/material/badge';
 import { RouterOutlet } from '@angular/router';
 import { Location } from '@angular/common';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { isAdmin } from '../auth.guard';
 
 interface AddToCartCountResponse {
   count: number;
@@ -20,17 +21,19 @@ interface AddToCartCountResponse {
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  isLoggedIn = signal(false);
+   userId : any;
+   addToCartTotal : any;
+   isAdmin = false;
+
   constructor(private router: Router, private route: ActivatedRoute,private location: Location,private http:HttpClient) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.getLastSegment();
       }
     });
+    this.isAdmin = isAdmin();
    }  
-
-   isLoggedIn = signal(false);
-   userId : any;
-   addToCartTotal : any;
 
   ngOnInit(): void {
     this.getLastSegment();

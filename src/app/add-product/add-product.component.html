@@ -1,0 +1,146 @@
+<div style="height: 100vh; background: #f2f7fb">
+  <div style="box-sizing: border-box; padding: 30px">
+    <div class="header" style="margin-bottom: 20px">
+      <h3 class="header-content">Add product</h3>
+    </div>
+    <div>
+      <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+        <div class="flex grid-column grid-gap20">
+          <div
+            style="box-sizing: border-box"
+            class="bg-white border-8 p20 width50"
+          >
+            <mat-form-field appearance="outline" class="width100 m-b10">
+              <mat-label>Product name</mat-label>
+              <input
+                matInput
+                (keydown)="allowStringOnly($event)"
+                maxlength="50"
+                formControlName="name"
+                placeholder="Enter your product name"
+              />
+              <mat-hint
+                >Do not exceed 20 characters when entering the product
+                name.</mat-hint
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="width100 m-b10">
+              <mat-label>Category</mat-label>
+              <input
+                matInput
+                (keydown)="allowStringOnly($event)"
+                maxlength="30"
+                formControlName="category"
+                placeholder="Enter your Category"
+              />
+            </mat-form-field>
+
+            <div class="flex" style="gap: 15px">
+              <div class="width100" style="width: 48%">
+                <mat-form-field class="width100" appearance="outline">
+                  <mat-label>Discount</mat-label>
+                  <input
+                    matInput
+                    maxlength="3"
+                    (keydown)="allOnlyNumbers($event)"
+                    formControlName="discount"
+                    placeholder="Enter your product discount"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="width100" style="width: 48%">
+                <mat-form-field class="width100" appearance="outline">
+                  <mat-label>count</mat-label>
+                  <input
+                    matInput
+                    maxlength="10"
+                    formControlName="count"
+                    (keydown)="allOnlyNumbers($event)"
+                    placeholder="Enter your product count"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <mat-form-field appearance="outline" class="width100 m-b10">
+              <mat-label>Description</mat-label>
+              <textarea
+                matInput
+                formControlName="description"
+                placeholder="Description"
+              ></textarea>
+              <mat-hint
+                >Do not exceed 100 characters when entering the product
+                name.</mat-hint
+              >
+            </mat-form-field>
+
+            <div class="flex content-center">
+              <button class="btn btn-primary" type="submit">
+                Save Product
+              </button>
+            </div>
+          </div>
+          <div
+            style="box-sizing: border-box"
+            class="bg-white border-8 p20 width50"
+          >
+            <h2>Upload product</h2>
+            <div>
+              <mat-form-field appearance="outline" class="width100 m-b10">
+                <mat-label>Product price</mat-label>
+                <input
+                  matInput
+                  (keydown)="allOnlyNumbers($event)"
+                  maxlength="10"
+                  formControlName="price"
+                  placeholder="Enter your product price"
+                />
+              </mat-form-field>
+            </div>
+            <div>
+              <div class="m-b16" [ngClass]="{'gap10':imageSrc != ''}">
+                <div *ngIf="imageSrc != ''" class="item">
+                  <img
+                    *ngIf="imageSrc != ''"
+                    id="placeholder"
+                    [src]="imageSrc"
+                    width="150"
+                    height="200"
+                    alt="Placeholder"
+                  />
+                </div>
+
+                <div class="item up-load">
+                  <label class="uploadfile" for="myFile"
+                    ><span class="icon">
+                      <img
+                        src="/assets/images/upload.png"
+                        alt="image"
+                        width="50px"
+                        height="50px"
+                      /> </span
+                    ><span class="text-tiny"
+                      >Drop your images here or select
+                      <span class="tf-color">click to browse</span></span
+                    ><input
+                      id="myFile"
+                      type="file"
+                      name="filename"
+                      (change)="getImage($event)"
+                  /></label>
+                </div>
+              </div>
+              <span style="color: #575864">
+                Pay attention to the quality of the pictures you add, comply
+                with the background color standards. Pictures must be in certain
+                dimensions. Notice that the product shows all the details</span
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

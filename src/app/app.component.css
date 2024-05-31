@@ -11,6 +11,9 @@ md-sidenav.md-locked-open {
     position: absolute;
     top:24px;
     left: 12px;
+    z-index: 5;
+    /* margin-top: 24px;
+    margin-left: 12px; */
 }
 
 
@@ -33,4 +36,8 @@ md-sidenav.md-locked-open {
     font-size: 34px;
     height: 34px;
     width: 34px;
+}
+.mat-drawer-container{
+    background-color: white;
+    /* background: #f2f7fb; */
 }

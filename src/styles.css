@@ -2,3 +2,78 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.bg-red{
+    background-color: red;
+}
+.flex{
+    display: flex;
+}
+.content-center{
+    justify-content: center;
+    align-items: center;
+}
+.bg-white{
+    background: white;
+}
+.border-8{
+    border-radius: 8px;
+}
+.grid{
+    display: grid;
+}
+.grid-column{
+    grid-auto-flow: column;
+}
+.p20{
+    padding: 20px;
+}
+.p25{
+    padding: 25px;
+}
+.p30{
+    padding: 30px;
+}
+.grid-gap20{
+    grid-gap:20px;
+}
+.width100{
+    width: 100%;
+}
+.m-b5{
+    margin-bottom: 5px;
+}
+.m-b10{
+    margin-bottom: 10px;
+}
+.width50{
+    width: 50%;
+}
+.m-b16{
+    margin-bottom: 16px;
+}
+.btn.btn-primary {
+    background: #1089ff !important;
+    border-color: #1089ff !important;
+    color: #fff;
+}
+.btn{
+    padding: 12px 16px;
+    cursor: pointer;
+    border-width: 1px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    box-shadow: 0px 10px 20px -6px rgba(0, 0, 0, 0.12);
+    position: relative;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+.btn.btn-primary:hover, .btn.btn-primary:focus {
+    border-color: #006fdc !important;
+    background: #006fdc !important;
+}
+.gap10{
+    display: flex;
+    gap: 10px;
+}

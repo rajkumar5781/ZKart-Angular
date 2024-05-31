@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="navigation-bar">
-        <div class="navigation-strip">
+        <div class="navigation-strip" *ngIf="!isAdmin">
             <ul class="site-menu js-clone-nav d-none d-md-block flex" style="justify-content: center;">
                 <li class="has-children active" [class.active]="activeIndex === 0" (click)="setActive(0)">
                     <a>Home</a>

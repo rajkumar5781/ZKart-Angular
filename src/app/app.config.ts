@@ -12,8 +12,8 @@ import { FilterComponent } from './filter/filter.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CookieService } from 'ngx-cookie-service';
 import { authInterceptor } from './auth.interceptor';
-
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideAnimationsAsync(),importProvidersFrom(HttpClientModule),provideHttpClient(withFetch(),withInterceptors([authInterceptor])),AppRoutingModule,MatDatepickerModule,MatDialogModule,FilterComponent,MatFormFieldModule,CookieService]
+  providers: [provideRouter(routes), provideClientHydration(), provideAnimationsAsync(),importProvidersFrom(HttpClientModule),provideHttpClient(withFetch(),withInterceptors([authInterceptor])),AppRoutingModule,MatDatepickerModule,MatDialogModule,FilterComponent,MatFormFieldModule,CookieService,provideNativeDateAdapter()]
 };

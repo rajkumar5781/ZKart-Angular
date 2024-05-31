@@ -17,6 +17,8 @@ import { ReviewhistoryComponent } from './reviewhistory/reviewhistory.component'
 import { AddresscartsComponent } from './addresscarts/addresscarts.component';
 import { AddressbookformComponent } from './addressbookform/addressbookform.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -48,7 +50,9 @@ export const routes: Routes = [
       { path: 'account/reviewhistory', component: ReviewhistoryComponent , canActivate:[authGuard]},
       { path: 'account/addresscarts', component: AddresscartsComponent , canActivate:[authGuard]},
       { path: 'account/addresscarts/add', component: AddressbookformComponent , canActivate:[authGuard]},
-      { path: 'account/addresscarts/edit/:id', component: AddressbookformComponent , canActivate:[authGuard]}
+      { path: 'account/addresscarts/edit/:id', component: AddressbookformComponent , canActivate:[authGuard]},
+      { path: 'ecommerce/addproduct', component: AddProductComponent , canActivate:[authGuard]},
+      { path: 'dashboard', component: AdminDashboardComponent , canActivate:[authGuard]}
     ],
   },
   { path: 'signup', component: SignupComponent },
