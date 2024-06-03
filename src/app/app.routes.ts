@@ -19,6 +19,9 @@ import { AddressbookformComponent } from './addressbookform/addressbookform.comp
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { UpdateProductComponent } from './update-product/update-product.component';
+import { OrderlistComponent } from './orderlist/orderlist.component';
+import { UsersListComponent } from './users-list/users-list.component';
 
 export const routes: Routes = [
   {
@@ -51,8 +54,12 @@ export const routes: Routes = [
       { path: 'account/addresscarts', component: AddresscartsComponent , canActivate:[authGuard]},
       { path: 'account/addresscarts/add', component: AddressbookformComponent , canActivate:[authGuard]},
       { path: 'account/addresscarts/edit/:id', component: AddressbookformComponent , canActivate:[authGuard]},
-      { path: 'ecommerce/addproduct', component: AddProductComponent , canActivate:[authGuard]},
-      { path: 'dashboard', component: AdminDashboardComponent , canActivate:[authGuard]}
+      { path: 'ecommerce/addproduct', component: AddProductComponent , canActivate:[authGuard],data: { action: 'addproduct' }},
+      { path: 'ecommerce/updateproduct', component: UpdateProductComponent , canActivate:[authGuard]},
+      { path: 'ecommerce/updateproduct/edit/:id', component: AddProductComponent , canActivate:[authGuard],data: { action: 'editproduct' }},
+      { path: 'order/orderlist', component: OrderlistComponent , canActivate:[authGuard]},
+      { path: 'users/allusers', component: UsersListComponent , canActivate:[authGuard]},
+      { path: 'dashboard', component: AdminDashboardComponent , canActivate:[authGuard]},
     ],
   },
   { path: 'signup', component: SignupComponent },

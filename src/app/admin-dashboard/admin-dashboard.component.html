@@ -1,3 +1,23 @@
-<div style="height: 100vh;">
-<p>admin-dashboard works!</p>
+<div style="background: #f2f7fb;height: 100%;">
+  <div
+    style="
+      box-sizing: border-box;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+    "
+  >
+    <div class="gap20">
+      <app-bar-chart style="width: 49%" label="TopSelling"></app-bar-chart>
+      <app-doughnut-chart style="width: 49%"></app-doughnut-chart>
+    </div>
+    <div class="gap20">
+      <app-pie-chart style="width: 49%"></app-pie-chart>
+      <app-polar-area-chart style="width: 49%"></app-polar-area-chart>
+    </div>
+    <div>
+        <app-line-chart></app-line-chart>
+    </div>
+  </div>
 </div>

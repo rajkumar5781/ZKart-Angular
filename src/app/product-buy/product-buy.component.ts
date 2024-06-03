@@ -284,11 +284,6 @@ export class ProductBuyComponent {
   // }
 
   buyNow() {
-    console.log(
-      this.netbankingCheckbox.nativeElement.checked,
-      '--->',
-      this.creditCheckbox.nativeElement.checked
-    );
     if (
       !this.netbankingCheckbox.nativeElement.checked &&
       !this.creditCheckbox.nativeElement.checked

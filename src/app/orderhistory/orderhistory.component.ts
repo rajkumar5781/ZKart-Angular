@@ -45,7 +45,6 @@ export class OrderhistoryComponent {
       let params = new HttpParams().set('customerId', this.userId);
       let data = await firstValueFrom(this.http.get("http://localhost:8080/ZKart/ProductBuying",{ params: params }));
       this.orderProductDetails = data;
-      console.log(data);
       }
   }
 }

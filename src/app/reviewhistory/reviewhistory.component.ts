@@ -77,7 +77,8 @@ export class ReviewhistoryComponent {
         })
       );
       this.getReviewDetails()
-    } catch (e) {
+    } catch (e:any) {
+      alert(e.error());
       console.log(e);
     }
   }

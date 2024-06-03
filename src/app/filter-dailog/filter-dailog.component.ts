@@ -57,7 +57,6 @@ export class FilterDailogComponent {
 
     let isValid = true;
     this.components?.forEach(component => {
-      console.log(component)
       if(component.fieldDetails.isChecked && (component.fieldDetails.value==null || component.fieldDetails.value=="" || this.valueCheckValidation(component.fieldDetails))){
         isValid = false;
       }

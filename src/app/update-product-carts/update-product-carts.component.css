@@ -1,0 +1,108 @@
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12.5px;
+    line-height: normal;
+}
+.cart{
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 180px;
+    flex-direction: column;
+}
+.img-size{
+    height: 130px;
+}
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    font-size: 11.5px;
+    color: gray;
+}
+.discount {
+    margin-left: 8px;
+    font-size: 9.5px;
+    color: white;
+    background: rgb(204, 12, 57);
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 2px;
+    line-height: 12px;
+}
+.actual-price {
+    margin-left: 8px;
+    font-size: 9.5px;
+    color: gray;
+    font-weight: bold;
+    text-decoration: line-through;
+}
+.addtocart{
+    background: rgb(255, 216, 20);
+    border: navajowhite;
+    border-radius: 5px;
+    height: 30px;
+    color: black;
+    min-width: 75px;
+}
+
+.addtocart:hover {
+    background: #f7ca00;
+    border-color: #f2c200;
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+.buynow{
+    background: #ffa41c;
+    border: #ffa41c;
+    border-radius: 5px;
+    height: 30px;
+    min-width: 75px;
+    color: black;
+}
+.buynow:hover {
+    background: #fa8900;
+    border-color: #fa8900;
+}
+.delete-wrapper {
+    position: absolute;
+    display: none;
+    margin-top: 20px;
+}
+
+.cart:hover .delete-wrapper {
+    display: block;
+}
+.small-icon-button {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+ 
+    & > *[role=img] {
+       width: 16px;
+       height: 16px;
+       font-size: 16px;
+ 
+       svg {
+          width: 16px;
+          height: 16px;
+       }
+    }
+ 
+    .mat-mdc-button-touch-target {
+       width: 24px !important;
+       height: 24px !important;
+    }
+ }

@@ -1,0 +1,137 @@
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { checkAuthentication, getUserId } from '../auth.guard';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { firstValueFrom } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
+@Component({
+  selector: 'app-update-product-carts',
+  standalone: true,
+  imports: [MatProgressSpinnerModule,CommonModule,StarRatingComponent,MatIconModule,MatButtonModule,MatTooltipModule],
+  templateUrl: './update-product-carts.component.html',
+  styleUrl: './update-product-carts.component.css'
+})
+export class UpdateProductCartsComponent implements OnChanges {
+  @Output() productClicked = new EventEmitter<number>();
+  @Output() deleteProduct = new EventEmitter<number>();
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['productDetails']) {
+      this.deserializeProductDetails();
+    }
+  }
+  @Input() productDetails: any;
+  description = '';
+  discountPrice = 0;
+  price = 0;
+  count = 0;
+  category = '';
+  discount = 0;
+  star = 5;
+  id = 0;
+  likes = 0;
+  name = '';
+  image = '';
+  addToCartloading = false;
+  rating_count = 0;
+  ngOnInit() {
+    this.deserializeProductDetails();
+  }
+  deserializeProductDetails() {
+    let {
+      Actual_price,
+      Available_count,
+      Category,
+      Description,
+      Discounts,
+      Likes,
+      Name,
+      Star,
+      id,
+      Product_image,
+      rating_count,
+    } = this.productDetails || {};
+    this.description = Description;
+    this.discountPrice = Math.round(
+      Actual_price - Actual_price * (Discounts / 100)
+    );
+    this.price = Actual_price;
+    this.count = Available_count;
+    this.category = Category;
+    this.discount = Discounts;
+    this.likes = Likes;
+    this.name = Name;
+    this.star = Star || 5;
+    this.id = id;
+    this.image = Product_image;
+    this.rating_count = rating_count || 0;
+  }
+  clickedProduct() {
+    this.productClicked.emit(this.id);
+  }
+
+  async addToCart(event: Event) {
+    event.stopPropagation();
+    if (!checkAuthentication()) {
+      this.router.navigate(['/signin']);
+      return;
+    }
+    this.addToCartloading = true;
+    let userId = getUserId();
+    let params = new HttpParams()
+      .set('productId', this.id)
+      .set('product', this.name)
+      .set('productCount', 1)
+      .set('productPrice', this.price)
+      .set('image', this.image)
+      .set('customerId', userId);
+    await firstValueFrom(
+      this.http.post('http://localhost:8080/ZKart/AddToCards', params, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+        responseType: 'text',
+      })
+    );
+    this.addToCartloading = false;
+  }
+
+  // async deleteProduct(event:Event){
+  //   event.stopPropagation();
+  //   let params = new HttpParams().set('id', this.id);
+  //   let url = 'http://localhost:8080/ZKart/Product';
+  //   try {
+  //      await firstValueFrom(
+  //       this.http.delete<any[]>(url, {
+  //         params: params,
+  //         headers: new HttpHeaders({
+  //           'Content-Type': 'application/x-www-form-urlencoded',
+  //         }),
+  //         responseType: 'text' as 'json',
+  //       })
+  //     );
+  //   }
+  //   catch(e : any){
+  //     alert(e.error());
+  //   }
+  // }
+  deleteProductClicked(event:Event){
+      event.stopPropagation();
+      this.deleteProduct.emit(this.id);
+  }
+}

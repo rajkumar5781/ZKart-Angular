@@ -1,0 +1,70 @@
+<div style="min-height: 100vh; background: #f2f7fb">
+  <div
+    *ngIf="isLoading"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10%;
+    "
+  >
+    <mat-spinner [diameter]="50"></mat-spinner>
+  </div>
+  <div *ngIf="!isLoading && !isError">
+    <div style="box-sizing: border-box; padding: 30px">
+      <div class="header" style="margin-bottom: 20px">
+        <h3 class="header-content">Orders List</h3>
+      </div>
+      <div
+        style="box-sizing: border-box"
+        class="bg-white border-8 p20 width100"
+      >
+        <div class="example-container scroll-container">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="User Id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                User Id
+              </th>
+              <td mat-cell *matCellDef="let row">#{{ row.userId }}</td>
+            </ng-container>
+            <ng-container matColumnDef="UserName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>UserName</th>
+                <td mat-cell *matCellDef="let row" class="table-data-content">
+                  {{ row.userName }}
+                </td>
+              </ng-container>
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+              <td mat-cell *matCellDef="let row" class="table-data-content">
+                {{ row.name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Phone">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+              <td mat-cell *matCellDef="let row" class="table-data-content">
+                {{ row.phone }}
+              </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="Quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Quantity
+              </th>
+              <td mat-cell *matCellDef="let row" class="table-data-content">
+                {{ row.count }}
+              </td>
+            </ng-container> -->
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!isLoading && isError" class="icon-size flex content-center height100vh flex-column">
+    <img src="/assets/images/error.png" alt="image" width="200px" height="200px">
+    <h2 class="flex content-center">Error Occurs</h2>
+</div>
+</div>

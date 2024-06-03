@@ -63,7 +63,6 @@ export class SignupComponent {
         responseType: 'text',
       })
       .subscribe((d) => {
-        console.log(d);
         this.router.navigate(['/signin']);
       });
   }

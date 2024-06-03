@@ -1,0 +1,41 @@
+.header-content{
+    font-size: 24px;
+    line-height: 37px;
+}
+.flex{
+    display: flex;
+}
+.content-center{
+    justify-content: center;
+    align-items: center;
+}
+.example-container {
+    height: 400px;
+    overflow: auto;
+  }
+
+  .table-data-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .mat-row:hover {
+    background-color: red;
+  }
+  .mat-mdc-row:hover {
+    background-color: #edf1f5 !important;
+    padding: 12px;
+    transition: all .3s ease;
+  }
+  .mat-table tbody tr {
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .icon-size{
+    font-size: 34px;
+    height: 34px;
+    width: 34px;
+}
