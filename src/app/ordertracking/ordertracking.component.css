@@ -1,0 +1,69 @@
+.header-content{
+    font-size: 24px;
+    line-height: 37px;
+}
+
+::ng-deep .mat-step-header:hover:not([aria-disabled]), .mat-step-header:hover[aria-disabled=false] {
+    background-color: transparent !important;
+}
+
+::ng-deep .mat-step-header:hover{
+    background-color: transparent;
+}
+
+::ng-deep .mat-step-header.cdk-program-focused {
+      background-color: transparent !important;
+  }
+  ::ng-deep  .mat-step-header.cdk-mouse-focused{
+    background-color: transparent !important;
+}
+::ng-deep .mat-step-header.cdk-focused{
+    background-color: transparent !important;
+}
+ 
+::ng-deep .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: transparent !important;
+    color: green;
+  }
+  /* ::ng-deep .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit .mat-step-label{
+    color: green !important;
+  } */
+
+  ::ng-deep .mat-step-icon-state-edit {
+    background-color: green !important;
+  }
+
+
+  ::ng-deep .mat-step-header .mat-step-icon-state-done {
+    background-color: green !important;
+    color: white;
+  }
+
+  ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: green !important;
+    color: white;
+  }
+
+  ::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
+h2{
+    margin-bottom: 5px;
+}
+::ng-deep .mat-horizontal-content-container{
+    display: none;
+}
+
+.contact-details .icon-wrapper{
+    display: flex;
+    align-items: center;
+    background: #ebf8f9;
+    height: 30px;
+    border-radius: 15px;
+    justify-content: center;
+    width: 30px;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    min-width: 200px !important;
+}

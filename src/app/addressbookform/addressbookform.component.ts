@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-addressbookform',
@@ -91,7 +91,7 @@ export class AddressbookformComponent {
     city: new FormControl('', [Validators.required, this.cityValidator()]),
   });
 
-  constructor(private http: HttpClient,private route: ActivatedRoute) {}
+  constructor(private http: HttpClient,private route: ActivatedRoute,private router:Router) {}
 
  async ngOnInit(){
     this.route.paramMap.subscribe(params => {
@@ -228,6 +228,7 @@ export class AddressbookformComponent {
         .set('default', this.addressForm.get('defaultAddress')?.value || false)
         .set("actionType","add");
 
+        try{
       let url = 'http://localhost:8080/ZKart/AddressBook';
       await firstValueFrom(
         this.http.post(url, params, {
@@ -237,6 +238,11 @@ export class AddressbookformComponent {
           responseType: 'text',
         })
       );
+      this.router.navigate(['/home/account/addresscarts']);
+    }
+    catch(e){
+      alert(e);
+    }
   }
 
   async editAddress(){
@@ -253,6 +259,7 @@ export class AddressbookformComponent {
         .set("id",this.id)
         .set("actionType","edit");
 
+        try{
       let url = 'http://localhost:8080/ZKart/AddressBook';
       await firstValueFrom(
         this.http.post(url, params, {
@@ -262,6 +269,11 @@ export class AddressbookformComponent {
           responseType: 'text',
         })
       );
+      this.router.navigate(['/home/account/addresscarts']);
+    }
+    catch(e){
+      alert(e);
+    }
   }
 
   async fetchAddress() {

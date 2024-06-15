@@ -1,0 +1,15 @@
+.grid-stack {
+    background: #fafafa;
+  }
+  
+  .grid-stack-item-content {
+    background-color: red;
+    color: red;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .grid-stack-item{
+    background: red;
+  }

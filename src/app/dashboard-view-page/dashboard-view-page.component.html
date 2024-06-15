@@ -1,0 +1,69 @@
+<div>
+  <div class="create-dashboard-header align-center width100">
+    <div class="p10 justfy-space-between width100">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          min-width: 10%;
+          flex: 1 1 40%;
+        "
+      >
+        <div><span>Folders </span><span>></span></div>
+        @if(!isLoading){
+        <div>{{ folderDetails.folderName }}</div>
+        }
+        @else {
+            <ngx-skeleton-loader animation="pulse" [theme]="{height: '50px'}" />
+        }
+
+      </div>
+      <div class="icon br5 flex content-center">
+        <img
+          src="/assets/images/horiz-more.svg"
+          alt="image"
+          width="16px"
+          height="16px"
+        />
+      </div>
+      <!-- <div class="flex" style="column-gap: 10px;">
+          <button mat-stroked-button>
+            <div class="align-center" style="column-gap: 3px;">
+              <img
+                src="/assets/images/widget.png"
+                alt="image"
+                width="20px"
+                height="20px"
+              />
+              <span>Add Widget</span>
+            </div>
+          </button>
+          <button mat-stroked-button style="background: beige;">
+              <div class="align-center">
+                <span>Save Dashboard</span>
+              </div>
+            </button>
+        </div> -->
+    </div>
+  </div>
+  <div class="grid-wrapper">
+    <div #gridstackContainer class="grid-stack"></div>
+    <div class="grid-stack">
+      <ng-container #widgetContainer></ng-container>
+      <!-- using angular templating to create DOM, otherwise an easier way is to simply call grid.load(items)
+      NOTE: this example is NOT complete as there are many more properties than listed (minW, maxW, etc....)
+      -->
+    </div>
+    <!-- <div *ngFor="let n of items; trackBy: identify"
+        class="grid-stack-item"
+        [attr.gs-id]="n.id"
+        [attr.gs-x]="n.x"
+        [attr.gs-y]="n.y"
+        [attr.gs-w]="n.w"
+        [attr.gs-h]="n.h"
+        #gridStackItem
+      >
+        <div class="grid-stack-item-content">item {{ n.id }}</div>
+      </div> -->
+  </div>
+</div>

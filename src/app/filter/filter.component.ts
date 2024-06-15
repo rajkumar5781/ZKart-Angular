@@ -52,8 +52,6 @@ export class FilterComponent {
           };
         
           this.router.navigate(['/home/shopping'], navigationExtras );
-        } else {
-          console.log('The dialog was closed');
         }
       }
     });

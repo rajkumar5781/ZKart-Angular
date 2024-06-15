@@ -1,0 +1,12 @@
+<p>
+  <b>SIMPLEST</b>: angular example using GridStack API directly, so not really
+  using any angular construct per say other than waiting for DOM rendering
+</p>
+<button (click)="add()">add item</button>
+<button (click)="delete()">remove item</button>
+<button (click)="change()">modify item</button>
+<!-- <div class="grid-stack"></div> -->
+
+<div #gridstackContainer class="grid-stack">
+    <!-- Gridstack items will be added here by Gridstack.js -->
+  </div>

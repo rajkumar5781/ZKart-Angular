@@ -1,0 +1,56 @@
+<div
+  mat-dialog-title
+  style="border-bottom: 1px solid #dbdbdb; display: flex; padding-top: 9px"
+>
+  <div class="align-center justfy-space-between width100">
+    <div class="align-center gap4">
+      <img
+        src="/assets/images/edit.png"
+        alt="image"
+        width="20px"
+        height="20px"
+      />
+      <h2 class="m0">Rename Folder</h2>
+    </div>
+    <div>
+      <button
+        mat-icon-button
+        aria-label="Example icon button with a home icon"
+        (click)="onNoClick()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div></div>
+</div>
+<mat-dialog-content class="mat-typography">
+<form [formGroup]="folderForm">
+  <mat-form-field class="width100 pT20">
+    <mat-label>Folder Name</mat-label>
+    <input matInput placeholder="Enter Folder Name" formControlName="name" />
+  </mat-form-field>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    class="modal-btn-cancel place-order-btn"
+    mat-button
+    mat-dialog-close
+    color="primary"
+    (click)="onNoClick()"
+  >
+    <div>Cancel</div>
+    <!-- <mat-form-field>
+          <mat-label>Favorite food</mat-label>
+          <mat-select>
+            @for (food of foods; track food) {
+              <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field> -->
+  </button>
+  <button class="btn-primary place-order-btn" mat-button cdkFocusInitial (click)="saveFolderName()">
+    Save Widget
+  </button>
+</mat-dialog-actions>

@@ -5,7 +5,6 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { getUserId } from '../auth.guard';
 
 @Component({
   selector: 'app-addresscarts',
@@ -33,10 +32,8 @@ export class AddresscartsComponent {
 
   async getAddressDetails() {
     let url = 'http://localhost:8080/ZKart/AddressBook';
-    let userId = getUserId();
-    let params = new HttpParams().set('customerId', userId);
 
-    const data = await firstValueFrom(this.http.get<any[]>(url, { params }));
+    const data = await firstValueFrom(this.http.get<any[]>(url));
     this.addressDetails = data;
   }
 

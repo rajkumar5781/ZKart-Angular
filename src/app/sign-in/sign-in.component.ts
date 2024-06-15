@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StateService } from '../state.service';
 import { firstValueFrom } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-sign-in',
@@ -41,11 +42,19 @@ export class SignInComponent {
     private http: HttpClient,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private stateService: StateService
+    private stateService: StateService,
+    private location : Location
   ) {
     if (this.activatedRoute.snapshot.queryParams['admin'] != null) {
       this.role = this.activatedRoute.snapshot.queryParams['admin'];
+      this.role = "admin";
     }
+    const path = this.location.path();
+      const segments = path.split('/');
+      const lastSegment = segments[1];
+      if(lastSegment=="vender"){
+        this.role = "vender";
+      }
   }
   myFunction() {
     this.get();
@@ -55,7 +64,7 @@ export class SignInComponent {
       .set('userName', this.userName)
       .set('password', this.password);
     if (this.role.length > 0) {
-      params = params.set('role', 'admin');
+      params = params.set('role', this.role);
     }
     try {
       let url = 'http://localhost:8080/ZKart/signIn';
@@ -66,16 +75,32 @@ export class SignInComponent {
           }),
         })
       );
-      localStorage.setItem('isAuthenticated', 'true');
-      localStorage.setItem('authToken', data.authentication);
-      localStorage.setItem('role', data.role);
+      // localStorage.setItem('isAuthenticated', 'true');
+    // localStorage.setItem('authToken', data.authentication);
+      // localStorage.setItem('role', data.role);
+      sessionStorage.setItem('isAuthenticated', 'true');
+      sessionStorage.setItem('authToken', data.authentication);
+      sessionStorage.setItem('role', data.role);
       if (data.role == 'customer') {
         this.router.navigate(['/home/sitehome']);
       } else {
         this.router.navigate(['/home/dashboard']);
+        // window.location.reload();
       }
     } catch (e: any) {
-      alert(e.error);
+      alert(e.error.message);
+    }
+  }
+  createAccount(event : Event){
+    event.preventDefault();
+    if(this.role == "vender"){
+      this.router.navigate(['/vender/signup']);
+    }
+    else if(this.role=="admin"){
+      this.router.navigate(['/signup'],{ queryParams: { role: this.role } });
+    }
+    else{
+      this.router.navigate(['/signup']);
     }
   }
 }

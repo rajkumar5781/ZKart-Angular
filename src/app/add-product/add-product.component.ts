@@ -163,7 +163,7 @@ export class AddProductComponent {
       this.productForm.get("price")?.setValue(this.productDetails?.Actual_price || '');
       this.productForm.get("discount")?.setValue(this.productDetails?.Discounts || '');
       this.productForm.get("count")?.setValue(this.productDetails?.Available_count || '');
-      this.imageSrc = "http://localhost:8080/ZKart/images/"+this.productDetails?.Product_image;
+      this.imageSrc = "http://localhost:8080/ZKart/ViewImages?file_name="+this.productDetails?.Product_image;
     }
   }
 

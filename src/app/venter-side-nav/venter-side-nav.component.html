@@ -1,0 +1,124 @@
+<div style="min-width: 250px; max-width: 250px; height: 100%">
+    <div style="border-bottom: 1px solid">
+      <div class="header-content">
+        <h2 style="font-size: 19px; margin: 0; margin-left: 14px">Z-Kart</h2>
+        <div class="icon-size">
+          <img
+            src="/assets/images/menu.png"
+            alt="image"
+            width="32px"
+            height="32px"
+            (click)="closeSidenav.emit()"
+          />
+        </div>
+      </div>
+    </div>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel
+        [expanded]="step === 0"
+        (opened)="onlyHeadersClicked(0, 'dashboard', '')"
+        (closed)="closeStep()"
+        class="menu"
+        hideToggle
+      >
+        <mat-expansion-panel-header [expandedHeight]="'48px'">
+          <mat-panel-title>
+            <mat-icon
+              [style.color]="step === 0 ? '#2275fc' : ''"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              class="open-icon"
+              fontIcon="dashboard"
+            ></mat-icon>
+            <span>Dashboard</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        [expanded]="step === 1"
+        (opened)="setStep(1)"
+        (closed)="closeStep()"
+        class="menu"
+      >
+        <mat-expansion-panel-header [expandedHeight]="'48px'">
+          <mat-panel-title>
+            <mat-icon
+              [style.color]="step === 1 ? '#2275fc' : ''"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              class="open-icon"
+              fontIcon="shopping_cart"
+            ></mat-icon>
+            Ecommerce
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div
+          class="sub-menu"
+          (click)="setSubMenu('ecommerce', 'addproduct')"
+          [class.active]="activeSubMenu === 'addproduct'"
+        >
+          Add product
+        </div>
+        <div
+          class="sub-menu"
+          (click)="setSubMenu('ecommerce', 'updateproduct')"
+          [class.active]="activeSubMenu === 'updateproduct'"
+        >
+          Update product
+        </div>
+      </mat-expansion-panel>
+  
+      <!-- <mat-expansion-panel
+        [expanded]="step === 2"
+        (opened)="setStep(2)"
+        (closed)="closeStep()"
+      >
+        <mat-expansion-panel-header [expandedHeight]="'48px'">
+          <mat-panel-title>
+            <mat-icon
+              [style.color]="step === 2 ? '#2275fc' : ''"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              class="open-icon"
+              fontIcon="event_note"
+            ></mat-icon>
+            Orders
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div
+          class="sub-menu"
+          (click)="setSubMenu('order', 'orderlist')"
+          [class.active]="activeSubMenu === 'orderlist'"
+        >
+          Orders List
+        </div>
+      </mat-expansion-panel> -->
+  
+      <!-- <mat-expansion-panel
+        [expanded]="step === 3"
+        (opened)="setStep(3)"
+        (closed)="closeStep()"
+      >
+        <mat-expansion-panel-header [expandedHeight]="'48px'">
+          <mat-panel-title>
+            <mat-icon
+              [style.color]="step === 3 ? '#2275fc' : ''"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              class="open-icon"
+              fontIcon="group"
+            ></mat-icon>
+            Users
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div
+          class="sub-menu"
+          (click)="setSubMenu('users', 'allusers')"
+          [class.active]="activeSubMenu === 'allusers'"
+        >
+          All users
+        </div>
+      </mat-expansion-panel> -->
+    </mat-accordion>
+  </div>
+  

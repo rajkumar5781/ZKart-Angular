@@ -1,95 +1,168 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.bg-red{
-    background-color: red;
+html,
+body {
+  height: 100%;
 }
-.flex{
-    display: flex;
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-.content-center{
-    justify-content: center;
-    align-items: center;
+.bg-red {
+  background-color: red;
 }
-.bg-white{
-    background: white;
+.flex {
+  display: flex;
 }
-.border-8{
-    border-radius: 8px;
+.content-center {
+  justify-content: center;
+  align-items: center;
 }
-.grid{
-    display: grid;
+.bg-white {
+  background: white;
 }
-.grid-column{
-    grid-auto-flow: column;
+.border-8 {
+  border-radius: 8px;
 }
-.p20{
-    padding: 20px;
+.grid {
+  display: grid;
 }
-.p25{
-    padding: 25px;
+.grid-column {
+  grid-auto-flow: column;
 }
-.p30{
-    padding: 30px;
+.p10{
+    padding: 10px;
 }
-.grid-gap20{
-    grid-gap:20px;
+.p20 {
+  padding: 20px;
 }
-.width100{
-    width: 100%;
+.p25 {
+  padding: 25px;
 }
-.m-b5{
-    margin-bottom: 5px;
+.p30 {
+  padding: 30px;
 }
-.m-b10{
-    margin-bottom: 10px;
+.grid-gap20 {
+  grid-gap: 20px;
 }
-.width50{
-    width: 50%;
+.width100 {
+  width: 100%;
 }
-.m-b16{
-    margin-bottom: 16px;
+.m-b5 {
+  margin-bottom: 5px;
+}
+.m-b10 {
+  margin-bottom: 10px !important;
+}
+.width50 {
+  width: 50%;
+}
+.m-b16 {
+  margin-bottom: 16px;
 }
 .btn.btn-primary {
-    background: #1089ff !important;
-    border-color: #1089ff !important;
-    color: #fff;
+  background: #1089ff !important;
+  border-color: #1089ff !important;
+  color: #fff;
 }
-.btn{
-    padding: 12px 16px;
-    cursor: pointer;
-    border-width: 1px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    box-shadow: 0px 10px 20px -6px rgba(0, 0, 0, 0.12);
-    position: relative;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
+.btn {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-width: 1px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: 0px 10px 20px -6px rgba(0, 0, 0, 0.12);
+  position: relative;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
 }
-.btn.btn-primary:hover, .btn.btn-primary:focus {
-    border-color: #006fdc !important;
-    background: #006fdc !important;
+.btn.btn-primary:hover,
+.btn.btn-primary:focus {
+  border-color: #006fdc !important;
+  background: #006fdc !important;
 }
-.gap10{
+.gap10 {
+  display: flex;
+  gap: 10px;
+}
+.justfy-end {
+  justify-content: end;
+}
+.gap20 {
+  display: flex;
+  gap: 20px;
+}
+.height100 {
+  height: 100%;
+}
+.height100vh {
+  height: 100vh;
+}
+.flex-column {
+  flex-direction: column;
+}
+.text-elipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.m-l3{
+    margin-left: 3px !important;
+}
+.m0{
+    margin: 0 !important;
+}
+.f-w500{
+    font-weight: 500;
+}
+.m-b5{
+    margin-bottom: 5px !important;
+}
+.m-b2{
+    margin-bottom: 2px;
+}
+.align-center{
     display: flex;
-    gap: 10px;
+    align-items: center;
 }
-.justfy-end{
-    justify-content: end;
-}
-.gap20{
+.justfy-space-between{
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
 }
-.height100{
-    height: 100%;
+.m10{
+  margin: 10px;
 }
-.height100vh{
-    height: 100vh;
+.justfy-center{
+  justify-content: center;
 }
-.flex-column{
-    flex-direction: column;
+.gap8{
+  gap: 8px;
+}
+.h32{
+  height: 32px;
+}
+.br5{
+  border-radius: 5px;
+}
+.br-transparent{
+  border-color: transparent;
+}
+.gap4{
+  gap: 4px;
+}
+.pT20{
+  padding-top:20px;
+}
+.mT10{
+  margin-top: 10px;
+}
+.wrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gap16{
+  gap:16px;
 }

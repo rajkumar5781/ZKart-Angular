@@ -12,7 +12,8 @@ import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 import { AddReviewComponent } from './add-review/add-review.component';
 import { OrderhistoryComponent } from './orderhistory/orderhistory.component';
 import { NgModule } from '@angular/core';
-import { authGuard } from './auth.guard';
+import { authGuard,adminAuthGuard } from './auth.guard';
+// adminAuthGuard
 import { ReviewhistoryComponent } from './reviewhistory/reviewhistory.component';
 import { AddresscartsComponent } from './addresscarts/addresscarts.component';
 import { AddressbookformComponent } from './addressbookform/addressbookform.component';
@@ -22,6 +23,13 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { OrderlistComponent } from './orderlist/orderlist.component';
 import { UsersListComponent } from './users-list/users-list.component';
+import { CustomerOrderListComponent } from './customer-order-list/customer-order-list.component';
+import { OrdertrackingComponent } from './ordertracking/ordertracking.component';
+import { VendersListComponent } from './venders-list/venders-list.component';
+import { CreateDashboardComponent } from './create-dashboard/create-dashboard.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { GridstackComponent } from './gridstack/gridstack.component';
+import { DashboardViewPageComponent } from './dashboard-view-page/dashboard-view-page.component';
 
 export const routes: Routes = [
   {
@@ -53,16 +61,41 @@ export const routes: Routes = [
       { path: 'account/reviewhistory', component: ReviewhistoryComponent , canActivate:[authGuard]},
       { path: 'account/addresscarts', component: AddresscartsComponent , canActivate:[authGuard]},
       { path: 'account/addresscarts/add', component: AddressbookformComponent , canActivate:[authGuard]},
+      { path: 'account/orderlist', component: CustomerOrderListComponent , canActivate:[authGuard]},
+      { path: 'account/orderlist/ordertracking/:id', component: OrdertrackingComponent , canActivate:[authGuard]},
       { path: 'account/addresscarts/edit/:id', component: AddressbookformComponent , canActivate:[authGuard]},
-      { path: 'ecommerce/addproduct', component: AddProductComponent , canActivate:[authGuard],data: { action: 'addproduct' }},
-      { path: 'ecommerce/updateproduct', component: UpdateProductComponent , canActivate:[authGuard]},
-      { path: 'ecommerce/updateproduct/edit/:id', component: AddProductComponent , canActivate:[authGuard],data: { action: 'editproduct' }},
-      { path: 'order/orderlist', component: OrderlistComponent , canActivate:[authGuard]},
-      { path: 'users/allusers', component: UsersListComponent , canActivate:[authGuard]},
-      { path: 'dashboard', component: AdminDashboardComponent , canActivate:[authGuard]},
+      { path: 'ecommerce/addproduct', component: AddProductComponent , canActivate:[adminAuthGuard],data: { action: 'addproduct' }},
+      { path: 'ecommerce/updateproduct', component: UpdateProductComponent , canActivate:[adminAuthGuard]},
+      { path: 'ecommerce/updateproduct/edit/:id', component: AddProductComponent , canActivate:[adminAuthGuard],data: { action: 'editproduct' }},
+      { path: 'order/orderlist', component: OrderlistComponent , canActivate:[adminAuthGuard]},
+      { path: 'users/vender', component: VendersListComponent , canActivate:[adminAuthGuard]},
+      { path: 'users/allusers', component: UsersListComponent , canActivate:[adminAuthGuard]},
+      { path: 'dashboard', component: AdminDashboardComponent , canActivate:[adminAuthGuard]},
+      { path: 'dashboard/dashboard/:id/:folderId', component: DashboardViewPageComponent , canActivate:[adminAuthGuard]},
+      { path: 'dashboard/create/:id', component: CreateDashboardComponent , canActivate:[adminAuthGuard]},
+      { path: 'dashboard/edit/:id', component: CreateDashboardComponent , canActivate:[adminAuthGuard]},
+      { path: 'analytics', component: AnalyticsComponent , canActivate:[adminAuthGuard]},
+      { path: 'gridstack', component: GridstackComponent },
     ],
   },
   { path: 'signup', component: SignupComponent },
+  {
+    path: 'vender',
+    component: HomeComponent,
+    children:[
+      { path: 'ecommerce/addproduct', component: AddProductComponent ,data: { action: 'addproduct' }},
+      { path: 'ecommerce/updateproduct', component: UpdateProductComponent },
+      { path: 'ecommerce/updateproduct/edit/:id', component: AddProductComponent ,data: { action: 'editproduct' }},
+    ]
+  },
+  {
+    path: 'vender/signin',
+    component: SignInComponent,
+  },
+  {
+    path: 'vender/signup',
+    component: SignupComponent,
+  },
   { path: '**', redirectTo: '/home/sitehome', pathMatch: 'full' },
 ];
 

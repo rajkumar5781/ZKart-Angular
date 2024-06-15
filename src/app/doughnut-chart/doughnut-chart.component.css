@@ -1,0 +1,57 @@
+/* .chartWrapper {
+    position: relative;
+  }
+  
+  .chartWrapper > canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+  }
+  
+  .chartAreaWrapper {
+    width: 200px;
+    overflow-x: scroll;
+  } */
+  /* .legend-container {
+    max-height: 100px; 
+    overflow-y: auto;
+  } */
+
+  .scrollable-legend {
+    max-height: 200px; /* Adjust height as needed */
+    overflow-y: auto;
+    padding: 5px;
+  }
+  .legend-container{
+    max-height: 200px; /* Adjust height as needed */
+    overflow-y: hidden;
+    padding: 5px;
+  }
+
+  .legend-container::-webkit-scrollbar {
+    display: none;
+  }
+  /* .chart-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  } */
+  /* width: 50%;
+  height: 50%;
+  max-height: 400px;
+  max-width: 400px; */
+
+  .chart-container {
+    position: relative;
+    /* min-height: 400px;
+    min-width: 600px; */
+    /* width: 100% !important;
+    height: 100% !important; */
+  }
+  
+  /* #doughnut-chart {
+    width: 100% !important;
+    height: 100% !important;
+  } */
+   

@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { checkAuthentication, getUserId } from '../auth.guard';
+import { checkAuthentication } from '../auth.guard';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -88,14 +88,12 @@ export class ProductCartComponent implements OnChanges {
       return;
     }
     this.addToCartloading = true;
-    let userId = getUserId();
     let params = new HttpParams()
       .set('productId', this.id)
       .set('product', this.name)
       .set('productCount', 1)
       .set('productPrice', this.price)
-      .set('image', this.image)
-      .set('customerId', userId);
+      .set('image', this.image);
     await firstValueFrom(
       this.http.post('http://localhost:8080/ZKart/AddToCards', params, {
         headers: new HttpHeaders({

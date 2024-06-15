@@ -1,23 +1,157 @@
-<div style="background: #f2f7fb;height: 100%;">
+<div style="background: #f2f7fb; min-height: 100vh" class="p10">
+ 
+  <div class="dashboard-header-banner-container justfy-space-between">
+    <div
+      class="flex justfy-center flex-column gap8"
+      style="padding-left: 3.5rem"
+    >
+      <div>
+        <span class="dashboard-header-banner-container-title"
+          >Dashboards</span
+        >
+      </div>
+      <span style="color: #edf5ffff"
+        >Unlock Insights. Empower Action. Discover with Dashboards.</span
+      >
+      <div class="flex gap10">
+        <button class="h32 br5 br-transparent first-button align-center gap4" (click)="createDashBoard()">
+          <img
+            src="/assets/images/analyticssvg.svg"
+            alt="image"
+            width="20px"
+            height="20px"
+          />
+          <span>Create Dashboard</span>
+        </button>
+        <button class="css-pi10og" (click)="createFolder()">
+          <mat-icon
+            class="customIconSize"
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="create_new_folder"
+          ></mat-icon>
+          <span>Create Folder</span>
+        </button>
+      </div>
+    </div>
+    <div>
+      <img
+        src="/assets/images/dashboard-list.bb4293c3.png"
+        alt="image"
+        width="500px"
+        height="170px"
+      />
+    </div>
+  </div>
+
+  <div class="gap10 flex-column mT10">
+    <div *ngFor="let folder of folders; trackBy: trackByFolderId">
+      <app-dashboard-folder [id]="folder.id" [name]="folder.folderName" (editedFolderName)="editFolderName($event)" (deleteFolder)="deleteFolder($event)">
+        <h1>hisj</h1>
+      </app-dashboard-folder>
+    </div>
+  </div>
+ 
+ 
+ 
+ 
+ 
+ 
   <div
+    *ngIf="dashBoardCharts.length > 0"
     style="
       box-sizing: border-box;
       padding: 30px;
       display: flex;
-      flex-direction: column;
       row-gap: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
     "
   >
-    <div class="gap20">
-      <app-bar-chart style="width: 49%" label="TopSelling"></app-bar-chart>
-      <app-doughnut-chart style="width: 49%"></app-doughnut-chart>
-    </div>
-    <div class="gap20">
-      <app-pie-chart style="width: 49%"></app-pie-chart>
-      <app-polar-area-chart style="width: 49%"></app-polar-area-chart>
-    </div>
-    <div>
-        <app-line-chart></app-line-chart>
+    <div *ngFor="let chart of dashBoardCharts; let i = index">
+      <cdk-drop-list [cdkDropListConnectedTo]="drops" (cdkDropListDropped)="drop($event)" class="flex" [cdkDropListData]="i" [style.width]="chart.width+'px'" [style.height]="chart.height+'px'">
+        @if (chart.type == "bar") {
+            <app-bar-chart
+            class="example-box"
+            cdkDrag
+            (cdkDragEntered)="entered($event)"
+            [cdkDragData]="i"
+            [style.height]="chart.height+'px'"
+            [style.width]="chart.width+'px'"
+            [label]="chart.chartName"
+            
+          ></app-bar-chart>
+          <!-- [chartData]="lineChart" -->
+          <!-- </div> -->
+          } @else if (chart.type == "doughnut") {
+          <!-- <div
+            class="rectangle"
+            mwlResizable
+            [enableGhostResize]="true"
+            (resizeStart)="onResizeStart()"
+            (resizeEnd)="onResizeEnd($event)"
+            [style.cursor]="'nwse-resize'"
+          >
+            <div
+              [(style.height.px)]="chart.height"
+              mwlResizeHandle
+              [resizeEdges]="{ left: true,right:true,top: true,bottom: true }"
+            > -->
+              <app-doughnut-chart
+              class="example-box"
+              cdkDrag
+              (cdkDragEntered)="entered($event)"
+              [cdkDragData]="i"
+              [style.height]="chart.height+'px'"
+              [style.width]="chart.width+'px'"
+              [label]="chart.chartName"
+             
+              ></app-doughnut-chart>
+              <!-- [chartData]="doughnutChart" -->
+            <!-- </div>
+          </div> -->
+          }
+          @else if(chart.type == "pie"){
+            <app-pie-chart
+            class="example-box"
+            cdkDrag
+            (cdkDragEntered)="entered($event)"
+            [cdkDragData]="i"
+            [label]="chart.chartName"
+            [style.height]="chart.height+'px'"
+            [style.width]="chart.width+'px'"
+            
+          ></app-pie-chart>
+          <!-- [chartData]="productDetailsPieChart" -->
+          }
+          @else if(chart.type == "polar"){
+            <app-polar-area-chart
+            class="example-box"
+            cdkDrag
+            (cdkDragEntered)="entered($event)"
+            [cdkDragData]="i"
+            [label]="chart.chartName"
+            [style.height]="chart.height+'px'"
+            [style.width]="chart.width+'px'"
+            
+          ></app-polar-area-chart>
+          <!-- [chartData]="topDiscountProducts" -->
+          }
+          
+          @else if(chart.type == "line"){
+            <app-line-chart
+            class="example-box"
+            cdkDrag
+            (cdkDragEntered)="entered($event)"
+            [cdkDragData]="i"
+            [label]="chart.chartName"
+            [style.height]="chart.height+'px'"
+            [style.width]="chart.width+'px'"
+           
+          ></app-line-chart>
+          }
+          <!-- [chartData]="profitOfTheDays" -->
+      </cdk-drop-list>
     </div>
   </div>
 </div>

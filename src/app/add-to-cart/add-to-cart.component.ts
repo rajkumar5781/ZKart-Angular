@@ -6,7 +6,6 @@ import { ProductBuyComponent } from '../product-buy/product-buy.component';
 import {  Router } from '@angular/router';
 import { ProductInterface } from '../product-interface';
 import { ProductquntitycounterComponent } from '../productquntitycounter/productquntitycounter.component';
-import { getUserId } from '../auth.guard';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -57,7 +56,6 @@ export class AddToCartComponent {
   }
   buyNow(){
     (this.addToCartList$).forEach((data)=>{
-      console.log(data);
       data.forEach((d: { productImage: any; productPrice: number; productName: any; productCount: number; id: any; })=>{
         this.productList.push({image:d.productImage,price:d.productPrice,name:d.productName,quantity:d.productCount,total:(d.productPrice*d.productCount),id:d.id});
       })

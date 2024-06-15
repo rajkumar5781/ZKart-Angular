@@ -1,0 +1,56 @@
+<div
+  mat-dialog-title
+  style="border-bottom: 1px solid #dbdbdb; display: flex; padding-top: 9px"
+>
+  <div class="align-center justfy-space-between width100">
+    <div class="align-center gap4">
+      <img
+        src="/assets/images/widget.png"
+        alt="image"
+        width="20px"
+        height="20px"
+      />
+      <h2 class="m0">Add Widget</h2>
+    </div>
+    <div>
+      <button
+        mat-icon-button
+        aria-label="Example icon button with a home icon"
+        (click)="onNoClick()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div></div>
+</div>
+<mat-dialog-content class="mat-typography">
+  <div *ngIf="!isLoading" class="pT20">
+    <mat-form-field class="width100">
+      <mat-label>Report</mat-label>
+      <mat-select [(value)]="reportId">
+        @for (report of reportsDetails; track report) {
+        <mat-option [value]="report.id">{{ report.reportName }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="width100">
+      <mat-label>Chart Name</mat-label>
+      <input matInput placeholder="Enter Chart Name" [(ngModel)]="name"/>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    class="modal-btn-cancel place-order-btn"
+    mat-button
+    mat-dialog-close
+    color="primary"
+    (click)="onNoClick()"
+  >
+    Cancel
+  </button>
+  <button class="btn-primary place-order-btn" mat-button cdkFocusInitial (click)="saveChart()">
+    Save Widget
+  </button>
+</mat-dialog-actions>

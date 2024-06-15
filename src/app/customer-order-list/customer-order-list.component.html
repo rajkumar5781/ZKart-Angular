@@ -1,0 +1,113 @@
+<div style="min-height: 100vh; margin-top: 40px; background: #f2f7fb">
+  <div
+    *ngIf="isLoading"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10%;
+    "
+  >
+    <mat-spinner [diameter]="50"></mat-spinner>
+  </div>
+    <div style="box-sizing: border-box; padding: 30px">
+      <div class="header" style="margin-bottom: 20px">
+        <h3 class="header-content">Orders List</h3>
+      </div>
+      <div
+        style="box-sizing: border-box"
+        class="bg-white border-8 p20 width100"
+      >
+        <div *ngIf="!isLoading && !isError && orderedDetails.length>0" class="example-container scroll-container">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="Order Id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Order Id
+              </th>
+              <td mat-cell *matCellDef="let row">#{{ row.orderid }}</td>
+            </ng-container>
+            <ng-container matColumnDef="From">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>From</th>
+              <td mat-cell *matCellDef="let row">{{ row.fromAddress.Name }}</td>
+            </ng-container>
+            <ng-container matColumnDef="To">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>To</th>
+              <td mat-cell *matCellDef="let row">{{ row.address.address }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Time">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+              <td mat-cell *matCellDef="let row">
+                {{ getStartTime(row.process.processtime) }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Price">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+              <td mat-cell *matCellDef="let row">${{ getPrice(row) }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+              <td mat-cell *matCellDef="let row">
+                <mat-chip *ngIf="readyForShipping(row)" class="ready"
+                  >
+                  <div class="flex" style="align-items: center;">
+                    <img
+                      src="/assets/images/fast-delivery.png"
+                      alt="image"
+                      width="30px"
+                      height="30px"
+                    />
+                  Ready for shipping</div></mat-chip
+                >
+                <mat-chip *ngIf="transmit(row)" class="trnsmit"
+                  ><div class="flex" style="align-items: center">
+                    <img
+                      src="/assets/images/on-delivery.png"
+                      alt="image"
+                      width="30px"
+                      height="30px"
+                    />
+                    In transmit
+                  </div></mat-chip
+                >
+                <mat-chip *ngIf="delivered(row)" class="delivered"
+                  ><div class="flex" style="align-items: center">
+                    <img
+                      src="/assets/images/delivered.png"
+                      alt="image"
+                      width="28px"
+                      height="28px"
+                    />
+                    Delivered
+                  </div></mat-chip
+                >
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="star" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                <td mat-cell *matCellDef="let element" class="option">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="option_icon">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="goToTrackOrder(element)">
+                          <span>Track order</span>
+                        </button>
+                        <button mat-menu-item (click)="cancelOrder(element)">
+                          <span>Cancel order</span>
+                        </button>
+                      </mat-menu>
+                </td>
+              </ng-container>
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col"></tr>
+          </table>
+        </div>
+        <div *ngIf="!isLoading && !isError && orderedDetails.length<1">
+            <h3>No orders is available</h3>
+        </div>
+      </div>
+    </div>
+</div>

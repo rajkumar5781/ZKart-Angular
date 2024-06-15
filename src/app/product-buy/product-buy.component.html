@@ -5,7 +5,7 @@
             <h2 class="title-content">Delivery address</h2>
             <div style="padding: 3rem;border: 1px solid #dee2e6;box-sizing: border-box;min-height: 100px;">
                 <div *ngIf="!addressLoading" style="display: flex;width: 100%;">
-                    <div *ngIf="!isSelectAddress" style="width: 100%;display: flex;">
+                    <div *ngIf="!isSelectAddress && selectedAddress!=null" style="width: 100%;display: flex;">
                         <div style="width: 87%;">
                             <div class="content" style="font-weight: 600;">{{ selectedAddress.name}}</div>
                             <div class="content">{{ selectedAddress.address }}</div>
@@ -44,7 +44,15 @@
                         </div>
                         <button class="changeAddress-btn" (click)="isSelectAddress=false">Save Address</button>
                     </div>
-
+                    <div *ngIf="!isSelectAddress && selectedAddress==null">
+                        <div class="add-address-wrapper" (click)="addNewAddress()">
+                            <div>
+                                <mat-icon class="customIconSize" aria-hidden="false" aria-label="Example home icon"
+                                    fontIcon="add"></mat-icon>
+                            </div>
+                            <h3 style="margin:0;">Add New address</h3>
+                        </div>
+                    </div>
                 </div>
                 <div *ngIf="addressLoading"
                     style="display: flex;align-items: center;justify-content: center;margin-top: 10%;">

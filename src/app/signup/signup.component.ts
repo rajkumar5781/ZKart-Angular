@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
@@ -34,11 +35,18 @@ export class SignupComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private location:Location
   ) {
     if (this.activatedRoute.snapshot.queryParams['admin'] != null) {
-      this.role = this.activatedRoute.snapshot.queryParams['admin'];
+      this.role = "admin";
     }
+    let path = this.location.path();
+    const segments = path.split('/');
+      const lastSegment = segments[1];
+      if(lastSegment=="vender"){
+        this.role = "vender";
+      }
   }
   myFunction() {
     this.get();
@@ -52,7 +60,7 @@ export class SignupComponent {
       .set('phone', this.phoneNum);
 
       if(this.role.length > 0){
-        params = params.set("role","admin");
+        params = params.set("role",this.role);
       }
 
     this.http
@@ -63,7 +71,16 @@ export class SignupComponent {
         responseType: 'text',
       })
       .subscribe((d) => {
-        this.router.navigate(['/signin']);
+        alert('Signup success');
+        if(this.role == "vender"){
+          this.router.navigate(['/vender/signin']);
+        }
+        else if(this.role=="admin"){
+          this.router.navigate(['/signin'],{ queryParams: { role: this.role } });
+        }
+        else{
+          this.router.navigate(['/signin']);
+        }
       });
   }
 }

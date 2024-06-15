@@ -1,0 +1,55 @@
+<div>
+  <div class="create-dashboard-header">
+    <p>create-dashboard works!</p>
+    <div class="align-center">
+      <div></div>
+      <div class="flex" style="column-gap: 10px;">
+        <button mat-stroked-button (click)="openDialog()">
+          <div class="align-center" style="column-gap: 3px;">
+            <img
+              src="/assets/images/widget.png"
+              alt="image"
+              width="20px"
+              height="20px"
+            />
+            <span>Add Widget</span>
+          </div>
+        </button>
+        <button mat-stroked-button style="background: beige;" (click)="saveDashBoard()">
+            <div class="align-center">
+              <span>Save Dashboard</span>
+            </div>
+          </button>
+      </div>
+    </div>
+  </div>
+  <div
+    style="
+      height: calc(100vh - 106px);
+      overflow: scroll;
+      background-image: url(/assets/images/dashboard_background.svg);
+    "
+  >
+  <div #gridstackContainer class="grid-stack">
+    
+  </div>
+  <div class="grid-stack">
+    <ng-container #widgetContainer></ng-container>
+    <!-- using angular templating to create DOM, otherwise an easier way is to simply call grid.load(items)
+    NOTE: this example is NOT complete as there are many more properties than listed (minW, maxW, etc....)
+    -->
+    
+  </div>
+  <!-- <div *ngFor="let n of items; trackBy: identify"
+      class="grid-stack-item"
+      [attr.gs-id]="n.id"
+      [attr.gs-x]="n.x"
+      [attr.gs-y]="n.y"
+      [attr.gs-w]="n.w"
+      [attr.gs-h]="n.h"
+      #gridStackItem
+    >
+      <div class="grid-stack-item-content">item {{ n.id }}</div>
+    </div> -->
+</div>
+</div>

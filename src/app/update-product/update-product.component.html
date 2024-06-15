@@ -14,7 +14,10 @@
     </div>
     <ul class="demo1">
         <li *ngFor="let item of datas; trackBy: trackByName">
-            <app-update-product-carts [productDetails]="item" (productClicked)="productItemClicked($event)" (deleteProduct)="deleteProduct($event)"></app-update-product-carts>
+            <app-update-product-carts [productDetails]="item" class="flex height100" (productClicked)="productItemClicked($event)" (deleteProduct)="deleteProduct($event)"></app-update-product-carts>
         </li>
     </ul>
+    <div *ngIf="datas.length<1" style="height: calc(100% - (61px));" class="flex content-center">
+        <h2>No data available</h2>
+    </div>
 </div>

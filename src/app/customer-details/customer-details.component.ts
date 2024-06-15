@@ -116,7 +116,6 @@ export class CustomerDetailsComponent {
         responseType: 'text',
       })
     );
-    console.log(data);
   }
 
   allowStringOnly(event: KeyboardEvent) {}

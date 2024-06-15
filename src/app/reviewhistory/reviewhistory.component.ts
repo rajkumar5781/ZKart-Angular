@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { getUserId } from '../auth.guard';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -59,9 +58,15 @@ export class ReviewhistoryComponent {
     
     this.router.navigate(['/home/shopping/editreview', review.id],{ 
       queryParams: { 
-        customerId: review.customerId,
+        productId: review.productid,
       } 
     });
+
+    // this.router.navigate(['/home/shopping/editreview', this.reviewId],{ 
+    //   queryParams: { 
+    //     productId: this.id,
+    //   } 
+    // });
   }
   async deleteReview(id: number) {
     let url = 'http://localhost:8080/ZKart/Reviews';

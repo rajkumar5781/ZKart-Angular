@@ -32,7 +32,7 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, firstValueFrom, throwError } from 'rxjs';
-import { getUserId } from '../auth.guard';
+// import { getUserId } from '../auth.guard';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
@@ -291,6 +291,10 @@ export class ProductBuyComponent {
       alert('plaese choose any payment');
       return;
     }
+    if(this.selectedAddress==null){
+      alert('plaese choose Address');
+      return;
+    }
     let productDetails: any = this.productList;
     let params = new HttpParams();
     params = params
@@ -301,7 +305,15 @@ export class ProductBuyComponent {
       .set('productDetails', JSON.stringify(productDetails));
     if (this.netbankingCheckbox.nativeElement.checked) {
       params = params.set('paymentWay', 'netBanking');
+      if(!this.userNameControl.valid || !this.passwordControl.valid ){
+        alert('plaese fill the userName and password.');
+        return;
+      }
     } else {
+      if(!this.date.valid || !this.cartFormControl.valid || !this.cvvFormControl.valid){
+        alert('plaese fill the payment details.');
+        return;
+      }
       params = params.set('paymentWay', 'cart');
     }
     this.onSubmitOrder(params);
@@ -325,11 +337,10 @@ export class ProductBuyComponent {
   onSubmitOrder(params: any): void {
     this.postProductBuying(params).subscribe(
       () => {
-        console.log('Order submitted successfully');
         alert('Payment was success');
+        this.router.navigate(['home/shopping']);
       },
       (error) => {
-        console.log('There was an error!');
         alert('Payment was failer');
       }
     );
@@ -359,9 +370,6 @@ export class ProductBuyComponent {
     this.selectedAddress = this.addressDetailsList.filter((d: { id: any }) => {
       return d.id == this.selectedAddress.id;
     })[0];
-  }
-  onCheck() {
-    console.log(this.selectedAddress);
   }
   addNewAddress() {
     this.router.navigate(['/home/account/addresscarts/add']);

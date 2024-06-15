@@ -1,0 +1,57 @@
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ name }} </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+        <!-- <mat-icon>more_horiz</mat-icon> -->
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+          (click)="$event.stopPropagation()"
+        >
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openEditFolderDialog()">
+            <div class="align-center gap4">
+              <img
+                src="/assets/images/edit.png"
+                alt="image"
+                width="20px"
+                height="20px"
+              />
+              <span>Rename</span>
+            </div>
+          </button>
+          <button mat-menu-item (click)="deleteFolders()">
+            <div class="align-center gap4">
+              <img
+                src="/assets/images/delete.png"
+                alt="image"
+                width="20px"
+                height="20px"
+              />
+              <span>Delete</span>
+            </div>
+          </button>
+        </mat-menu>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- <mat-form-field>
+      <mat-label>First name</mat-label>
+      <input matInput />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Age</mat-label>
+      <input matInput type="number" min="1" />
+    </mat-form-field> -->
+
+    <ng-content>
+      
+    </ng-content>
+  </mat-expansion-panel>
+</mat-accordion>

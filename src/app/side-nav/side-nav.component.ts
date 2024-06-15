@@ -6,7 +6,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-side-nav',
@@ -27,10 +28,16 @@ export class SideNavComponent {
 
   @Output() closeSidenav = new EventEmitter<void>();
 
-  step :number = 0;
+  step :number = -1;
   activeSubMenu : string = "";
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private activatedRoute: ActivatedRoute,private location : Location){
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.getLastSegment();
+      }
+    });
+  }
 
   setStep(index: number) {
     this.step = index;
@@ -66,4 +73,36 @@ export class SideNavComponent {
   navclose(){
     this.closeSidenav.emit();
   }
+
+  getLastSegment(): void {
+    const path = this.location.path();
+    const segments = path.split('/');
+    const lastSegment = segments[2];
+    this.activeSubMenu = segments[3];
+    let val = 0;
+    switch (lastSegment) {
+      case 'dashboard':{
+        val = 0;
+        break;
+      }
+      case 'ecommerce': {
+        val = 1;
+        break;
+      }
+      case 'order': {
+        val = 2;
+        break;
+      }
+      case 'users': {
+        val = 3;
+        break;
+      }
+      case 'analytics':{
+        val = 4;
+        break;
+      }
+    }
+    this.step = val;
+  }
+
 }

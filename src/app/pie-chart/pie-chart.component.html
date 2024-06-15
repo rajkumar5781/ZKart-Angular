@@ -1,3 +1,6 @@
-<div class="bg-white border-8 p20" style="height: auto;width: auto;">
-    <canvas id="pie-chart"></canvas>
+<div class="bg-white border-8 p10 flex flex-column height100" style="height: calc(100% - (20px));">
+  <div style="height: calc(100% - (25px))">
+    <canvas [id]="canvasId"></canvas>
+  </div>
+  <div id="legend" class="legend-container" #customLegend></div>
 </div>

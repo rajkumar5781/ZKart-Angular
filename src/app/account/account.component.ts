@@ -116,7 +116,6 @@ export class AccountComponent {
         responseType: 'text',
       })
     );
-    console.log(data);
   }
 
   allowStringOnly(event: KeyboardEvent) {}
@@ -213,5 +212,9 @@ export class AccountComponent {
 
   goToDetails(){
     this.router.navigate(['/home/account/accountdetails']);
+  }
+
+  goToCustomerOrdersList(){
+    this.router.navigate(['/home/account/orderlist']);
   }
 }

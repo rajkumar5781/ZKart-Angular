@@ -1,0 +1,215 @@
+<div style="background: #f2f7fb">
+  <div
+    *ngIf="isLoading"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10%;
+    "
+  >
+    <mat-spinner [diameter]="50"></mat-spinner>
+  </div>
+  <div *ngIf="!isLoading">
+    <div style="box-sizing: border-box; padding: 30px">
+      <div class="header" style="margin-bottom: 20px">
+        <h3 class="header-content">Orders List</h3>
+      </div>
+      <div class="flex flex-column" style="grid-gap: 10px">
+        <div
+          style="box-sizing: border-box"
+          class="bg-white border-8 p20 width100 contact-details"
+        >
+          <div>
+            <h2>Contact Details</h2>
+            <p style="color: #575864; margin: 0">
+              Your items is on the way. Tracking information will be available
+              within 24 hours.
+            </p>
+          </div>
+          <div class="flex width100">
+            <div class="width50 p10">
+              <div class="flex">
+                <div class="icon-wrapper">
+                  <mat-icon
+                    class="map-marker"
+                    aria-hidden="false"
+                    aria-label="Example home icon"
+                    fontIcon="radio_button_checked"
+                  ></mat-icon>
+                </div>
+                <h3 class="m-l3">Ship from</h3>
+              </div>
+              <div class="flex width100">
+                <div class="width50">
+                  <p class="f-w500 m-b5">{{ orderDetails.fromAddress.Name }}</p>
+                  <p class="m-b5">{{ orderDetails.fromAddress.Address }}</p>
+                  <div class="flex" style="gap: 3px">
+                    <p>{{ orderDetails.fromAddress.mail }}</p>
+                    <mat-icon
+                      aria-hidden="false"
+                      aria-label="Example home icon"
+                      fontIcon="content_copy"
+                      style="font-size: 20px"
+                      (click)="openSnackBar('', orderDetails.fromAddress.mail)"
+                    ></mat-icon>
+                  </div>
+                </div>
+                <div>
+                  <p class="m-b5">
+                    {{ orderDetails.fromAddress.district }},{{
+                      orderDetails.fromAddress.state
+                    }}
+                  </p>
+                  <p>
+                    {{ orderDetails.fromAddress.state }},{{
+                      orderDetails.fromAddress.postal
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="width50 p10">
+              <div class="flex">
+                <div class="icon-wrapper">
+                  <mat-icon
+                    aria-hidden="false"
+                    aria-label="Example home icon"
+                    fontIcon="location_on"
+                    style="color: rgba(47, 181, 192, 0.9)"
+                  ></mat-icon>
+                </div>
+                <h3 class="m-l3">Ship to</h3>
+              </div>
+              <div class="flex width100">
+                <div class="width50">
+                  <div class="m-b5">{{ orderDetails.address.address }}</div>
+                  <div class="flex" style="gap: 3px">
+                    {{ orderDetails.address.mobile }}
+                    <mat-icon
+                      aria-hidden="false"
+                      aria-label="Example home icon"
+                      fontIcon="content_copy"
+                      style="font-size: 20px"
+                      (click)="openSnackBar('', orderDetails.address.mobile)"
+                    ></mat-icon>
+                  </div>
+                </div>
+                <div>
+                  <div class="m-b5">
+                    {{ orderDetails.address.city }},{{
+                      orderDetails.address.state
+                    }}
+                  </div>
+                  <div>
+                    {{ orderDetails.address.state }},{{
+                      orderDetails.address.postalCode
+                    }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style="box-sizing: border-box"
+          class="bg-white border-8 p20 width100"
+        >
+          <div>
+            <h2>Detail</h2>
+            <p style="color: #575864; margin: 0">
+              Your items is on the way. Tracking information will be available
+              within 24 hours.
+            </p>
+          </div>
+          <mat-stepper
+            linear
+            #stepper
+            labelPosition="bottom"
+            [disableRipple]="true"
+            [selectedIndex]="4"
+          >
+            <mat-step
+              [completed]="orderDetails.processtime != ''"
+              state="done-icon"
+            >
+              <ng-template matStepLabel><div><h2>Receiving orders</h2><p>
+                @if(orderDetails.processtime!='') {
+                    {{getTime(orderDetails.processtime)}}
+                   } @else {
+                     <div>Pending</div>
+                   }
+            </p></div></ng-template>
+            </mat-step>
+            <mat-step
+              [completed]="orderDetails.receivetime != ''"
+              state="done-icon"
+            >
+              <ng-template matStepLabel><div><h2>Order processing</h2><p>
+                @if(orderDetails.receivetime!='') {
+                    {{getTime(orderDetails.receivetime)}}
+                   } @else {
+                     <div>Pending</div>
+                   }
+            </p></div></ng-template>
+            </mat-step>
+            <mat-step
+              [completed]="orderDetails.delivertime != ''"
+              state="done-icon"
+            >
+              <ng-template matStepLabel><div><h2>Delivered</h2><p>
+                @if(orderDetails.delivertime!='') {
+                    {{getTime(orderDetails.delivertime)}}
+                   } @else {
+                     <div>Pending</div>
+                   }
+            </p></div></ng-template>
+            </mat-step>
+            <ng-template matStepperIcon="done-icon">
+              <mat-icon>done</mat-icon>
+            </ng-template>
+          </mat-stepper>
+        </div>
+
+        <div
+          style="box-sizing: border-box"
+          class="bg-white border-8 p20 width100"
+        >
+          <h2 >Product Ordered</h2>
+          <p style="color: #575864;" class="m-b10">
+            Price and other details of you order 
+          </p>
+          <div
+            *ngFor="let product of orderDetails.products"
+            class="flex width100"
+          >
+            <div class="justfy-space-between width100">
+              <div class="flex">
+                <img
+                  [src]="
+                    'http://localhost:8080/ZKart/ViewImages?file_name=' +
+                    product.Product_image
+                  "
+                  class="image-size"
+                  width="50px"
+                  height="50px"
+                />
+                <div>
+                  <h3 style="margin: 0">{{ product.Name }}</h3>
+                  <p>#{{ product.id }}</p>
+                </div>
+              </div>
+              <h3 style="margin: 0" class="align-center">
+                {{ product.Category }}
+              </h3>
+              <div>
+                <h3 style="margin: 0">${{ product.totalPrice }}</h3>
+                <p style="color: #575864; margin: 0">Qty:{{ product.count }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

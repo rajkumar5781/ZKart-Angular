@@ -1,3 +1,13 @@
-<div class="bg-white border-8 p20">
-    <canvas id="doughnut-chart"></canvas>
+<div class="bg-white border-8 p10 flex flex-column height100" style="height: calc(100% - (20px));">
+  <div style="height: calc(100% - (25px));">
+  <canvas [id]="canvasId"></canvas>
 </div>
+  <div id="customLegend" #customLegend class="legend-container"></div>
+</div>
+
+
+<!-- <div class="isResizable" mwlResizable [enableGhostResize]="true">
+  <div class="chart-container">
+    <canvas id="chart"></canvas>
+  </div>
+</div> -->

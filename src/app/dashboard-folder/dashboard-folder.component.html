@@ -1,0 +1,87 @@
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel (opened)="open()">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ name }}
+        <div
+          style="height: 22px; width: 1px; background: rgb(227, 230, 232)"
+        ></div>
+        <span style="cursor: default">
+          {{ dashboards.length }} dashboard(s)
+        </span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <!-- <mat-icon>more_horiz</mat-icon> -->
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+          (click)="$event.stopPropagation()"
+        >
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openEditFolderDialog()">
+            <div class="align-center gap4">
+              <img
+                src="/assets/images/edit.png"
+                alt="image"
+                width="20px"
+                height="20px"
+              />
+              <span>Rename</span>
+            </div>
+          </button>
+          <button mat-menu-item (click)="deleteFolders()">
+            <div class="align-center gap4">
+              <img
+                src="/assets/images/delete.png"
+                alt="image"
+                width="20px"
+                height="20px"
+              />
+              <span>Delete</span>
+            </div>
+          </button>
+        </mat-menu>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="wrap gap16 p10">
+      <div
+        *ngFor="let dashboard of dashboards; track: dashboard"
+        class="dashboard-container-border"
+      >
+        <div class="thumbnail" (click)="goToDashboardsView(dashboard)">
+          <img
+            src="/assets/images/3556960.jpg"
+            alt="image"
+            width="224px"
+            height="139px"
+          />
+        </div>
+        <div class="card-footer">
+          <div>{{ name }}</div>
+          <div class="card-operation flex gap4">
+            <div class="icon flex content-center br5" (click)="editDashboard(dashboard.id)">
+              <img
+                src="/assets/images/edit-icon.svg"
+                alt="image"
+                width="16px"
+                height="16px"
+              />
+            </div>
+            <div class="icon br5 flex content-center">
+              <img
+                src="/assets/images/horiz-more.svg"
+                alt="image"
+                width="16px"
+                height="16px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { ProductBuyComponent } from '../product-buy/product-buy.component';
 import { ProductInterface } from '../product-interface';
 import { ProductReviewsComponent } from '../product-reviews/product-reviews.component';
-import { checkAuthentication } from '../auth.guard';
 import { ProductquntitycounterComponent } from '../productquntitycounter/productquntitycounter.component';
 import { firstValueFrom } from 'rxjs';
 
@@ -47,7 +46,7 @@ export class ProductDetailsComponent {
   constructor(private route: ActivatedRoute, private http: HttpClient,private router : Router) {}
 
   private checkAuthentication(): boolean {
-    return typeof localStorage !== 'undefined' && localStorage.getItem('isAuthenticated') !== null;
+    return typeof sessionStorage !== 'undefined' && sessionStorage.getItem('isAuthenticated') !== null;
   }
  async ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -111,7 +110,7 @@ export class ProductDetailsComponent {
     return data;
   }
   shopNow(){
-    if(checkAuthentication()){
+    if(this.checkAuthentication()){
     this.isShow = !this.isShow;
     this.productList.push({image:this.image,price:this.discountPrice,name:this.name,quantity:this.selectTotalproductCount,total:(this.discountPrice*this.selectTotalproductCount),id:this.id})
     // this.router.navigate(['/'])
@@ -128,7 +127,7 @@ export class ProductDetailsComponent {
     if(this.isEdit){
       this.router.navigate(['/home/shopping/editreview', this.reviewId],{ 
         queryParams: { 
-          customerId: this.id,
+          productId: this.id,
         } 
       });
     }

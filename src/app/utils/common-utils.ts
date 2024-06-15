@@ -22,3 +22,10 @@ export function arrayOfRGB(){
         'rgba(128, 128, 128, 0.2)'   // Gray with 20% transparency
       ]      
 }
+
+export function truncateText(text: string, maxLength: number): string {
+  if (typeof text == 'undefined' ||  text?.length <= maxLength) {
+    return text;
+  }
+  return text.slice(0, maxLength) + '...';
+}

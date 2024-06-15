@@ -1,61 +1,99 @@
-<div style="max-width: 1140px; margin: auto; height: 73.5%; margin-top: 50px;">
-    <div style="display: flex; justify-content: center;padding-bottom: 50px;">
-        <div style="flex: 0 0 84.33333%;">
-            <div class="wrapper width100">
-                <div class="flex demo1">
-                    <div class="a-box-inner" (click)="goToAddress()">
-                        <div class="flex">
-                            <div>
-                                <mat-icon class="customIconSize" aria-hidden="false" aria-label="Example home icon"
-                                fontIcon="location_on" class="your-address icon-size"></mat-icon>
-                            </div>
-                            <div>
-                                <h2>Your Address</h2>
-                                <div>Edit your address for orders</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="a-box-inner" (click)="goToOrderHistory()">
-                        <div class="flex">
-                            <div class="icon-size">
-                                <img src="/assets/images/order-history.png" alt="image" width="32px" height="32px">
-                            </div>
-                            <div>
-                                <h2>Order history</h2>
-                                <div>your previous order history to purchase</div>
-                            </div>
-                        </div>
-
-                        <!-- <button class="btn btn-primary margin-10" (click)="goToOrderHistory()">Order history</button> -->
-                    </div>
-                    <div class="a-box-inner" (click)="goToReviewHistory()">
-                        <div class="flex">
-                            <div class="icon-size">
-                                <img src="/assets/images/rating.png" alt="image" width="32px" height="32px">
-                            </div>
-                            <div>
-                                <h2>Review History</h2>
-                                <div>Your reviewed list to purchase products</div>
-                            </div>
-                        </div>
-                        <!-- <button class="btn btn-primary margin-10"
-                            (click)="goToReviewHistory()">Review history</button> -->
-                        </div>
-                    <div class="a-box-inner" (click)="goToDetails()">
-                        <div class="flex">
-                            <div class="icon-size">
-                                <img src="/assets/images/personal-information.png" alt="image" width="32px" height="32px">
-                            </div>
-                            <div>
-                                <h2>Your Details</h2>
-                                <div>View and edit your details you want</div>
-                            </div>
-                        </div>
-                        <!-- <button class="btn btn-primary margin-10" (click)="goToAddress()">Your
-                            Address</button> -->
-                        </div>
-                </div>
+<div style="max-width: 1140px; margin: auto; height: 73.5%; margin-top: 50px">
+  <div style="display: flex; justify-content: center; padding-bottom: 50px">
+    <div style="flex: 0 0 84.33333%">
+      <div class="wrapper width100">
+        <div class="flex demo1">
+          <div class="a-box-inner" (click)="goToAddress()">
+            <div class="flex">
+              <div>
+                <mat-icon
+                  class="customIconSize"
+                  aria-hidden="false"
+                  aria-label="Example home icon"
+                  fontIcon="location_on"
+                  class="your-address icon-size"
+                ></mat-icon>
+              </div>
+              <div>
+                <h2>Your Address</h2>
+                <div>Edit your address for orders</div>
+              </div>
             </div>
+          </div>
+          <div class="a-box-inner" (click)="goToOrderHistory()">
+            <div class="flex">
+              <div class="icon-size">
+                <img
+                  src="/assets/images/order-history.png"
+                  alt="image"
+                  width="32px"
+                  height="32px"
+                />
+              </div>
+              <div>
+                <h2>Order history</h2>
+                <div>your previous order history to purchase</div>
+              </div>
+            </div>
+
+            <!-- <button class="btn btn-primary margin-10" (click)="goToOrderHistory()">Order history</button> -->
+          </div>
+          <div class="a-box-inner" (click)="goToReviewHistory()">
+            <div class="flex">
+              <div class="icon-size">
+                <img
+                  src="/assets/images/rating.png"
+                  alt="image"
+                  width="32px"
+                  height="32px"
+                />
+              </div>
+              <div>
+                <h2>Review History</h2>
+                <div>Your reviewed list to purchase products</div>
+              </div>
+            </div>
+            <!-- <button class="btn btn-primary margin-10"
+                            (click)="goToReviewHistory()">Review history</button> -->
+          </div>
+          <div class="a-box-inner" (click)="goToDetails()">
+            <div class="flex">
+              <div class="icon-size">
+                <img
+                  src="/assets/images/personal-information.png"
+                  alt="image"
+                  width="32px"
+                  height="32px"
+                />
+              </div>
+              <div>
+                <h2>Your Details</h2>
+                <div>View and edit your details you want</div>
+              </div>
+            </div>
+            <!-- <button class="btn btn-primary margin-10" (click)="goToAddress()">Your
+                            Address</button> -->
+          </div>
+          <div class="a-box-inner" (click)="goToCustomerOrdersList()">
+            <div class="flex">
+              <div class="icon-size">
+                <img
+                  src="/assets/images/purchase-order.png"
+                  alt="image"
+                  width="32px"
+                  height="32px"
+                />
+              </div>
+              <div>
+                <h2>Order List</h2>
+                <div>Your order list to purchase products</div>
+              </div>
+            </div>
+            <!-- <button class="btn btn-primary margin-10"
+                            (click)="goToReviewHistory()">Review history</button> -->
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

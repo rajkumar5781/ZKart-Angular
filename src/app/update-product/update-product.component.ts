@@ -36,7 +36,7 @@ import { firstValueFrom } from 'rxjs';
 export class UpdateProductComponent {
   currentPage: number = 1;
   searchWord = '';
-  datas: any;
+  datas: any = [];
   totalCount: number | undefined;
   timeout: any;
   isValid = true;
@@ -125,7 +125,8 @@ export class UpdateProductComponent {
     }, 200);
   }
   productItemClicked(productDetails: any) {
-    this.router.navigate(['home/ecommerce/updateproduct/edit', productDetails]);
+    // this.router.navigate(['home/ecommerce/updateproduct/edit', productDetails]);
+    this.router.navigate(['edit', productDetails], { relativeTo: this.activatedRoute });
   }
   getModuleMeta() {
     let params = new HttpParams().set('module', this.moduleName);

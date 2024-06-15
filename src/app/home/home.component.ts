@@ -7,7 +7,7 @@ import { RouterOutlet } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { isAdmin } from '../auth.guard';
+import { isAdmin, isVender } from '../auth.guard';
 
 interface AddToCartCountResponse {
   count: number;
@@ -25,6 +25,7 @@ export class HomeComponent {
    userId : any;
    addToCartTotal : any;
    isAdmin = false;
+   isVender = false;
 
   constructor(private router: Router, private route: ActivatedRoute,private location: Location,private http:HttpClient) {
     this.router.events.subscribe(event => {
@@ -33,6 +34,7 @@ export class HomeComponent {
       }
     });
     this.isAdmin = isAdmin();
+    this.isVender = isVender();
    }  
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class HomeComponent {
   }
 
   private checkAuthentication(): boolean {
-    return typeof localStorage !== 'undefined' && localStorage.getItem('isAuthenticated') !== null;
+    return typeof sessionStorage !== 'undefined' && sessionStorage.getItem('isAuthenticated') !== null;
   }
 
   navigateToSignIn() {
@@ -91,11 +93,12 @@ export class HomeComponent {
   signOut() {
     this.http.post("http://localhost:8080/ZKart/ClearSession",{}).subscribe({
       next: (d) => {
-        console.log(d);
-        if (typeof localStorage !== 'undefined') {
-          localStorage.clear();
+        if (typeof sessionStorage !== 'undefined') {
+          // localStorage.clear();
+          sessionStorage.clear();
         }
         this.isLoggedIn.set(this.checkAuthentication());
+        // this.reloadComponent();
       },
       error: (err) => {
         console.error('Error clearing session:', err);
@@ -113,4 +116,14 @@ export class HomeComponent {
       })
       }
     }
+
+    createDashboard(){
+      this.router.navigate(['/home/dashboard/create']);
+    }
+
+    // reloadComponent() {
+    //   this.router.navigateByUrl('/current-route', { skipLocationChange: true }).then(() => {
+    //     this.router.navigate(['/current-route']);
+    //   });
+    // }
 }

@@ -1,0 +1,8 @@
+.legend-container {
+    max-height: 100px; 
+    overflow-y: auto;
+    padding: 5px;
+  }
+  .legend-container::-webkit-scrollbar{
+    display: none;
+  }

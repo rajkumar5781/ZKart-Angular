@@ -1,0 +1,27 @@
+.create-dashboard-header{
+    height: 40px;
+    border-bottom: 1px solid #dbdbdb;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 5px 0px;
+    border-radius: 10px;
+    background-color: #eae9e9ff;
+}
+.grid-stack-item-content {
+    background-color: red;
+    color: red;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .grid-stack-item.ui-resizable-autohide {
+    background-color: #3498db; /* Light blue color */
+}
+.grid-wrapper{
+    height: calc(100vh - 106px);
+    overflow: scroll;
+}
+.grid-wrapper::-webkit-scrollbar {
+    display: none;
+}

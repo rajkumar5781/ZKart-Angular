@@ -38,7 +38,7 @@
                             <mat-icon class="user-logo" aria-hidden="false" aria-label="Example home icon"
                                 fontIcon="account_circle"></mat-icon>
                             <span>{{ customerDetails.name }} {{customerDetails.lastName }} {{
-                                formatDate(review.dateTime)
+                                formatDate(review.datetime)
                                 }}</span>
                         </div>
                         <div>
@@ -68,7 +68,7 @@
             </div>
         </div>
         <div *ngIf="reviewDetails == null || reviewDetails.length<1">
-            <p>Your ZKart Cart is empty.</p>
+            <p>Your ZKart ReviewHistory is empty.</p>
             <p>Check your Saved for later items below or continue shopping.</p>
         </div>
     </div>

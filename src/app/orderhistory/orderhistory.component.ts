@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, firstValueFrom, map } from 'rxjs';
 import {  Router } from '@angular/router';
 import { ProductInterface } from '../product-interface';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { dateISOToFormatDataString } from '../utils/date-utils';
 
 @Component({
   selector: 'app-orderhistory',
@@ -40,11 +41,14 @@ export class OrderhistoryComponent {
    this.loading = false;
   }
   async getOrderDetails(){
-    if(typeof localStorage !== 'undefined'){
-      this.userId = localStorage.getItem('userId');
+    if(typeof sessionStorage !== 'undefined'){
+      this.userId = sessionStorage.getItem('userId');
       let params = new HttpParams().set('customerId', this.userId);
       let data = await firstValueFrom(this.http.get("http://localhost:8080/ZKart/ProductBuying",{ params: params }));
       this.orderProductDetails = data;
       }
+  }
+  formatDate(val: string) {
+    return dateISOToFormatDataString(val);
   }
 }

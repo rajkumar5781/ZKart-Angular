@@ -18,6 +18,26 @@
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
-} @else {
-<router-outlet></router-outlet>
+}
+@else if (isVender) {
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav mode="side" #vendersidenav [(opened)]="vendrOpened"><app-venter-side-nav
+                (closeSidenav)="vendersidenav.close()"></app-venter-side-nav></mat-sidenav>
+        <mat-sidenav-content>
+                <div *ngIf="!vendrOpened" class="toggle-button icon-size">
+                    <img src="/assets/images/collapse.png" alt="image" width="32px" height="32px" (click)="vendersidenav.toggle()">
+                </div>
+    
+            <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" class="open-icon" fontIcon="arrow_forward_ios"
+                (click)="sidenav.toggle()"></mat-icon> -->
+            
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+}
+@else {
+<!-- <router-outlet></router-outlet> -->
+<!-- <div *ngIf="(isAuthenticated$ | async) === true"> -->
+    <router-outlet></router-outlet>
+  <!-- </div> -->
 }
