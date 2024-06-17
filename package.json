@@ -24,6 +24,7 @@
     "@angular/platform-server": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@angular/ssr": "^17.3.7",
+    "angular-cli-ghpages": "^2.0.1",
     "angular-resizable-element": "^7.0.2",
     "chart.js": "^4.4.3",
     "chartjs-plugin-datalabels": "^2.2.0",
