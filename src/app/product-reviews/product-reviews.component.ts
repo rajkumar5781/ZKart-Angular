@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import {MatIconModule} from '@angular/material/icon';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-product-reviews',
@@ -24,7 +25,7 @@ export class ProductReviewsComponent {
 
   getproductReviews(){
     let params = new HttpParams().set('productId', this.id);
-    this.http.get<any[]>("http://localhost:8080/ZKart/Reviews",{params:params}).subscribe((data)=>{
+    this.http.get<any[]>(environment.server+"/ZKart/Reviews",{params:params}).subscribe((data)=>{
     this.productReviewDetails = data;
     })
   }

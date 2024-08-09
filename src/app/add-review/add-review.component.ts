@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-add-review',
@@ -94,7 +95,8 @@ export class AddReviewComponent {
     }
   }
   async getReviewDetails() {
-    let url = 'http://localhost:8080/ZKart/FetchCustomerReview';
+
+    let url = environment.server+'/ZKart/FetchCustomerReview';
     let params = new HttpParams()
       .set('actionType', 'single')
       .set('id', this.reviewId)
@@ -105,7 +107,7 @@ export class AddReviewComponent {
     this.reviewForm.get('rating')?.setValue(this.reviewDetails?.star);
   }
   async editReview() {
-    let url = 'http://localhost:8080/ZKart/Reviews';
+    let url = environment.server+'/ZKart/Reviews';
     let params = new HttpParams()
       .set('productId', this.id)
       .set('comment', this.reviewForm.get('comment')?.value || '')
@@ -124,7 +126,7 @@ export class AddReviewComponent {
     this.router.navigate(['/home/shopping']);
   }
   async addReview() {
-    let url = 'http://localhost:8080/ZKart/Reviews';
+    let url = environment.server+'/ZKart/Reviews';
     let params = new HttpParams()
       .set('productId', this.id)
       .set('comment', this.reviewForm.get('comment')?.value || '')

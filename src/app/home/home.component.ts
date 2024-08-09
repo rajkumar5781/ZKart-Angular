@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { isAdmin, isVender } from '../auth.guard';
+import { environment } from '../../../enviroment';
 
 interface AddToCartCountResponse {
   count: number;
@@ -91,7 +92,7 @@ export class HomeComponent {
   }
 
   signOut() {
-    this.http.post("http://localhost:8080/ZKart/ClearSession",{}).subscribe({
+    this.http.post(environment.server+"/ZKart/ClearSession",{}).subscribe({
       next: (d) => {
         if (typeof sessionStorage !== 'undefined') {
           // localStorage.clear();
@@ -111,7 +112,7 @@ export class HomeComponent {
 
     getAddToCartCount(){
       if(this.checkAuthentication()){
-      this.http.get<AddToCartCountResponse>("http://localhost:8080/ZKart/LoadAddToCartCount").subscribe((data)=>{
+      this.http.get<AddToCartCountResponse>(environment.server+"/ZKart/LoadAddToCartCount").subscribe((data)=>{
         this.addToCartTotal = data.count;
       })
       }

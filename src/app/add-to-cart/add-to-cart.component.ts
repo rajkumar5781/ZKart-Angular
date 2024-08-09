@@ -6,6 +6,7 @@ import { ProductBuyComponent } from '../product-buy/product-buy.component';
 import {  Router } from '@angular/router';
 import { ProductInterface } from '../product-interface';
 import { ProductquntitycounterComponent } from '../productquntitycounter/productquntitycounter.component';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -47,7 +48,7 @@ export class AddToCartComponent {
   }
 
   async getAddToCartDetail() {
-    this.http.get("http://localhost:8080/ZKart/LoadAddToCartDetails").subscribe((data)=>{
+    this.http.get(environment.server+"/ZKart/LoadAddToCartDetails").subscribe((data)=>{
       this.addToCartListSubject.next(data);
   })
   }
@@ -66,7 +67,7 @@ export class AddToCartComponent {
  async totalValueChanged(newValue: number,id:number,actionType : string,product : any){
     try{
       this.isUpdating = true;
-      let url = "http://localhost:8080/ZKart/UpdateAddToCart";
+      let url = environment.server+"/ZKart/UpdateAddToCart";
       let params = new HttpParams().set('id', id).set("actionType",actionType);
       if(actionType=="update"){
         product.productCount = newValue;

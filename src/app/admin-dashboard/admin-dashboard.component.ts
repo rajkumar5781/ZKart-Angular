@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FolderComponent } from '../folder/folder.component';
 import { DashboardFolderComponent } from '../dashboard-folder/dashboard-folder.component';
 import { Router } from '@angular/router';
-
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -207,7 +207,7 @@ trackByFolderId(index: number, folder: any): number {
     console.log($event);
 }
 async updateProduct() {
-  const url = "http://localhost:8080/ZKart/DashBoardCharts";
+  const url = environment.server+"/ZKart/DashBoardCharts";
   if(this.startIndex==null || this.endIndex==null){
     return;
   }

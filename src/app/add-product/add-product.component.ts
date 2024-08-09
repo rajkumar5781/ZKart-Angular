@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { allOnlyNumber, validator } from '../utils/inputValidationUtils';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-add-product',
@@ -163,12 +164,12 @@ export class AddProductComponent {
       this.productForm.get("price")?.setValue(this.productDetails?.Actual_price || '');
       this.productForm.get("discount")?.setValue(this.productDetails?.Discounts || '');
       this.productForm.get("count")?.setValue(this.productDetails?.Available_count || '');
-      this.imageSrc = "http://localhost:8080/ZKart/ViewImages?file_name="+this.productDetails?.Product_image;
+      this.imageSrc = environment.server+"/ZKart/ViewImages?file_name="+this.productDetails?.Product_image;
     }
   }
 
   async updateProduct() {
-    const url = "http://localhost:8080/ZKart/Product";
+    const url = environment.server+"/ZKart/Product";
     const formData = new FormData();
     formData.append("Name", this.productForm.get("name")?.value || "");
     formData.append("Description", this.productForm.get("description")?.value || "");

@@ -13,11 +13,10 @@ import { LineChartComponent } from '../line-chart/line-chart.component';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
 import { PolarAreaChartComponent } from '../polar-area-chart/polar-area-chart.component';
 import { DoughnutChartComponent } from '../doughnut-chart/doughnut-chart.component';
-import { cloneDeep } from 'lodash';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { json } from 'stream/consumers';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-create-dashboard',
@@ -190,7 +189,7 @@ export class CreateDashboardComponent implements AfterViewInit {
   async createDashboard(){
     try{
       // this.isUpdating = true;
-      let url = "http://localhost:8080/ZKart/DashBoardCharts";
+      let url = environment.server+"/ZKart/DashBoardCharts";
 
       let params = new HttpParams();
 
@@ -229,7 +228,7 @@ export class CreateDashboardComponent implements AfterViewInit {
 
   async editDashboard(){
     try{
-    let url = "http://localhost:8080/ZKart/DashBoardCharts";
+    let url = environment.server+"/ZKart/DashBoardCharts";
 
     let params = new HttpParams();
 

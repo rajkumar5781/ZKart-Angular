@@ -6,6 +6,7 @@ import {  Router } from '@angular/router';
 import { ProductInterface } from '../product-interface';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { dateISOToFormatDataString } from '../utils/date-utils';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-orderhistory',
@@ -44,7 +45,7 @@ export class OrderhistoryComponent {
     if(typeof sessionStorage !== 'undefined'){
       this.userId = sessionStorage.getItem('userId');
       let params = new HttpParams().set('customerId', this.userId);
-      let data = await firstValueFrom(this.http.get("http://localhost:8080/ZKart/ProductBuying",{ params: params }));
+      let data = await firstValueFrom(this.http.get(environment.server+"/ZKart/ProductBuying",{ params: params }));
       this.orderProductDetails = data;
       }
   }

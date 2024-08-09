@@ -12,6 +12,7 @@ import { ProductInterface } from '../product-interface';
 import { ProductReviewsComponent } from '../product-reviews/product-reviews.component';
 import { ProductquntitycounterComponent } from '../productquntitycounter/productquntitycounter.component';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-product-details',
@@ -60,7 +61,7 @@ export class ProductDetailsComponent {
   }
   getProductDetails() {
     let params = new HttpParams().set('id', this.id);
-      this.http.get("http://localhost:8080/ZKart/productDetails",{ params: params }).subscribe((data)=>{
+      this.http.get(environment.server+"/ZKart/productDetails",{ params: params }).subscribe((data)=>{
       this.productDetails = data;
       let { Actual_price, Available_count, Category, Description, Discounts, Likes, Name, Star, id,Product_image } = this.productDetails || {};
       this.description = Description;
@@ -81,7 +82,7 @@ export class ProductDetailsComponent {
     }
     let params = new HttpParams().set('productId', this.id).set("product", this.name).set('productCount',this.selectTotalproductCount).set('productPrice',this.discountPrice).set('image',this.image);
 
-    this.http.post("http://localhost:8080/ZKart/AddToCards",params,{
+    this.http.post(environment.server+"/ZKart/AddToCards",params,{
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       }),responseType:"text"
@@ -90,7 +91,7 @@ export class ProductDetailsComponent {
     })
   }
   async checkValideReviewer(){
-    let url = "http://localhost:8080/ZKart/ValidateReviews";
+    let url = environment.server+"/ZKart/ValidateReviews";
     let params = new HttpParams().set("productId",this.id);
     let data = await firstValueFrom(this.http.get<any>(url, { params }))
     if(data.buy && !data.review){
