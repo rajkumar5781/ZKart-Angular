@@ -22,7 +22,7 @@
             <td class="product-thumbnail">
               <img
                 [src]="
-                  'http://localhost:8080/ZKart/images/' + product.Product_image
+                  environment.server+'/ZKart/images/' + product.Product_image
                 "
                 class="image-size"
                 width="150px"

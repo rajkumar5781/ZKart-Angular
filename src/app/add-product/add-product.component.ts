@@ -94,7 +94,7 @@ export class AddProductComponent {
       }
       return;
     }
-    let url = 'http://localhost:8080/ZKart/Product';
+    let url = environment.server+'/ZKart/Product';
     let params = new HttpParams().set("Name",this.productForm.get("name")?.value || "");
     params = params.set("Description",this.productForm.get("description")?.value || "");
     params = params.set("Category",this.productForm.get("category")?.value || "");
@@ -131,7 +131,7 @@ export class AddProductComponent {
   }
 
   async fetchCategory() {
-    let url = 'http://localhost:8080/ZKart/FetchCategorys';
+    let url = environment.server+'/ZKart/FetchCategorys';
     let data = await firstValueFrom(this.http.get<any[]>(url));
     this.categoryOptions = data;
   }
@@ -150,7 +150,7 @@ export class AddProductComponent {
   }
 
   async getProductDetails(){
-    let url = 'http://localhost:8080/ZKart/Product';
+    let url = environment.server+'/ZKart/Product';
 
     let params = new HttpParams().set("id",this.productId);
 

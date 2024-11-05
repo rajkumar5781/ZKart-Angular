@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FolderComponent } from '../folder/folder.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-analytics',
@@ -30,7 +31,7 @@ export class AnalyticsComponent {
   async fetchFolders() {
     try {
       this.isLoading = true;
-      let url = 'http://localhost:8080/ZKart/Folders';
+      let url = environment.server+'/ZKart/Folders';
       let params = new HttpParams().set("type","analytics");
       this.folders = await firstValueFrom(this.http.get<any[]>(url,{params}));
       this.isLoading = false;
@@ -44,7 +45,7 @@ export class AnalyticsComponent {
     let params = new HttpParams()
       .set('folderName', folderDetails.name || '')
       .set('id', folderDetails.id);
-    let url = 'http://localhost:8080/ZKart/Folders';
+    let url = environment.server+'/ZKart/Folders';
 
     await firstValueFrom(
       this.http.put(url, params, {
@@ -57,7 +58,7 @@ export class AnalyticsComponent {
 
   async deleteFolder(folderDetails: any) {
     let params = new HttpParams().set('id', folderDetails.id);
-    let url = 'http://localhost:8080/ZKart/Folders';
+    let url = environment.server+'/ZKart/Folders';
     try {
       await firstValueFrom(
         this.http.delete(url, {

@@ -19,6 +19,8 @@ export class AddToCartComponent {
   totalPrice$: Observable<number>;
   isShow = true;
   productList :ProductInterface[] =[];
+  environment:any=environment.server;
+  
   isUpdating = false;
   constructor(private http: HttpClient,private router : Router) {
     this.totalPrice$ = this.addToCartList$.pipe(
@@ -42,7 +44,6 @@ export class AddToCartComponent {
   userId: any;
   moduleName = "cart";
   addToCartList :any = [];
-
    ngOnInit() {
     this.getAddToCartDetail();
   }

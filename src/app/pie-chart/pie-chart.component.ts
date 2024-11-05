@@ -3,6 +3,7 @@ import { Chart, registerables } from 'chart.js';
 import { arrayOfRGB,truncateText } from '../utils/common-utils';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-pie-chart',
@@ -187,7 +188,7 @@ getOrCreateLegendList(chart: any) {
 }
 
 async loadChartData(){
-  let url = 'http://localhost:8080/ZKart/ProductAvailabilityChart';
+  let url = environment.server+'/ZKart/ProductAvailabilityChart';
 
   this.chartData = await firstValueFrom(this.http.get<any[]>(url));
     // this.chartData = data;

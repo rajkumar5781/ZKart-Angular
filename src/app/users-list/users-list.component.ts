@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { environment } from '../../../enviroment';
 
 interface Users {
   name: string;
@@ -35,7 +36,7 @@ export class UsersListComponent {
     try {
       this.isLoading = true;
       this.isError = false;
-      let url = 'http://localhost:8080/ZKart/Users';
+      let url = environment.server+'/ZKart/Users';
 
       const data = await firstValueFrom(this.http.get<Users[]>(url));
       this.userDetails = <Users[]>data;

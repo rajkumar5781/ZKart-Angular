@@ -13,6 +13,7 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { FilterComponent } from '../filter/filter.component';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-shopping',
@@ -86,7 +87,7 @@ export class ShoppingComponent {
       });
     }
     this.http
-      .get('http://localhost:8080/ZKart/ProductList', { params: params })
+      .get(environment.server+'/ZKart/ProductList', { params: params })
       .subscribe((data) => {
         this.datas = data;
       });
@@ -101,7 +102,7 @@ export class ShoppingComponent {
       });
     }
     this.http
-      .get('http://localhost:8080/ZKart/ProductCount', { params: params })
+      .get(environment.server+'/ZKart/ProductCount', { params: params })
       .subscribe((data: any) => {
         this.totalCount = data.count;
       });
@@ -127,7 +128,7 @@ export class ShoppingComponent {
   getModuleMeta() {
     let params = new HttpParams().set('module', this.moduleName);
     this.http
-      .get('http://localhost:8080/ZKart/fieldDetails', { params })
+      .get(environment.server+'/ZKart/fieldDetails', { params })
       .subscribe((data: any) => {
         this.moduleMetaList = data;
       });

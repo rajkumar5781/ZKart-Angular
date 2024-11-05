@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-signup',
@@ -64,7 +65,7 @@ export class SignupComponent {
       }
 
     this.http
-      .post('http://localhost:8080/ZKart/signup', params, {
+      .post(environment.server+'/ZKart/signup', params, {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
         }),

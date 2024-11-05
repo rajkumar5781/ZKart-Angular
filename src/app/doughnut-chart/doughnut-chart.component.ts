@@ -5,6 +5,7 @@ import { ResizeEvent } from 'angular-resizable-element';
 import { ResizableModule } from 'angular-resizable-element';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-doughnut-chart',
@@ -191,7 +192,7 @@ export class DoughnutChartComponent implements AfterViewInit, OnChanges {
   }
 
   async loadChartData(){
-    let url = 'http://localhost:8080/ZKart/TotalSelleingChart';
+    let url = environment.server+'/ZKart/TotalSelleingChart';
 
     this.chartData = await firstValueFrom(this.http.get<any[]>(url));
       // this.chartData = data;

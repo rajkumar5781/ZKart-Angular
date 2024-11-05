@@ -3,6 +3,7 @@ import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { arrayOfRGB,truncateText } from '../utils/common-utils'
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-polar-area-chart',
@@ -185,7 +186,7 @@ getOrCreateLegendList(chart: any) {
   return listContainer;
 }
 async loadChartData(){
-  let url = 'http://localhost:8080/ZKart/TopDiscountProducts';
+  let url = environment.server+'/ZKart/TopDiscountProducts';
 
   this.chartData = await firstValueFrom(this.http.get<any[]>(url));
     // this.chartData = data;

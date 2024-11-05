@@ -9,6 +9,7 @@ import { PolarAreaChartComponent } from '../polar-area-chart/polar-area-chart.co
 import { DoughnutChartComponent } from '../doughnut-chart/doughnut-chart.component';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-dashboard-view-page',
@@ -71,7 +72,7 @@ export class DashboardViewPageComponent {
 
   async getDashboardDetails(){
     this.createChartDetails = [];
-    let url = 'http://localhost:8080/ZKart/DashBoardCharts';
+    let url = environment.server+'/ZKart/DashBoardCharts';
     let params = new HttpParams().set('id', this.id);
 
     this.createChartDetails = await firstValueFrom(this.http.get<any>(url, { params }));
@@ -129,7 +130,7 @@ export class DashboardViewPageComponent {
       this.isLoading = true;
       let params = new HttpParams().set("type","dashboard");
       params  = params.set("id",this.folderId);
-      let url = 'http://localhost:8080/ZKart/Folders';
+      let url = environment.server+'/ZKart/Folders';
       let data = await firstValueFrom(this.http.get<any[]>(url, { params }));
       this.folderDetails = data[0];
       this.isLoading = false;

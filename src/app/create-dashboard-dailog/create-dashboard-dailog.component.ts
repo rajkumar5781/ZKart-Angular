@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-create-dashboard-dailog',
@@ -76,7 +77,7 @@ export class CreateDashboardDailogComponent {
     try {
       this.isLoading = true;
       let params = new HttpParams().set("type","dashboard");
-      let url = 'http://localhost:8080/ZKart/Folders';
+      let url = environment.server+'/ZKart/Folders';
       this.folders = await firstValueFrom(this.http.get<any[]>(url, { params }));
       this.isLoading = false;
     } catch (e) {

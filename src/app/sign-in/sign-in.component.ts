@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { StateService } from '../state.service';
 import { firstValueFrom } from 'rxjs';
 import { Location } from '@angular/common';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-sign-in',
@@ -67,7 +68,7 @@ export class SignInComponent {
       params = params.set('role', this.role);
     }
     try {
-      let url = 'http://localhost:8080/ZKart/signIn';
+      let url = environment.server+'/ZKart/signIn';
       let data = await firstValueFrom(
         this.http.post<any>(url, params, {
           headers: new HttpHeaders({

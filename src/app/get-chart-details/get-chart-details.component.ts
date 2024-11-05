@@ -10,6 +10,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-get-chart-details',
@@ -42,7 +43,7 @@ export class GetChartDetailsComponent {
   }
 
   async fetchReports(){
-    let url = 'http://localhost:8080/ZKart/Reports';
+    let url = environment.server+'/ZKart/Reports';
     this.reportsDetails = await firstValueFrom(this.http.get<any[]>(url));
   }
 

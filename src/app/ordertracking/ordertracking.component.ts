@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { dateISOToFormatDataString } from '../utils/date-utils';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-ordertracking',
@@ -53,6 +54,7 @@ export class OrdertrackingComponent {
     secondCtrl: '',
   });
   isOptional = false;
+environment: any = environment.server;
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -68,7 +70,7 @@ export class OrdertrackingComponent {
   }
   async getOrderDetails() {
     this.isLoading = true;
-    let url = 'http://localhost:8080/ZKart/SingleOrderDetails';
+    let url = environment.server+'/ZKart/SingleOrderDetails';
     let params = new HttpParams().set('orderid', this.orderId);
 
     const data = await firstValueFrom(this.http.get<any[]>(url, { params }));

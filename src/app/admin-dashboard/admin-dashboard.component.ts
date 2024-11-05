@@ -88,7 +88,7 @@ trackByFolderId(index: number, folder: any): number {
 
 
 
-//   let url = 'http://localhost:8080/ZKart/CutomerDetail';
+//   let url = environment+'/ZKart/CutomerDetail';
 //     let params = new HttpParams().set('name', this.customerDetailForm.get('name')?.value || '')
 //     .set('lastName', this.customerDetailForm.get('lastName')?.value || '')
 //     .set('phone', this.customerDetailForm.get('phone')?.value || NaN);
@@ -115,7 +115,7 @@ trackByFolderId(index: number, folder: any): number {
   }
 
   async fetchDashBoardCharts(){
-    let url = 'http://localhost:8080/ZKart/DashBoardCharts';
+    let url = environment.server+'/ZKart/DashBoardCharts';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.dashBoardCharts = data;
@@ -129,33 +129,33 @@ trackByFolderId(index: number, folder: any): number {
   }
 
   async fetchTopSellingChart(){
-    let url = 'http://localhost:8080/ZKart/Charts';
+    let url = environment.server+'/ZKart/Charts';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.lineChart = data;
   }
   async fetchTotalSellingChart(){
-    let url = 'http://localhost:8080/ZKart/TotalSelleingChart';
+    let url = environment.server+'/ZKart/TotalSelleingChart';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.doughnutChart = data;
   }
   
   async fetchProductQuentity(){
-    let url = 'http://localhost:8080/ZKart/ProductAvailabilityChart';
+    let url = environment.server+'/ZKart/ProductAvailabilityChart';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.productDetailsPieChart = data;
   }
   async fetchTopDiscountProduct(){
-    let url = 'http://localhost:8080/ZKart/TopDiscountProducts';
+    let url = environment.server+'/ZKart/TopDiscountProducts';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.topDiscountProducts = data;
   }
 
   async fetchProfitOfTheDays(){
-    let url = 'http://localhost:8080/ZKart/ProfitOfTheDayChart';
+    let url = environment.server+'/ZKart/ProfitOfTheDayChart';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.profitOfTheDays = data;
@@ -239,7 +239,7 @@ createDashBoard(): void {
 }
 
 async createDashBoardApi(data : any){
-  let url = 'http://localhost:8080/ZKart/Dashboard';
+  let url = environment.server+'/ZKart/Dashboard';
   let params = new HttpParams().set("dashboardName",data?.name || "").set("folderId",data.folderId);
   let datas = await firstValueFrom(
     this.http.post(url,params,{
@@ -268,7 +268,7 @@ createFolder():void{
 async createFolderApi(name:string){
   let params = new HttpParams()
     .set('folderName', name || '').set("folderType","dashboard");
-  let url = 'http://localhost:8080/ZKart/Folders';
+  let url = environment.server+'/ZKart/Folders';
 
   await firstValueFrom(
     this.http.post(url, params, {
@@ -283,7 +283,7 @@ async editFolderName(folderDetails: any) {
   let params = new HttpParams()
     .set('folderName', folderDetails.name || '')
     .set('id', folderDetails.id);
-  let url = 'http://localhost:8080/ZKart/Folders';
+  let url = environment.server+'/ZKart/Folders';
 
   await firstValueFrom(
     this.http.put(url, params, {
@@ -298,7 +298,7 @@ async fetchFolders() {
   try {
     this.isLoading = true;
     let params = new HttpParams().set("type","dashboard");
-    let url = 'http://localhost:8080/ZKart/Folders';
+    let url = environment.server+'/ZKart/Folders';
     this.folders = await firstValueFrom(this.http.get<any[]>(url, { params }));
     this.isLoading = false;
   } catch (e) {
@@ -309,7 +309,7 @@ async fetchFolders() {
 
 async deleteFolder(folderDetails: any) {
   let params = new HttpParams().set('id', folderDetails.id);
-  let url = 'http://localhost:8080/ZKart/Folders';
+  let url = environment.server+'/ZKart/Folders';
   try {
     await firstValueFrom(
       this.http.delete(url, {

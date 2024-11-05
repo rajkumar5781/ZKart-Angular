@@ -10,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { Router } from '@angular/router';
+import { environment } from '../../../enviroment';
 
 interface Order {
   description: string;
@@ -62,7 +63,7 @@ export class CustomerOrderListComponent {
       this.isError = false;
       this.isLoading = true;
       this.orderedDetails = [];
-      let url = 'http://localhost:8080/ZKart/OrderDetailsList';
+      let url = environment.server+'/ZKart/OrderDetailsList';
 
       const data = await firstValueFrom(this.http.get<Order[]>(url));
       this.orderedDetails = data;
@@ -125,7 +126,7 @@ export class CustomerOrderListComponent {
 
   async cancelOrder(value : any){
     let params = new HttpParams().set('orderid', value.orderid);
-    let url = 'http://localhost:8080/ZKart/ProductBuying';
+    let url = environment.server+'/ZKart/ProductBuying';
     try {
        await firstValueFrom(
         this.http.delete<any[]>(url, {

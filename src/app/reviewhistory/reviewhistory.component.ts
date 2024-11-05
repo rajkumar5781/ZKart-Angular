@@ -9,6 +9,7 @@ import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-reviewhistory',
@@ -40,13 +41,13 @@ export class ReviewhistoryComponent {
 
   async getReviewDetails() {
     let data = await firstValueFrom(
-      this.http.get<any>('http://localhost:8080/ZKart/FetchCustomerReview')
+      this.http.get<any>(environment.server+'/ZKart/FetchCustomerReview')
     );
     this.reviewDetails = data;
   }
   async getCustomerDetails() {
     let data = await firstValueFrom(
-      this.http.get<any[]>('http://localhost:8080/ZKart/customerDetail')
+      this.http.get<any[]>(environment.server+'/ZKart/customerDetail')
     );
     this.customerDetails = data[0];
   }
@@ -69,7 +70,7 @@ export class ReviewhistoryComponent {
     // });
   }
   async deleteReview(id: number) {
-    let url = 'http://localhost:8080/ZKart/Reviews';
+    let url = environment.server+'/ZKart/Reviews';
     let params = new HttpParams().set('reviewId', id);
     try {
       const data = await firstValueFrom(

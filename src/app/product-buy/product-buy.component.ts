@@ -37,6 +37,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { environment } from '../../../enviroment';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -319,7 +320,7 @@ export class ProductBuyComponent {
     this.onSubmitOrder(params);
   }
   postProductBuying(params: any): Observable<string> {
-    const apiUrl = 'http://localhost:8080/ZKart/ProductBuying';
+    const apiUrl = environment.server+'/ZKart/ProductBuying';
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
@@ -348,7 +349,7 @@ export class ProductBuyComponent {
 
   async getDefaultAddress() {
     this.addressLoading = true;
-    let url = 'http://localhost:8080/ZKart/DefaultAddressBook';
+    let url = environment.server+'/ZKart/DefaultAddressBook';
     let data = await firstValueFrom(this.http.get<any[]>(url));
     this.selectedAddress = data[0];
     this.addressLoading = false;
@@ -363,7 +364,7 @@ export class ProductBuyComponent {
   }
 
   async getAddressDetails() {
-    let url = 'http://localhost:8080/ZKart/AddressBook';
+    let url = environment.server+'/ZKart/AddressBook';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.addressDetailsList = data;

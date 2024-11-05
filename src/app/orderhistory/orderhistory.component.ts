@@ -20,6 +20,7 @@ export class OrderhistoryComponent {
   productList :ProductInterface[] =[];
   orderProductDetails : any = [];
   loading = true;
+  environment: any = environment.server;
   constructor(private http: HttpClient,private router : Router) {
 
   }

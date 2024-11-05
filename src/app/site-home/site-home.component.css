@@ -1,6 +1,6 @@
 .home-background{
     width: 100%;
-    height: 431px;
+    height: calc(100% - 155px);
     background: url(../../assets/images/homeBackGround.png);
     background-color: darkseagreen;
     background-repeat: no-repeat;

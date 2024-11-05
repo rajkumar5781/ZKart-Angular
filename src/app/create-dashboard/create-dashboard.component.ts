@@ -273,7 +273,7 @@ export class CreateDashboardComponent implements AfterViewInit {
 
   async getDashboardDetails(){
     this.createChartDetails = [];
-    let url = 'http://localhost:8080/ZKart/DashBoardCharts';
+    let url = environment.server+'/ZKart/DashBoardCharts';
     let params = new HttpParams().set('id', this.id);
 
     this.createChartDetails = await firstValueFrom(this.http.get<any>(url, { params }));

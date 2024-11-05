@@ -13,6 +13,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-dashboard-folder',
@@ -70,7 +71,7 @@ export class DashboardFolderComponent {
   async fetchDashBoards(){
     try {
       this.isLoading = true;
-      let url = 'http://localhost:8080/ZKart/Dashboard';
+      let url = environment.server+'/ZKart/Dashboard';
       let params = new HttpParams().set("folderId",this.id);
       this.dashboards = await firstValueFrom(this.http.get<any[]>(url,{params}));
       this.isLoading = false;

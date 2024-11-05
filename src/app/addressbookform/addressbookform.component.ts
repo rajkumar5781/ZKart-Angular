@@ -17,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-addressbookform',
@@ -229,7 +230,7 @@ export class AddressbookformComponent {
         .set("actionType","add");
 
         try{
-      let url = 'http://localhost:8080/ZKart/AddressBook';
+      let url = environment.server+'/ZKart/AddressBook';
       await firstValueFrom(
         this.http.post(url, params, {
           headers: new HttpHeaders({
@@ -260,7 +261,7 @@ export class AddressbookformComponent {
         .set("actionType","edit");
 
         try{
-      let url = 'http://localhost:8080/ZKart/AddressBook';
+      let url = environment.server+'/ZKart/AddressBook';
       await firstValueFrom(
         this.http.post(url, params, {
           headers: new HttpHeaders({
@@ -278,7 +279,7 @@ export class AddressbookformComponent {
 
   async fetchAddress() {
     this.addressDetails = {};
-    let url = 'http://localhost:8080/ZKart/CustomerSingleAddress';
+    let url = environment.server+'/ZKart/CustomerSingleAddress';
     let params = new HttpParams().set('id', this.id);
 
     const data = await firstValueFrom(this.http.get<any>(url, { params }));

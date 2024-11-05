@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
+import { environment } from '../../../enviroment';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -95,14 +96,14 @@ export class CustomerDetailsComponent {
   }
 
   async getCustomerDetails() {
-    let url = 'http://localhost:8080/ZKart/CutomerDetail';
+    let url = environment.server+'/ZKart/CutomerDetail';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.customerDetails = <customerDetails>data[0];
   }
 
   async upadteCustomerDetails() {
-    let url = 'http://localhost:8080/ZKart/CutomerDetail';
+    let url = environment.server+'/ZKart/CutomerDetail';
     let params = new HttpParams().set('name', this.customerDetailForm.get('name')?.value || '')
     .set('lastName', this.customerDetailForm.get('lastName')?.value || '')
     .set('phone', this.customerDetailForm.get('phone')?.value || NaN);

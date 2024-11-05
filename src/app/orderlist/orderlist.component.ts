@@ -8,6 +8,7 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { environment } from '../../../enviroment';
 
 interface Order {
   Name: string;
@@ -45,7 +46,7 @@ export class OrderlistComponent {
     this.isError = false;
     this.isLoading =true;
     this.orderedDetails = [];
-    let url = 'http://localhost:8080/ZKart/TotalOrders';
+    let url = environment.server+'/ZKart/TotalOrders';
 
     const data = await firstValueFrom(this.http.get<Order[]>(url));
     this.orderedDetails = data;

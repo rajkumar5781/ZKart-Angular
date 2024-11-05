@@ -3,6 +3,7 @@ import { Chart, registerables } from 'chart.js';
 import { arrayOfRGB } from '../utils/common-utils'
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-line-chart',
@@ -110,7 +111,7 @@ deserializeData() {
   });
 }
 async loadChartData(){
-  let url = 'http://localhost:8080/ZKart/ProfitOfTheDayChart';
+  let url = environment.server+'/ZKart/ProfitOfTheDayChart';
 
   this.chartData = await firstValueFrom(this.http.get<any[]>(url));
     // this.chartData = data;

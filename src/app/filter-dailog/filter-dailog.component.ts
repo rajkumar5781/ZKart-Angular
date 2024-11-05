@@ -8,6 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { FieldConditionComponent } from '../field-condition/field-condition.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-filter-dailog',
@@ -35,7 +36,7 @@ export class FilterDailogComponent {
   getModuleMeta() {
     let params = new HttpParams().set('module', this.moduleName);
     this.http
-      .get('http://localhost:8080/ZKart/fieldDetails', { params })
+      .get(environment.server+'/ZKart/fieldDetails', { params })
       .subscribe((data: any) => {
         this.moduleMetaList = data;
       });

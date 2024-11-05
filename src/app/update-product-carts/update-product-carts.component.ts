@@ -16,6 +16,7 @@ import { StarRatingComponent } from '../star-rating/star-rating.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-update-product-carts',
@@ -27,6 +28,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 export class UpdateProductCartsComponent implements OnChanges {
   @Output() productClicked = new EventEmitter<number>();
   @Output() deleteProduct = new EventEmitter<number>();
+  environment: any = environment.server;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -99,7 +101,7 @@ export class UpdateProductCartsComponent implements OnChanges {
       .set('productPrice', this.price)
       .set('image', this.image);
     await firstValueFrom(
-      this.http.post('http://localhost:8080/ZKart/AddToCards', params, {
+      this.http.post(environment.server+environment.server+'/ZKart/AddToCards', params, {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
         }),
@@ -112,7 +114,7 @@ export class UpdateProductCartsComponent implements OnChanges {
   // async deleteProduct(event:Event){
   //   event.stopPropagation();
   //   let params = new HttpParams().set('id', this.id);
-  //   let url = 'http://localhost:8080/ZKart/Product';
+  //   let url = environment.server+'/ZKart/Product';
   //   try {
   //      await firstValueFrom(
   //       this.http.delete<any[]>(url, {

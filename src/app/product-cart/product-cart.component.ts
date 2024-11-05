@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-product-cart',
@@ -23,6 +24,7 @@ import { StarRatingComponent } from '../star-rating/star-rating.component';
 })
 export class ProductCartComponent implements OnChanges {
   @Output() productClicked = new EventEmitter<number>();
+  environment: any = environment.server;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -95,7 +97,7 @@ export class ProductCartComponent implements OnChanges {
       .set('productPrice', this.price)
       .set('image', this.image);
     await firstValueFrom(
-      this.http.post('http://localhost:8080/ZKart/AddToCards', params, {
+      this.http.post(environment.server+'/ZKart/AddToCards', params, {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
         }),

@@ -15,6 +15,7 @@ import {
 import { UpdateProductCartsComponent } from '../update-product-carts/update-product-carts.component';
 import { FilterComponent } from '../filter/filter.component';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-update-product',
@@ -89,7 +90,7 @@ export class UpdateProductComponent {
       });
     }
     this.http
-      .get('http://localhost:8080/ZKart/ProductList', { params: params })
+      .get(environment.server+'/ZKart/ProductList', { params: params })
       .subscribe((data) => {
         this.datas = data;
       });
@@ -104,7 +105,7 @@ export class UpdateProductComponent {
       });
     }
     this.http
-      .get('http://localhost:8080/ZKart/ProductCount', { params: params })
+      .get(environment.server+'/ZKart/ProductCount', { params: params })
       .subscribe((data: any) => {
         this.totalCount = data.count;
       });
@@ -131,7 +132,7 @@ export class UpdateProductComponent {
   getModuleMeta() {
     let params = new HttpParams().set('module', this.moduleName);
     this.http
-      .get('http://localhost:8080/ZKart/fieldDetails', { params })
+      .get(environment.server+'/ZKart/fieldDetails', { params })
       .subscribe((data: any) => {
         this.moduleMetaList = data;
       });
@@ -157,7 +158,7 @@ export class UpdateProductComponent {
 
   async deleteAddressCart(id: number) {
     let params = new HttpParams().set('id', id);
-    let url = 'http://localhost:8080/ZKart/AddressBook';
+    let url = environment.server+'/ZKart/AddressBook';
     try {
        await firstValueFrom(
         this.http.delete<any[]>(url, {
@@ -176,7 +177,7 @@ export class UpdateProductComponent {
 
   async deleteProduct(productDetails: any){
     let params = new HttpParams().set('id', productDetails);
-    let url = 'http://localhost:8080/ZKart/Product';
+    let url = environment.server+'/ZKart/Product';
     try {
        await firstValueFrom(
         this.http.delete<any[]>(url, {

@@ -15,7 +15,7 @@
                 <tbody>
                     <tr *ngFor="let product of (reviewDetails)">
                         <td class="product-thumbnail">
-                            <img [src]="'http://localhost:8080/ZKart/images/'+product.Product_image" class="image-size" width="150px"
+                            <img [src]="environment+'/ZKart/images/'+product.Product_image" class="image-size" width="150px"
                                 height="110px">
                         </td>
                         <td style="width: 300px;">

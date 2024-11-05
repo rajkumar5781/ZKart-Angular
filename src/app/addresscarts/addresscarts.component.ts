@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-addresscarts',
@@ -31,7 +32,7 @@ export class AddresscartsComponent {
   }
 
   async getAddressDetails() {
-    let url = 'http://localhost:8080/ZKart/AddressBook';
+    let url = environment.server+'/ZKart/AddressBook';
 
     const data = await firstValueFrom(this.http.get<any[]>(url));
     this.addressDetails = data;
@@ -42,7 +43,7 @@ export class AddresscartsComponent {
   }
   async deleteAddressCart(id: number) {
     let params = new HttpParams().set('id', id);
-    let url = 'http://localhost:8080/ZKart/AddressBook';
+    let url = environment.server+'/ZKart/AddressBook';
     try {
        await firstValueFrom(
         this.http.delete<any[]>(url, {
@@ -70,7 +71,7 @@ export class AddresscartsComponent {
       .set('actionType', 'set')
       .set('default', true)
       .set('defaultId', defaultAddress[0].id);
-    let url = 'http://localhost:8080/ZKart/AddressBook';
+    let url = environment.server+'/ZKart/AddressBook';
     try {
       await firstValueFrom(
         this.http.post(url, params, {

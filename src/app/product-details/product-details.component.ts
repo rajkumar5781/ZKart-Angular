@@ -44,6 +44,7 @@ export class ProductDetailsComponent {
   isEdit = false;
   invalid = true;
   reviewId = "";
+  environment: any = environment.server;
   constructor(private route: ActivatedRoute, private http: HttpClient,private router : Router) {}
 
   private checkAuthentication(): boolean {

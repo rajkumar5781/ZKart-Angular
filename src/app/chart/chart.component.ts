@@ -18,6 +18,7 @@ import { arrayOfRGB, truncateText } from '../utils/common-utils';
 import 'chartjs-plugin-datalabels';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../enviroment';
 
 @Component({
   selector: 'app-chart',
@@ -142,7 +143,7 @@ export class ChartComponent {
     console.log("dbdb");
     }
     private  async loadChartData(){
-      let url = 'http://localhost:8080/ZKart/Charts';
+      let url = environment.server+'/ZKart/Charts';
 
       this.chartData = await firstValueFrom(this.http.get<any[]>(url));
     }
