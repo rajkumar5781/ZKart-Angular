@@ -164,7 +164,7 @@ export class AddProductComponent {
       this.productForm.get("price")?.setValue(this.productDetails?.Actual_price || '');
       this.productForm.get("discount")?.setValue(this.productDetails?.Discounts || '');
       this.productForm.get("count")?.setValue(this.productDetails?.Available_count || '');
-      this.imageSrc = environment.server+"/ZKart/ViewImages?file_name="+this.productDetails?.Product_image;
+      this.imageSrc = environment.server+"/ZKart/images/"+this.productDetails?.Product_image;
     }
   }
 
