@@ -74,6 +74,7 @@ export class SignInComponent {
           headers: new HttpHeaders({
             'Content-Type': 'application/x-www-form-urlencoded',
           }),
+          withCredentials: true
         })
       );
       // localStorage.setItem('isAuthenticated', 'true');

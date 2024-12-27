@@ -127,6 +127,7 @@ export class ProductBuyComponent {
   @Input() productList!: ProductInterface[];
   response: string | undefined;
   selectedAddress: any;
+  tempSelectedAddress : any;
   addressLoading = false;
   isSelectAddress = false;
   addressDetailsList: any;
@@ -352,6 +353,7 @@ export class ProductBuyComponent {
     let url = environment.server+'/ZKart/DefaultAddressBook';
     let data = await firstValueFrom(this.http.get<any[]>(url));
     this.selectedAddress = data[0];
+    this.tempSelectedAddress = data[0];
     this.addressLoading = false;
   }
 
@@ -371,8 +373,15 @@ export class ProductBuyComponent {
     this.selectedAddress = this.addressDetailsList.filter((d: { id: any }) => {
       return d.id == this.selectedAddress.id;
     })[0];
+    this.tempSelectedAddress = this.selectedAddress;
   }
   addNewAddress() {
     this.router.navigate(['/home/account/addresscarts/add']);
+  }
+  saveAddress(){
+    this.selectedAddress = this.addressDetailsList.filter((d: { id: any }) => {
+      return d.id == this.tempSelectedAddress.id;
+    })[0];
+    this.isSelectAddress=false;
   }
 }

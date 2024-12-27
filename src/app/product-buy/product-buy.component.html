@@ -22,7 +22,7 @@
                             <label id="example-radio-group-label">Select Your addresses</label>
                         </div>
                         <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                            [(ngModel)]="selectedAddress" style="display: flex; flex-direction: column;">
+                            [(ngModel)]="tempSelectedAddress" style="display: flex; flex-direction: column;">
                             <div *ngFor="let addressDetail of addressDetailsList"
                                 [ngClass]="{'selected-address': selectedAddress.id === addressDetail.id}"
                                 class="address-option">
@@ -42,7 +42,10 @@
                             </div>
                             <h3 style="margin:0;">Add New address</h3>
                         </div>
-                        <button class="changeAddress-btn" (click)="isSelectAddress=false">Save Address</button>
+                        <div class="space-evenly width50">
+                        <button class="changeAddress-btn" (click)="saveAddress()">Save Address</button>
+                        <button class="cancel-button" (click)="isSelectAddress=false">Cancel</button>
+                        </div>
                     </div>
                     <div *ngIf="!isSelectAddress && selectedAddress==null">
                         <div class="add-address-wrapper" (click)="addNewAddress()">

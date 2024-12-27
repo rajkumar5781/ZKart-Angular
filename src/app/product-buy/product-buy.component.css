@@ -146,6 +146,7 @@ input:focus{
 .changeAddress-btn:hover {
     background: #f7ca00;
     border-color: #f2c200;
+    box-shadow: 3px 2px 2px #b0b0b0;
 }
 .add-address-wrapper{
     margin-top: 15px;
@@ -154,4 +155,16 @@ input:focus{
     align-items: center;
     cursor: pointer;
     width: fit-content;
+}
+.cancel-button{
+    background: #e72133;
+    color: white;
+    border: navajowhite;
+    border-radius: 5px;
+}
+
+.cancel-button:hover {
+    background: #cf1a29;
+    border-color: #f2c200;
+    box-shadow: 3px 2px 2px #b0b0b0;
 }
