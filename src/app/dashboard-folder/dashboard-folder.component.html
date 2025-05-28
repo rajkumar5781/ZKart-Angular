@@ -7,7 +7,7 @@
           style="height: 22px; width: 1px; background: rgb(227, 230, 232)"
         ></div>
         <span style="cursor: default">
-          {{ dashboards.length }} dashboard(s)
+          {{ count }} dashboard(s)
         </span>
       </mat-panel-title>
       <mat-panel-description>
@@ -49,7 +49,7 @@
 
     <div class="wrap gap16 p10">
       <div
-        *ngFor="let dashboard of dashboards; track: dashboard"
+        *ngFor="let dashboard of dashboards; trackBy: trackByDashboardId"
         class="dashboard-container-border"
       >
         <div class="thumbnail" (click)="goToDashboardsView(dashboard)">
@@ -61,7 +61,7 @@
           />
         </div>
         <div class="card-footer">
-          <div>{{ name }}</div>
+          <div>{{ dashboard.dashboardName }}</div>
           <div class="card-operation flex gap4">
             <div class="icon flex content-center br5" (click)="editDashboard(dashboard.id)">
               <img
@@ -71,9 +71,9 @@
                 height="16px"
               />
             </div>
-            <div class="icon br5 flex content-center">
+            <div class="icon br5 flex content-center" (click)="deleteDashboard(dashboard.id)">
               <img
-                src="/assets/images/horiz-more.svg"
+                src="/assets/images/delete.png"
                 alt="image"
                 width="16px"
                 height="16px"

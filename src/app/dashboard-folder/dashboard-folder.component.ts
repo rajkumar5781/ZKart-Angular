@@ -35,8 +35,10 @@ export class DashboardFolderComponent {
 
   @Input() id: any;
   @Input() name: string | undefined;
+  @Input() count: number | undefined;
   @Output() editedFolderName = new EventEmitter();
   @Output() deleteFolder = new EventEmitter();
+  @Output() deleteDashboardEmit = new EventEmitter();
 
   isLoading:boolean = false;
   dashboards : any[] = [];
@@ -89,5 +91,26 @@ export class DashboardFolderComponent {
 
   editDashboard(val:any){
     this.router.navigate(['/home/dashboard/edit',val]);
+  }
+  async deleteDashboard(val:any){
+    let params = new HttpParams().set('id', val);
+    let url = environment.server+'/ZKart/Dashboard';
+    try {
+      await firstValueFrom(
+        this.http.delete(url, {
+          params: params,
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
+    finally{
+      this.deleteDashboardEmit.emit();
+      this.fetchDashBoards();
+    }
+  }
+
+  trackByDashboardId(index: number, dashboard: any): number {
+    return dashboard.id;
   }
 }

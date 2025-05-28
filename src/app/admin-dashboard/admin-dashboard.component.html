@@ -46,7 +46,7 @@
 
   <div class="gap10 flex-column mT10">
     <div *ngFor="let folder of folders; trackBy: trackByFolderId">
-      <app-dashboard-folder [id]="folder.id" [name]="folder.folderName" (editedFolderName)="editFolderName($event)" (deleteFolder)="deleteFolder($event)">
+      <app-dashboard-folder [id]="folder.id" [name]="folder.folderName" [count]="folder.count" (editedFolderName)="editFolderName($event)" (deleteFolder)="deleteFolder($event)" (deleteDashboardEmit)="deleteDashboards($event)">
         <h1>hisj</h1>
       </app-dashboard-folder>
     </div>
