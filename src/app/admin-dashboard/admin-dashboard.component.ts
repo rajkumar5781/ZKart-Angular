@@ -105,7 +105,7 @@ trackByFolderId(index: number, folder: any): number {
   
   
   ngOnInit(){
-    this.fetchDashBoardCharts();
+    // this.fetchDashBoardCharts();
     this.fetchFolders();
     // this.fetchTopSellingChart();
     // this.fetchTotalSellingChart();
@@ -333,4 +333,7 @@ createDashboard(val:any){
   this.router.navigate(['/home/dashboard/create',val]);
 }
 
+deleteDashboards(val:any){
+  this.fetchFolders();
+}
 }
